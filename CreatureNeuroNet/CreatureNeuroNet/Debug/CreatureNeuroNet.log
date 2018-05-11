@@ -1,0 +1,25 @@
+﻿  Creature.cpp
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\creature.cpp(15): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\creature.cpp(30): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\creature.cpp(67): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\creature.cpp(75): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\creature.cpp(88): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\creature.cpp(140): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\creature.cpp(148): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\creature.cpp(149): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\creature.cpp(157): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\creature.cpp(164): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\creature.cpp(165): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\creature.cpp(171): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\creature.cpp(175): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\creature.cpp(203): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\creature.cpp(209): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\creature.cpp(210): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\creature.cpp(214): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\creature.cpp(216): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\creature.cpp(223): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\creature.cpp(232): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\creature.cpp(236): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\creature.cpp(237): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  CreatureNeuroNet.vcxproj -> C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\CreatureNeuroNet\Debug\CreatureNeuroNet.exe
+  CreatureNeuroNet.vcxproj -> C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\CreatureNeuroNet\Debug\CreatureNeuroNet.pdb (Full PDB)
