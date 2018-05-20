@@ -7,8 +7,8 @@ using namespace std;
 
 class Creature {
 private:
-	double fall_unit_angle = M_PI / 20; // единичный угол падения
-	int num_turn_units = 6; // на какое количество секторов будут разбиты углы поворота для отрезков
+	double fall_unit_angle = M_PI / 30; // единичный угол падения
+	int num_turn_units = 10; // на какое количество секторов будут разбиты углы поворота для отрезков
 	//int ground_height = 0;
 	double start_pos = 0.0;
 	double cur_delta_distance = 0.0;
@@ -38,7 +38,6 @@ public:
 	int GetNumActions() { return 2*movable_lines.size(); } //поворот каждого отрезка в двух направлениях
 	vector<pair<int, int>> GetJoints() { return joints; }
 
-	bool CanDoAction(int action);
 
 	vector<Line> GetLines();
 	double GetCenterOfGravity();
@@ -46,5 +45,11 @@ public:
 
 
 	pair<int, int> GetAction(int action_num);
-	void UpdatePos(int action_num); // номер отрезка и направление поворота (1 - по ч.с., -1 - против ч.с.)
+	bool CanDoAction(int action);
+	bool CanDoFullAction(int action);
+	void Rotate(int line, int tdir);
+	void CorrectPos(int line, int tdir);
+	void CorrectPos(int line, int tdir, int point);
+	void Falling();
+	void UpdatePos(int action_num); // номер действия
 };

@@ -28,7 +28,6 @@ public:
 	Matrix2d& operator = (vector<vector<double>>& _m);
 	Matrix2d& operator = (Matrix2d& _m);
 
-
 	Matrix2d operator + (const double val);		// Сложение матрицы с числом
 	Matrix2d& operator += (const double val);		// Сложение матрицы с числом
 	Matrix2d operator + (Matrix2d& _m);			// Сложение матриц

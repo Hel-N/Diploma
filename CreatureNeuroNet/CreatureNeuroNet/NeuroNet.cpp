@@ -53,18 +53,20 @@ void NeuroNet::Init(int ninputs, int nlayers, vector<int> nlneurons, vector<ActF
 	layers.push_back(Layer());
 	layers.back().Init(noutputs, nprevneurons, LINE, _bm, _wm);
 }
-void NeuroNet::AddTest(queue<Test>& ts, vector<vector<double>> exp_out) {
+void NeuroNet::AddTest(queue<Test>& ts, vector<vector<double>> _in, vector<vector<double>> _out) {
+	Matrix2d test_in;
 	Matrix2d test_out;
-	test_out = exp_out;
+	test_in = _in;
+	test_out = _out;
 	if (ts.size() > NUM_TESTS)
 		ts.pop();
-	Test new_test(layers[0].states, test_out);
+	Test new_test(test_in, test_out);
 	ts.push(new_test);
 }
-void NeuroNet::AddTest(queue<Test>& ts, Matrix2d exp_out) {
+void NeuroNet::AddTest(queue<Test>& ts, Matrix2d _in, Matrix2d _out) {
 	if (ts.size() > NUM_TESTS)
 		ts.pop();
-	Test new_test(layers[0].states, exp_out);
+	Test new_test(_in, _out);
 	ts.push(new_test);
 }
 void NeuroNet::Running(Test& test) {
@@ -82,6 +84,11 @@ void NeuroNet::Running(Test& test) {
 		layers[i].CalcAxons();
 	}
 	outputs = layers.back().axons;
+}
+void NeuroNet::Running(vector<vector<double>>& inputs) {
+	Test new_test;
+	new_test.inputs = inputs;
+	Running(new_test);
 }
 double NeuroNet::RunningLearningOffline(vector<Test> & tests) {
 	vector<Matrix2d> _delta(layers.size());
@@ -135,6 +142,7 @@ double NeuroNet::RunningLearningOffline(queue<Test> tests) {
 	return RunningLearningOffline(vtests);
 }
 void NeuroNet::PrintWaightsAndBiases(bool print_null) {
+	cout << "----------Weights------------" << endl;
 	for (int i = 1; i < layers.size() - 1; ++i) {
 		Matrix2d m = layers[i].waights.Transpose();
 		for (int j = 0; j < m.GetNumRows(); ++j) {
@@ -147,7 +155,7 @@ void NeuroNet::PrintWaightsAndBiases(bool print_null) {
 			cout << endl;
 		}
 	}
-
+	cout << "----------Biases------------" << endl;
 	for (int i = 1; i < layers.size() - 1; ++i) {
 		Matrix2d m = layers[i].biases;
 		for (int j = 0; j < m.GetNumRows(); ++j) {

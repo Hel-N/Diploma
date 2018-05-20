@@ -25,7 +25,7 @@ const double LearningRate = 0.01;
 const int NumInputsNeurons = 8*2;
 const int NumOutputsNeurons = 1;
 
-const int NUM_HIDDEN_NEURONS = 32;
+const int NUM_HIDDEN_NEURONS = 100;
 const int NUM_HIDDEN_LAYERS = 3;
 
 class NeuroNet {
@@ -41,10 +41,11 @@ public:
 
 	void Init(int ninputs, int nlayers, vector<int> nlneurons, vector<ActFuncTypes> _aft, int noutputs, vector<Matrix2d> _biases, vector<Matrix2d> _waights);
 
-	void AddTest(queue<Test>& ts, vector<vector<double>> exp_out);
-	void AddTest(queue<Test>& ts, Matrix2d exp_out);
+	void AddTest(queue<Test>& ts, vector<vector<double>> _in, vector<vector<double>> _out);
+	void AddTest(queue<Test>& ts, Matrix2d _in, Matrix2d _out);
 
 	void Running(Test& test);
+	void Running(vector<vector<double>>& inps);
 	double RunningLearningOffline(vector<Test> & tests);
 	double RunningLearningOffline(queue<Test> tests);
 	void PrintWaightsAndBiases(bool print_null);

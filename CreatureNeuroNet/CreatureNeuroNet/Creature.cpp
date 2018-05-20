@@ -21,8 +21,9 @@ void Creature::InitCreature(vector<pair<int, int>> _joints, vector<pair<int, int
 	turn_intervals = _turnint;
 	states_mvlines = states;
 	refs = _refs;
+
+	start_pos = GetCenterOfGravity();
 }
-//void Creature::Init();
 
 vector<Line> Creature::GetLines() {
 	vector<Line> res;
@@ -35,13 +36,50 @@ vector<Line> Creature::GetLines() {
 	return res;
 }
 
+double Creature::GetCenterOfGravity() {
+	double sum_momets = 0.0;
+	double sum_mass = 0.0;
+	double res = 0.0;
+
+	for (int i = 0; i < lines.size(); ++i) {
+		double cx = 1.0*(joints[lines[i].first].first + joints[lines[i].second].first) / 2; // координата x центра тяжести
+		sum_mass += lines_length[i]; // lines_length[i] - длина отрезка, и т.к. 1 ед. длины = 1 ед. массы, то используем длину
+		sum_momets += cx*lines_length[i]; // плечо на массу
+	}
+	return res = sum_momets / sum_mass;
+}
+
+double Creature::GetCurDeltaDistance() {
+	double cx = GetCenterOfGravity();
+	return cx - start_pos;
+}
+
+pair<int, int> Creature::GetAction(int action_num) {
+	int line = action_num / 2;
+	int turn_dir;
+
+	if (action_num % 2 == 0)
+		turn_dir = 1;
+	else
+		turn_dir = -1;
+
+	return make_pair(line, turn_dir);
+}
+
 bool Creature::CanDoAction(int action) {
 	pair<int, int> line_and_dir = GetAction(action);
 
+	//Если отрезок находится в одном из крайних состояний
 	if (states_mvlines[line_and_dir.first] == 0 && line_and_dir.second == 1)
 		return false;
 	if (states_mvlines[line_and_dir.first] == num_turn_units - 1 && line_and_dir.second == -1)
 		return false;
+
+	return true;
+}
+
+bool Creature::CanDoFullAction(int action) {
+	pair<int, int> line_and_dir = GetAction(action);
 
 	int line = line_and_dir.first;
 	int tdir = line_and_dir.second;
@@ -80,76 +118,7 @@ bool Creature::CanDoAction(int action) {
 	return true;
 }
 
-double Creature::GetCenterOfGravity() {
-	double sum_momets = 0.0;
-	double sum_mass = 0.0;
-	double res = 0.0;
-
-	for (int i = 0; i < lines.size(); ++i) {
-		double cx = 1.0*(joints[lines[i].first].first + joints[lines[i].second].first) / 2; // координата x центра тяжести
-		sum_mass += lines_length[i]; // lines_length[i] - длина отрезка, и т.к. 1 ед. длины = 1 ед. массы, то используем длину
-		sum_momets += cx*lines_length[i]; // плечо на массу
-	}
-	return res = sum_momets / sum_mass;
-}
-
-double Creature::GetCurDeltaDistance() {
-	double cx = GetCenterOfGravity();
-	return cx - start_pos;
-}
-
-pair<int, int> Creature::GetAction(int action_num) {
-	int line = action_num / 2;
-	int turn_dir;
-
-	if (action_num % 2 == 0)
-		turn_dir = 1;
-	else
-		turn_dir = -1;
-
-	return make_pair(line, turn_dir);
-}
-
-void Creature::UpdatePos(int action_num) {  
-	pair<int, int> p = GetAction(action_num);// номер отрезка и направление поворота (1 - по ч.с., 2 - против ч.с.)
-	int line = p.first;
-	int tdir = p.second;
-	int angsign = 0;
-
-	// Обновление состояний
-	if (tdir == 1) {
-		states_mvlines[line]--;
-		angsign = -1;
-	}
-	if (tdir == -1) {
-		states_mvlines[line]++;
-		angsign = 1;
-	}
-
-	double unit_angle = (turn_intervals[line].second - turn_intervals[line].first) / num_turn_units;
-
-	// Перемещение
-	set<int> points;
-	int os = movable_lines[line].second;
-	// концы отрезка, который поворачивается
-	if (lines[movable_lines[line].first].first != os) 
-		points.insert(lines[movable_lines[line].first].first);
-	if (lines[movable_lines[line].first].second != os)
-		points.insert(lines[movable_lines[line].first].second);
-
-	for (int i = 0; i < refs[movable_lines[line].first].size(); ++i) {
-		points.insert(lines[refs[movable_lines[line].first][i]].first);
-		points.insert(lines[refs[movable_lines[line].first][i]].second);
-	}
-
-	for (auto it = points.begin(); it != points.end(); ++it) {
-		double d = GetDistance(joints[os].first, joints[os].second, joints[*it].first, joints[*it].second);
-		double angle = GetAngle(joints[os].first, joints[os].second, joints[*it].first, joints[*it].second) + angsign*unit_angle;
-		joints[*it].first = joints[os].first + d*cos(angle);
-		joints[*it].second = joints[os].second + d*sin(angle);
-	}
-
-	// Падение
+void Creature::Falling() {
 	double cg = GetCenterOfGravity();
 	vector<pair<pair<int, int>, int>> sup_points; // точки опоры
 	int err_y = 0; // допустимое расстояние от земли, при котором касание еще существует
@@ -238,4 +207,134 @@ void Creature::UpdatePos(int action_num) {
 			}
 		}
 	}
+
+}
+
+void Creature::Rotate(int line, int tdir) {
+	int angsign = 0;
+
+	// Обновление состояний
+	if (tdir == 1) {
+		states_mvlines[line]--;
+		angsign = -1;
+	}
+	if (tdir == -1) {
+		states_mvlines[line]++;
+		angsign = 1;
+	}
+
+	double unit_angle = (turn_intervals[line].second - turn_intervals[line].first) / num_turn_units;
+
+	set<int> points;
+	int os = movable_lines[line].second;
+	// концы отрезка, который поворачивается
+	if (lines[movable_lines[line].first].first != os)
+		points.insert(lines[movable_lines[line].first].first);
+	if (lines[movable_lines[line].first].second != os)
+		points.insert(lines[movable_lines[line].first].second);
+
+	for (int i = 0; i < refs[movable_lines[line].first].size(); ++i) {
+		points.insert(lines[refs[movable_lines[line].first][i]].first);
+		points.insert(lines[refs[movable_lines[line].first][i]].second);
+	}
+
+	for (auto it = points.begin(); it != points.end(); ++it) {
+		double d = GetDistance(joints[os].first, joints[os].second, joints[*it].first, joints[*it].second);
+		double angle = GetAngle(joints[os].first, joints[os].second, joints[*it].first, joints[*it].second) + angsign*unit_angle;
+		joints[*it].first = joints[os].first + d*cos(angle);
+		joints[*it].second = joints[os].second + d*sin(angle);
+	}
+
+}
+
+void Creature::CorrectPos(int line, int tdir) {
+	int tline = movable_lines[line].first;
+	int os = movable_lines[line].second;
+	int nos;
+	if (lines[movable_lines[line].first].first != os) // находим точку отрезка, которая НЕ является суставом поворота
+		nos = lines[tline].first;
+	else
+		nos = lines[tline].second;
+
+	double dy = fabs(joints[nos].second);
+	double dx = 0.0;
+	double x1 = joints[os].first - sqrt(lines_length[tline] * lines_length[tline] - joints[os].second*joints[os].second);
+	double x2 = joints[os].first + sqrt(lines_length[tline] * lines_length[tline] - joints[os].second*joints[os].second);
+
+	if (tdir == 1) {
+		dx = fabs(max(x1, x2) - joints[nos].first);
+	}
+	else if (tdir == -1) {
+		dx = fabs(min(x1, x2) - joints[nos].first);
+	}
+
+	for (int i = 0; i < joints.size(); ++i) {
+		joints[i].first += tdir*dx;
+		joints[i].second += dy;
+	}
+}
+
+void Creature::CorrectPos(int line, int tdir, int point) {
+	int tline = movable_lines[line].first;
+	int os = movable_lines[line].second;
+
+	double dy = fabs(joints[point].second);
+	double dx = 0.0;
+	double dd = GetDistance(joints[os].first, joints[os].second, joints[point].first, joints[point].second);
+	double x1 = joints[os].first - sqrt(dd * dd - joints[os].second*joints[os].second);
+	double x2 = joints[os].first + sqrt(dd * dd - joints[os].second*joints[os].second);
+
+	if (tdir == 1) {
+		dx = fabs(max(x1, x2) - joints[point].first);
+	}
+	else if (tdir == -1) {
+		dx = fabs(min(x1, x2) - joints[point].first);
+	}
+
+	for (int i = 0; i < joints.size(); ++i) {
+		joints[i].first += tdir*dx;
+		joints[i].second += dy;
+	}
+}
+
+void Creature::UpdatePos(int action_num) {
+	pair<int, int> p = GetAction(action_num);// номер отрезка и направление поворота (1 - по ч.с., 2 - против ч.с.)
+	int line = p.first;
+	int tdir = p.second;
+	int angsign = 0;
+
+	// Перемещение
+	if (CanDoFullAction(action_num)) { // Если можно совершить полный поворот отрезком
+		Rotate(line, tdir);
+	}
+	else {
+		if (refs[line].size() == 0) { // Если у текущего отрезка нет зависимых отрезков
+			Rotate(line, tdir);
+			CorrectPos(line, tdir); // Можно немного изменить, чтобы добавлять точку поворота
+		}
+		else {
+			set<int> tmp;
+			tmp.insert(lines[movable_lines[line].first].first);
+			tmp.insert(lines[movable_lines[line].first].second);
+			for (int i = 0; i < refs[line].size(); ++i) {
+				tmp.insert(lines[movable_lines[refs[line][i]].first].first);
+				tmp.insert(lines[movable_lines[refs[line][i]].first].second);
+			}
+
+			int ymn = 1e9;
+			int p = 0;
+			for (auto it = tmp.begin(); it != tmp.end(); ++it) {
+				if (joints[*it].second < ymn) {
+					ymn = joints[*it].second;
+					p = *it;
+				}
+			}
+
+			//Rotate(line, tdir);
+			//CorrectPos(line, tdir, p);
+		}
+	}
+
+	// Падение
+	Falling();
 }
