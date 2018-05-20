@@ -15,19 +15,28 @@ private:
 	Matrix2d diff_tanh_func(Matrix2d& _axons);		// Гиперболический тангенс
 
 public:
-	Matrix2d waights;		// Веса нейронов
+	Matrix2d weights;		// Веса нейронов
 	Matrix2d states;		// Состояния нейронов
 	Matrix2d biases;		// Смещения нейронов
 	Matrix2d axons;			// Аксоны нейронов
 	Matrix2d delta;			// Дельта
+	Matrix2d prev_delta;	// Предыдущая дельта
+	Matrix2d delta_sum;
+	Matrix2d prev_delta_sum;
 	Matrix2d grad;			// Градиент
+	Matrix2d prev_grad;
+	Matrix2d grad_sum;
+	Matrix2d prev_grad_sum;
+
+	Matrix2d weights_correct;
+	Matrix2d biases_correct;
 
 	Layer();
 	Layer(int nneurons, int nprevneurons, ActFuncTypes act_func);
 
 	Layer& operator = (Layer& _l);
 
-	void Init(int nneurons, int nprevneurons, ActFuncTypes act_func, Matrix2d _biases, Matrix2d _waights);
+	void Init(int nneurons, int nprevneurons, ActFuncTypes act_func, Matrix2d _biases, Matrix2d _weights);
 
 	int GetNumNeurons();
 

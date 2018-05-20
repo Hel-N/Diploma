@@ -67,7 +67,7 @@ int main(int argc, char** ardv) {
 	nnet = NeuroNet(NumInputsNeurons, NUM_HIDDEN_LAYERS, num_neurons, aft, monster.GetNumActions());
 
 	// Считывание весов и смещений
-	vector<Matrix2d> waights;
+	vector<Matrix2d> weights;
 	for (int i = 0; i < NUM_HIDDEN_LAYERS; ++i) {
 		Matrix2d _w;
 		if (i == 0)
@@ -81,7 +81,7 @@ int main(int argc, char** ardv) {
 				_w(j, k) = tmp;
 			}
 		}
-		waights.push_back(_w);
+		weights.push_back(_w);
 	}
 
 	vector<Matrix2d> biases;
@@ -100,8 +100,8 @@ int main(int argc, char** ardv) {
 	}
 
 	//Установка весов и смещений---------------------------------------------------
-	nnet.SetWaights(waights);
-	nnet.SetBiases(biases);
+	//nnet.SetWeights(weights);
+	//nnet.SetBiases(biases);
 	//-------------------------------------------------------------------
 
 	int num_inp = 2 * monster.GetJoints().size();
@@ -249,12 +249,14 @@ void DoNextStep() {
 		nnet.AddTest(tests, prev_inputs, Q);
 		int epoch = EPOCH;
 		while (epoch--) {
-			if (nnet.RunningLearningOffline(tests) == 0.0 /*< TRAIN_EPS*/) //Добавить расчет ошибки 
+			//if (nnet.RunningLearningOffline(tests) == 0.0)
+			//	break;
+			if (nnet.RPropLearningOffline(tests) < TRAIN_EPS) //Добавить расчет ошибки 
 				break;
 		}
 
 	}
-	else {  // МОЖНО ДОБАВИТЬ РАНДОМ
+	else {  
 		nnet.Running(inputs);
 		Q = nnet.GetOutput();
 
@@ -273,7 +275,9 @@ void DoNextStep() {
 	if (fabs(prev_dist - monster.GetCurDeltaDistance()) < 0.01) {
 		do {
 			action = monster.GetNumActions()*rand() / RAND_MAX;
-		} while (!monster.CanDoAction(action));
+			if (monster.CanDoAction(action))
+				break;
+		} while (true);
 		monster.UpdatePos(action);
 	}
 	prevAction = action;
@@ -284,8 +288,10 @@ void DoNextStep() {
 
 	if (cou % 50 == 0) {
 		cout << "==================================================================================" << endl;
-		nnet.PrintWaightsAndBiases(false);
+		nnet.PrintWeightsAndBiases(false);
 		cout << "==================================================================================" << endl;
+		monster.PrintCreatureJoints();
+		cout << endl << endl;
 	}
 }
 

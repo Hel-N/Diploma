@@ -275,7 +275,7 @@ void Creature::CorrectPos(int line, int tdir) {
 }
 
 void Creature::CorrectPos(int line, int tdir, int point) {
-	int tline = movable_lines[line].first;
+	int mvline = movable_lines[line].first;
 	int os = movable_lines[line].second;
 
 	double dy = fabs(joints[point].second);
@@ -330,8 +330,8 @@ void Creature::UpdatePos(int action_num) {
 				}
 			}
 
-			//Rotate(line, tdir);
-			//CorrectPos(line, tdir, p);
+			Rotate(line, tdir);
+			CorrectPos(line, tdir, p);
 		}
 	}
 

@@ -39,7 +39,7 @@ public:
 	NeuroNet();
 	NeuroNet(int ninputs, int nlayers, vector<int> nlneurons, vector<ActFuncTypes> _aft, int noutputs);
 
-	void Init(int ninputs, int nlayers, vector<int> nlneurons, vector<ActFuncTypes> _aft, int noutputs, vector<Matrix2d> _biases, vector<Matrix2d> _waights);
+	void Init(int ninputs, int nlayers, vector<int> nlneurons, vector<ActFuncTypes> _aft, int noutputs, vector<Matrix2d> _biases, vector<Matrix2d> _weights);
 
 	void AddTest(queue<Test>& ts, vector<vector<double>> _in, vector<vector<double>> _out);
 	void AddTest(queue<Test>& ts, Matrix2d _in, Matrix2d _out);
@@ -48,13 +48,17 @@ public:
 	void Running(vector<vector<double>>& inps);
 	double RunningLearningOffline(vector<Test> & tests);
 	double RunningLearningOffline(queue<Test> tests);
-	void PrintWaightsAndBiases(bool print_null);
+	void ResilientPropagation();
+	double RPropLearningOffline(vector<Test> & tests);
+	double RPropLearningOffline(queue<Test> tests);
+	void PrintWeightsAndBiases(bool print_null);
 
 	Matrix2d GetOutput();
 	void CalcDeltaAndGrad(Test& test);
-	void CorrectWaightsAndBiases(vector<Matrix2d>& _gradient, vector<Matrix2d>& _delta);
+	double CalcError(Test& test);
+	void CorrectWeightsAndBiases(vector<Matrix2d>& _gradient, vector<Matrix2d>& _delta);
 
-	void SetWaights(vector<Matrix2d> _w);
+	void SetWeights(vector<Matrix2d> _w);
 	void SetBiases(vector<Matrix2d> _b);
 
 	friend ostream& operator << (ostream& out, NeuroNet& _nnet);
