@@ -7,7 +7,7 @@
 #include <algorithm>
 using namespace std;
 
-void Creature::InitCreature(vector<pair<int, int>> _joints, vector<pair<int, int>> _lines, vector<pair<int, int>> _mvlines,
+void Creature::InitCreature(vector<pair<double, double>> _joints, vector<pair<int, int>> _lines, vector<pair<int, int>> _mvlines,
 	vector<pair<double, double>> _turnint, vector<int> states, vector<vector<int>> _refs) {
 	joints = _joints;
 	lines = _lines;
@@ -70,9 +70,9 @@ bool Creature::CanDoAction(int action) {
 	pair<int, int> line_and_dir = GetAction(action);
 
 	//Если отрезок находится в одном из крайних состояний
-	if (states_mvlines[line_and_dir.first] == 0 && line_and_dir.second == 1)
+	if (states_mvlines[movable_lines[line_and_dir.first].first] == 0 && line_and_dir.second == 1)
 		return false;
-	if (states_mvlines[line_and_dir.first] == num_turn_units - 1 && line_and_dir.second == -1)
+	if (states_mvlines[movable_lines[line_and_dir.first].first] == (num_turn_states - 1) && line_and_dir.second == -1)
 		return false;
 
 	return true;
@@ -83,35 +83,37 @@ bool Creature::CanDoFullAction(int action) {
 
 	int line = line_and_dir.first;
 	int tdir = line_and_dir.second;
-	int angsign = 0;
+	double angsign = 0.0;
 
 	// Направление поворота
 	if (tdir == 1)
-		angsign = -1;
+		angsign = -1.0;
 	if (tdir == -1)
-		angsign = 1;
+		angsign = 1.0;
 
-	double unit_angle = (turn_intervals[line].second - turn_intervals[line].first) / num_turn_units;
+	int mvline = movable_lines[line].first;
+	double unit_angle = (turn_intervals[mvline].second - turn_intervals[mvline].first) / (num_turn_states - 1);
 
 	// Перемещение
 	set<int> points;
 	int os = movable_lines[line].second;
+
 	// концы отрезка, который поворачивается
-	if (lines[movable_lines[line].first].first != os)
-		points.insert(lines[movable_lines[line].first].first);
-	if (lines[movable_lines[line].first].second != os)
+	if (lines[mvline].first != os)
+		points.insert(lines[mvline].first);
+	if (lines[mvline].second != os)
 		points.insert(lines[movable_lines[line].first].second);
 
-	for (int i = 0; i < refs[movable_lines[line].first].size(); ++i) {
-		points.insert(lines[refs[movable_lines[line].first][i]].first);
-		points.insert(lines[refs[movable_lines[line].first][i]].second);
+	for (int i = 0; i < refs[mvline].size(); ++i) {
+		points.insert(lines[refs[mvline][i]].first);
+		points.insert(lines[refs[mvline][i]].second);
 	}
 
 	for (auto it = points.begin(); it != points.end(); ++it) {
 		double d = GetDistance(joints[os].first, joints[os].second, joints[*it].first, joints[*it].second);
 		double angle = GetAngle(joints[os].first, joints[os].second, joints[*it].first, joints[*it].second) + angsign*unit_angle;
-		int new_y = joints[os].second + d*sin(angle);
-		if (new_y < 0)
+		double new_y = joints[os].second + d*sin(angle);
+		if (new_y < 0.0)
 			return false;
 	}
 
@@ -120,29 +122,30 @@ bool Creature::CanDoFullAction(int action) {
 
 void Creature::Falling() {
 	double cg = GetCenterOfGravity();
-	vector<pair<pair<int, int>, int>> sup_points; // точки опоры
-	int err_y = 0; // допустимое расстояние от земли, при котором касание еще существует
+	vector<pair<pair<double, double>, int>> sup_points; // точки опоры
+	double err_y = 0.0; // допустимое расстояние от земли, при котором касание еще существует
 
 	for (int i = 0; i < joints.size(); ++i) {
-		if (joints[i].second <= err_y && joints[i].second >= 0) {
+		if (joints[i].second <= err_y /*&& joints[i].second >= 0.0*/) {
 			sup_points.push_back(make_pair(joints[i], i));
 		}
 	}
 
+	// Если после поворота некоторго отрезка, существо оказалось в воздухе
 	if (sup_points.size() == 0) {
-		int ymn = 1e9;
+		double ymn = 1.0*1e9;
 		for (int i = 0;i < joints.size(); ++i) {
 			if (joints[i].second < ymn) {
 				ymn = joints[i].second;
 			}
 		}
 
-		for (int i = 0;i < joints.size(); ++i) {
+		for (int i = 0; i < joints.size(); ++i) {
 			joints[i].second -= ymn;
 		}
 
 		for (int i = 0; i < joints.size(); ++i) {
-			if (joints[i].second <= err_y && joints[i].second >= 0) {
+			if (joints[i].second <= err_y /*&& joints[i].second >= 0*/) {
 				sup_points.push_back(make_pair(joints[i], i));
 			}
 		}
@@ -163,27 +166,25 @@ void Creature::Falling() {
 	}
 
 	if (fall_flag != 0) {
-		double angle_sign;
+		double angle_sign = 0.0;
 		if (fall_flag == 1) angle_sign = -1.0;
 		else angle_sign = 1.0;
 
-		vector<pair<int, int>> new_pos;
+		vector<pair<double, double>> new_pos;
 		vector<double> err_angles;
 		for (int i = 0; i < joints.size(); ++i) {
 			if (i == turn_point) continue;
 			double d = GetDistance(joints[turn_point].first, joints[turn_point].second, joints[i].first, joints[i].second);
 			double angle = GetAngle(joints[turn_point].first, joints[turn_point].second, joints[i].first, joints[i].second);
-			//joints[i].first = joints[turn_point].first + d*cos(angle);
-			//joints[i].second = joints[turn_point].second + d*sin(angle);
-			int x = joints[turn_point].first + d*cos(angle + angle_sign*fall_unit_angle);
-			int y = joints[turn_point].second + d*sin(angle + angle_sign*fall_unit_angle);
-			if (y < 0) {
-				double tmp_a;
-				if (fall_flag == 1)
-					tmp_a = GetAngle(joints[turn_point].first, joints[turn_point].second, joints[i].first + d, 0);
-				else
-					tmp_a = GetAngle(joints[turn_point].first, joints[turn_point].second, joints[i].first - d, 0);
-				err_angles.push_back(abs(angle - tmp_a));
+			double x = joints[turn_point].first + d*cos(angle + angle_sign*fall_unit_angle);
+			double y = joints[turn_point].second + d*sin(angle + angle_sign*fall_unit_angle);
+			if (y < 0.0) {
+				double tmp_a = GetAngle(joints[turn_point].first, joints[turn_point].second, joints[i].first + 1.0*fall_flag*d, 0.0);
+
+				angle = GetEquivPositiveAngle(angle);
+				tmp_a = GetEquivPositiveAngle(tmp_a);
+
+				err_angles.push_back(fabs(angle - tmp_a));
 			}
 			new_pos.push_back(make_pair(x, y));
 		}
@@ -211,31 +212,31 @@ void Creature::Falling() {
 }
 
 void Creature::Rotate(int line, int tdir) {
-	int angsign = 0;
-
+	double angsign = 0.0;
+	int mvline = movable_lines[line].first;
 	// Обновление состояний
 	if (tdir == 1) {
-		states_mvlines[line]--;
-		angsign = -1;
+		states_mvlines[mvline]--;
+		angsign = -1.0;
 	}
 	if (tdir == -1) {
-		states_mvlines[line]++;
-		angsign = 1;
+		states_mvlines[mvline]++;
+		angsign = 1.0;
 	}
 
-	double unit_angle = (turn_intervals[line].second - turn_intervals[line].first) / num_turn_units;
+	double unit_angle = (turn_intervals[mvline].second - turn_intervals[mvline].first) / (num_turn_states - 1);
 
 	set<int> points;
 	int os = movable_lines[line].second;
 	// концы отрезка, который поворачивается
-	if (lines[movable_lines[line].first].first != os)
-		points.insert(lines[movable_lines[line].first].first);
-	if (lines[movable_lines[line].first].second != os)
-		points.insert(lines[movable_lines[line].first].second);
+	if (lines[mvline].first != os)
+		points.insert(lines[mvline].first);
+	if (lines[mvline].second != os)
+		points.insert(lines[mvline].second);
 
-	for (int i = 0; i < refs[movable_lines[line].first].size(); ++i) {
-		points.insert(lines[refs[movable_lines[line].first][i]].first);
-		points.insert(lines[refs[movable_lines[line].first][i]].second);
+	for (int i = 0; i < refs[mvline].size(); ++i) {
+		points.insert(lines[refs[mvline][i]].first);
+		points.insert(lines[refs[mvline][i]].second);
 	}
 
 	for (auto it = points.begin(); it != points.end(); ++it) {
@@ -244,22 +245,21 @@ void Creature::Rotate(int line, int tdir) {
 		joints[*it].first = joints[os].first + d*cos(angle);
 		joints[*it].second = joints[os].second + d*sin(angle);
 	}
-
 }
 
 void Creature::CorrectPos(int line, int tdir) {
-	int tline = movable_lines[line].first;
+	int mvline = movable_lines[line].first;
 	int os = movable_lines[line].second;
 	int nos;
-	if (lines[movable_lines[line].first].first != os) // находим точку отрезка, которая НЕ является суставом поворота
-		nos = lines[tline].first;
+	if (lines[mvline].first != os) // находим точку отрезка, которая НЕ является суставом поворота
+		nos = lines[mvline].first;
 	else
-		nos = lines[tline].second;
+		nos = lines[mvline].second;
 
 	double dy = fabs(joints[nos].second);
 	double dx = 0.0;
-	double x1 = joints[os].first - sqrt(lines_length[tline] * lines_length[tline] - joints[os].second*joints[os].second);
-	double x2 = joints[os].first + sqrt(lines_length[tline] * lines_length[tline] - joints[os].second*joints[os].second);
+	double x1 = joints[os].first - sqrt(lines_length[mvline] * lines_length[mvline] - joints[os].second*joints[os].second);
+	double x2 = joints[os].first + sqrt(lines_length[mvline] * lines_length[mvline] - joints[os].second*joints[os].second);
 
 	if (tdir == 1) {
 		dx = fabs(max(x1, x2) - joints[nos].first);
@@ -269,7 +269,7 @@ void Creature::CorrectPos(int line, int tdir) {
 	}
 
 	for (int i = 0; i < joints.size(); ++i) {
-		joints[i].first += tdir*dx;
+		joints[i].first += 1.0*tdir*dx;
 		joints[i].second += dy;
 	}
 }
@@ -317,11 +317,11 @@ void Creature::UpdatePos(int action_num) {
 			tmp.insert(lines[movable_lines[line].first].first);
 			tmp.insert(lines[movable_lines[line].first].second);
 			for (int i = 0; i < refs[line].size(); ++i) {
-				tmp.insert(lines[movable_lines[refs[line][i]].first].first);
-				tmp.insert(lines[movable_lines[refs[line][i]].first].second);
+				tmp.insert(lines[movable_lines[refs[movable_lines[line].first][i]].first].first);
+				tmp.insert(lines[movable_lines[refs[movable_lines[line].first][i]].first].second);
 			}
 
-			int ymn = 1e9;
+			double ymn = 1.0*1e9;
 			int p = 0;
 			for (auto it = tmp.begin(); it != tmp.end(); ++it) {
 				if (joints[*it].second < ymn) {

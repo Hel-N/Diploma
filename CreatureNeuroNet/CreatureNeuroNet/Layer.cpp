@@ -74,6 +74,7 @@ Layer::Layer(int nneurons, int nprevneurons, ActFuncTypes act_func) {
 	waights.InitRandom(0.0, 1.0);
 	states = Matrix2d(1, nneurons);
 	biases = Matrix2d(1, nneurons);
+	biases.InitRandom(-1.0, 1.0);
 	axons = Matrix2d(1, nneurons);
 	delta = Matrix2d(1, nneurons);
 	grad = Matrix2d(nneurons, nprevneurons);

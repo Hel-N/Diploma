@@ -54,5 +54,8 @@ public:
 	void CalcDeltaAndGrad(Test& test);
 	void CorrectWaightsAndBiases(vector<Matrix2d>& _gradient, vector<Matrix2d>& _delta);
 
+	void SetWaights(vector<Matrix2d> _w);
+	void SetBiases(vector<Matrix2d> _b);
+
 	friend ostream& operator << (ostream& out, NeuroNet& _nnet);
 };

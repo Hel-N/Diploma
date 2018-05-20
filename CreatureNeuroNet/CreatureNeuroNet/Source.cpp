@@ -66,6 +66,44 @@ int main(int argc, char** ardv) {
 	vector<ActFuncTypes> aft = { TANH, TANH, LINE };
 	nnet = NeuroNet(NumInputsNeurons, NUM_HIDDEN_LAYERS, num_neurons, aft, monster.GetNumActions());
 
+	// Считывание весов и смещений
+	vector<Matrix2d> waights;
+	for (int i = 0; i < NUM_HIDDEN_LAYERS; ++i) {
+		Matrix2d _w;
+		if (i == 0)
+			_w = Matrix2d(NumInputsNeurons, num_neurons[i]);
+		else
+			_w = Matrix2d(num_neurons[i - 1], num_neurons[i]);
+		for (int j = 0; j < _w.GetNumRows(); ++j) {
+			for (int k = 0; k < _w.GetNumCols(); ++k) {
+				double tmp;
+				cin >> tmp;
+				_w(j, k) = tmp;
+			}
+		}
+		waights.push_back(_w);
+	}
+
+	vector<Matrix2d> biases;
+	for (int i = 0; i < NUM_HIDDEN_LAYERS; ++i) {
+		Matrix2d _b;
+
+		_b = Matrix2d(1, num_neurons[i]);
+		for (int j = 0; j < _b.GetNumRows(); ++j) {
+			for (int k = 0; k < _b.GetNumCols(); ++k) {
+				double tmp;
+				cin >> tmp;
+				_b(j, k) = tmp;
+			}
+		}
+		biases.push_back(_b);
+	}
+
+	//Установка весов и смещений---------------------------------------------------
+	nnet.SetWaights(waights);
+	nnet.SetBiases(biases);
+	//-------------------------------------------------------------------
+
 	int num_inp = 2 * monster.GetJoints().size();
 	inputs.resize(1, vector<double>(num_inp));
 
@@ -88,11 +126,11 @@ int main(int argc, char** ardv) {
 }
 
 void CreatureInitialization() {
-	vector<pair<int, int>> joints = {
-		make_pair(50, 150), make_pair(100, 150),
-		make_pair(50, 100), make_pair(100, 100),
-		make_pair(0, 50), make_pair(150, 50),
-		make_pair(50, 0), make_pair(100, 0)
+	vector<pair<double, double>> joints = {
+		make_pair(50.0, 150.0), make_pair(100.0, 150.0),
+		make_pair(50.0, 100.0), make_pair(100.0, 100.0),
+		make_pair(0.0, 50.0), make_pair(150.0, 50.0),
+		make_pair(50.0, 0.0), make_pair(100.0, 0.0)
 	};
 
 	vector<pair<int, int>> lines = {
@@ -112,10 +150,16 @@ void CreatureInitialization() {
 		make_pair(3.0*M_PI / 4.0, 7.0*M_PI / 4.0),
 		make_pair(5.0*M_PI / 4.0, 9.0*M_PI / 4.0),
 		make_pair(5.0*M_PI / 4.0, 7.0*M_PI / 4.0),
-		make_pair(5.0*M_PI / 4.0, 7.0*M_PI / 4.0)
+		make_pair(5.0*M_PI / 4.0, 7.0*M_PI / 4.0),
+		make_pair(0.0, 0.0),
+		make_pair(0.0, 0.0),
+		make_pair(0.0, 0.0),
+		make_pair(0.0, 0.0),
+		make_pair(0.0, 0.0),
+		make_pair(0.0, 0.0)
 	};
 
-	vector<int> mvstates = { 3, 3, 6, 0 };
+	vector<int> mvstates = { monster.GetNumStates() / 2, monster.GetNumStates() / 2, monster.GetNumStates(), 0, -1, -1, -1, -1, -1, -1 };
 
 	vector<vector<int>> refs(10);
 	refs[0].push_back(2);
@@ -126,6 +170,7 @@ void CreatureInitialization() {
 
 void Draw() {
 
+	// Вывофд информации
 	glEnter2D();
 	string tmps = to_string(cou) + "  dist: " + to_string(monster.GetCurDeltaDistance());
 	glWrite(20, 20, (int*)GLUT_BITMAP_8_BY_13, tmps);
@@ -138,10 +183,10 @@ void Draw() {
 	glVertex2f(0.0, ground_height);
 	glVertex2f(WinWidth, ground_height);
 
-	int dx = 0;
-	vector<int> xx;
+	double dx = 0.0;
+	vector<double> xx;
 	vector<Line> lines = monster.GetLines();
-	
+
 	for (int i = 0; i < lines.size(); ++i) {
 		xx.push_back(lines[i].a.x);
 		xx.push_back(lines[i].b.x);
@@ -156,8 +201,8 @@ void Draw() {
 	}
 
 	for (int i = 0; i < lines.size(); ++i) {
-		glVertex2f(lines[i].a.x + 100 + dx, lines[i].a.y + ground_height);
-		glVertex2f(lines[i].b.x + 100 + dx, lines[i].b.y + ground_height);
+		glVertex2d(lines[i].a.x + 100 + dx, lines[i].a.y + ground_height);
+		glVertex2d(lines[i].b.x + 100 + dx, lines[i].b.y + ground_height);
 	}
 	glEnd();
 }
@@ -171,7 +216,7 @@ void Display() {
 }
 
 void SetInputs(vector<vector<double>>& _in) {
-	vector<pair<int, int>> cur_pos = monster.GetJoints();
+	vector<pair<double, double>> cur_pos = monster.GetJoints();
 	for (int i = 0, j = 0; i < cur_pos.size(); ++i, j += 2) {
 		_in[0][j] = 1.0*cur_pos[i].first;
 		_in[0][j + 1] = 1.0*cur_pos[i].second;
@@ -183,7 +228,7 @@ void DoNextStep() {
 	SetInputs(inputs);
 	int action = -1;
 	//best_res[0][0] = monster.GetCurDeltaDistance();
-	double reward = monster.GetCurDeltaDistance(); //  ????????
+	double reward = monster.GetCurDeltaDistance();
 	prev_dist = monster.GetCurDeltaDistance();
 	cou++;
 
@@ -226,8 +271,8 @@ void DoNextStep() {
 
 	monster.UpdatePos(action);
 	if (fabs(prev_dist - monster.GetCurDeltaDistance()) < 0.01) {
-		do { 
-			action = monster.GetNumActions()*rand() / RAND_MAX; 
+		do {
+			action = monster.GetNumActions()*rand() / RAND_MAX;
 		} while (!monster.CanDoAction(action));
 		monster.UpdatePos(action);
 	}
@@ -252,7 +297,7 @@ void Timer(int val) // Таймер(промежуток времени, в котором будет производится в
 }
 
 //===============================================
-
+//Для вывода текста
 void glEnter2D(void) {
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
@@ -273,6 +318,6 @@ void glLeave2D(void) {
 void glWrite(float x, float y, int *font, string s) {
 	int i;
 	glRasterPos2f(x, y);
-	for (i = 0; i<s.length(); i++)
+	for (i = 0; i < s.length(); i++)
 		glutBitmapCharacter(font, s[i]);
 }

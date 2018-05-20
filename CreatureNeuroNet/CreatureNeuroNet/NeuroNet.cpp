@@ -188,6 +188,19 @@ void NeuroNet::CorrectWaightsAndBiases(vector<Matrix2d>& _gradient, vector<Matri
 		layers[i].biases -= _delta[i] * LearningRate;
 	}
 }
+
+void NeuroNet::SetWaights(vector<Matrix2d> _w) {
+	for (int i = 1; i < layers.size() - 1; ++i) {
+		Matrix2d m = _w[i - 1].Transpose();
+		layers[i].waights = m;
+	}
+}
+void NeuroNet::SetBiases(vector<Matrix2d> _b) {
+	for (int i = 1; i < layers.size() - 1; ++i) {
+		layers[i].biases = _b[i - 1];
+
+	}
+}
 ostream& operator << (ostream& out, NeuroNet& _nnet) {
 	for (int i = 0; i < _nnet.num_outputs; ++i) {
 		out << fixed << setprecision(6) << _nnet.outputs(0, i) << " ";

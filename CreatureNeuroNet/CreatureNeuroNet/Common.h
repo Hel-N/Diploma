@@ -3,8 +3,8 @@
 using namespace std;
 
 struct Point {
-	int x;
-	int y;
+	double x;
+	double y;
 };
 
 struct Line
@@ -14,7 +14,9 @@ struct Line
 	double length;
 };
 
-double GetDistance(int x1, int y1, int x2, int y2);
+double GetDistance(double x1, double y1, double x2, double y2);
 double GetDistance(Point a, Point b);
 
-double GetAngle(int x1, int y1, int x2, int y2);
+double GetAngle(double x1, double y1, double x2, double y2);
+double GetEquivPositiveAngle(double angle);
+
