@@ -308,7 +308,7 @@ void Creature::UpdatePos(int action_num) {
 		Rotate(line, tdir);
 	}
 	else {
-		if (refs[line].size() == 0) { // ≈сли у текущего отрезка нет зависимых отрезков
+		if (refs[movable_lines[line].first].size() == 0) { // ≈сли у текущего отрезка нет зависимых отрезков
 			Rotate(line, tdir);
 			CorrectPos(line, tdir); // ћожно немного изменить, чтобы добавл€ть точку поворота
 		}
@@ -330,8 +330,8 @@ void Creature::UpdatePos(int action_num) {
 				}
 			}
 
-			Rotate(line, tdir);
-			CorrectPos(line, tdir, p);
+			//Rotate(line, tdir);
+			//CorrectPos(line, tdir, p);
 		}
 	}
 

@@ -159,7 +159,7 @@ void CreatureInitialization() {
 		make_pair(0.0, 0.0)
 	};
 
-	vector<int> mvstates = { monster.GetNumStates() / 2, monster.GetNumStates() / 2, monster.GetNumStates(), 0, -1, -1, -1, -1, -1, -1 };
+	vector<int> mvstates = { monster.GetNumStates() / 2, monster.GetNumStates() / 2, monster.GetNumStates() - 1, 0, -1, -1, -1, -1, -1, -1 };
 
 	vector<vector<int>> refs(10);
 	refs[0].push_back(2);
