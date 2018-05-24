@@ -211,7 +211,7 @@ void Creature::Falling() {
 
 }
 
-void Creature::Rotate(int line, int tdir) {
+int Creature::Rotate(int line, int tdir) {
 	double angsign = 0.0;
 	int mvline = movable_lines[line].first;
 	// ќбновление состо€ний
@@ -239,14 +239,23 @@ void Creature::Rotate(int line, int tdir) {
 		points.insert(lines[refs[mvline][i]].second);
 	}
 
+	double ymn = DBL_MAX;
+	int minpoint = -1;
 	for (auto it = points.begin(); it != points.end(); ++it) {
 		double d = GetDistance(joints[os].first, joints[os].second, joints[*it].first, joints[*it].second);
 		double angle = GetAngle(joints[os].first, joints[os].second, joints[*it].first, joints[*it].second) + angsign*unit_angle;
 		joints[*it].first = joints[os].first + d*cos(angle);
 		joints[*it].second = joints[os].second + d*sin(angle);
+		if (joints[*it].second < ymn) {
+			ymn = joints[*it].second;
+			minpoint = *it;
+		}
 	}
+
+	return minpoint;
 }
 
+// ќбъединить CorrectPos в одну!!!
 void Creature::CorrectPos(int line, int tdir) {
 	int mvline = movable_lines[line].first;
 	int os = movable_lines[line].second;
@@ -300,6 +309,7 @@ void Creature::CorrectPos(int line, int tdir, int point) {
 void Creature::UpdatePos(int action_num) {
 	pair<int, int> p = GetAction(action_num);// номер отрезка и направление поворота (1 - по ч.с., 2 - против ч.с.)
 	int line = p.first;
+	int mvline = movable_lines[line].first;
 	int tdir = p.second;
 	int angsign = 0;
 
@@ -308,17 +318,17 @@ void Creature::UpdatePos(int action_num) {
 		Rotate(line, tdir);
 	}
 	else {
-		if (refs[line].size() == 0) { // ≈сли у текущего отрезка нет зависимых отрезков
+		if (refs[mvline].size() == 0) { // ≈сли у текущего отрезка нет зависимых отрезков
 			Rotate(line, tdir);
 			CorrectPos(line, tdir); // ћожно немного изменить, чтобы добавл€ть точку поворота
 		}
 		else {
-			set<int> tmp;
-			tmp.insert(lines[movable_lines[line].first].first);
-			tmp.insert(lines[movable_lines[line].first].second);
+			/*set<int> tmp;
+			tmp.insert(lines[mvline].first);
+			tmp.insert(lines[mvline].second);
 			for (int i = 0; i < refs[line].size(); ++i) {
-				tmp.insert(lines[movable_lines[refs[movable_lines[line].first][i]].first].first);
-				tmp.insert(lines[movable_lines[refs[movable_lines[line].first][i]].first].second);
+				tmp.insert(lines[movable_lines[refs[mvline][i]].first].first);
+				tmp.insert(lines[movable_lines[refs[mvline][i]].first].second);
 			}
 
 			double ymn = 1.0*1e9;
@@ -328,13 +338,43 @@ void Creature::UpdatePos(int action_num) {
 					ymn = joints[*it].second;
 					p = *it;
 				}
-			}
+			}*/
 
-			Rotate(line, tdir);
-			CorrectPos(line, tdir, p);
+			int point = Rotate(line, tdir);
+			CorrectPos(line, tdir, point);
 		}
 	}
 
 	// ѕадение
 	Falling();
+}
+
+double Creature::GetCenterOfGravity2() {
+	/*double sum_momets = 0.0;
+	double sum_mass = 0.0;
+	double res = 0.0;
+
+	for (int i = 0; i < lines.size(); ++i) {
+		bool fl = true;
+		for (int j = 0; j < movable_lines.size(); ++j) {
+			if (i == movable_lines[j].first)
+				fl = false;
+		}
+		if (fl) {
+			double cx = 1.0*(joints[lines[i].first].first + joints[lines[i].second].first) / 2; // координата x центра т€жести
+			sum_mass += lines_length[i]; // lines_length[i] - длина отрезка, и т.к. 1 ед. длины = 1 ед. массы, то используем длину
+			sum_momets += cx*lines_length[i]; // плечо на массу
+		}
+	}
+	return res = sum_momets / sum_mass;*/
+	//double tmp = -DBL_MAX;
+	//for (int i = 0; i < joints.size(); ++i) {
+	//	if (joints[i].first > tmp) {
+	//		tmp = joints[i].first;
+	//	}
+	//}
+
+	double tmp = (joints[0].first + joints[3].first) / 2 - start_pos;
+
+	return tmp;
 }

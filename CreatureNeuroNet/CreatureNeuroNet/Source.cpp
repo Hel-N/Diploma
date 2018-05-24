@@ -16,11 +16,7 @@ int cou = 0;
 const int WinWidth = 840;
 const int WinHeight = 500;
 
-int ground_height = 200;
-
-//const double ALPHA = 0.5;
-//const double GAMMA = 0.5;
-//const double LAMBDA = 0.5;
+double ground_height = 200.0;
 
 const int EPOCH = 50;
 const double TRAIN_EPS = 0.01;
@@ -118,9 +114,8 @@ int main(int argc, char** ardv) {
 	glLoadIdentity(); //????
 	gluOrtho2D(0, WinWidth, 0, WinHeight); // Ортогональная система координат (3D декартова система координат)
 
-
 	glutDisplayFunc(Display);
-	glutTimerFunc(50, Timer, 0);
+	glutTimerFunc(70, Timer, 0);
 
 	glutMainLoop(); // Запуск основного цикла OpenGL
 }
@@ -130,7 +125,13 @@ void CreatureInitialization() {
 		make_pair(50.0, 150.0), make_pair(100.0, 150.0),
 		make_pair(50.0, 100.0), make_pair(100.0, 100.0),
 		make_pair(0.0, 50.0), make_pair(150.0, 50.0),
-		make_pair(50.0, 0.0), make_pair(100.0, 0.0)
+		make_pair(50.0, 0.0), make_pair(100.0, 0.0),
+		make_pair(0.0, 200.0), make_pair(150.0, 200.0),
+		make_pair(0.0, 150.0), make_pair(150.0, 150.0),
+
+		//Голова задана неправильно!!!!!!!!!!!!!!!!Нужна для удобства
+		make_pair(60.0, 150.0), make_pair(90.0, 150.0),
+		make_pair(60.0, 180.0), make_pair(90.0, 180.0),
 	};
 
 	vector<pair<int, int>> lines = {
@@ -138,12 +139,19 @@ void CreatureInitialization() {
 		make_pair(4, 6), make_pair(5, 7),
 		make_pair(0, 1), make_pair(1, 3),
 		make_pair(2, 3), make_pair(0, 2),
-		make_pair(1, 2), make_pair(0, 3)
+		make_pair(1, 2), make_pair(0, 3),
+		make_pair(0, 8), make_pair(1, 9),
+		make_pair(8, 10), make_pair(9, 11),
+
+		//Голова
+		make_pair(12, 14), make_pair(13, 15), make_pair(14, 15)
 	};
 
 	vector<pair<int, int>> mvlines = {
 		make_pair(0, 2), make_pair(1, 3),
-		make_pair(2, 4), make_pair(3, 5)
+		make_pair(2, 4), make_pair(3, 5),
+		make_pair(10, 0), make_pair(11, 1),
+		make_pair(12, 8), make_pair(13, 9)
 	};
 
 	vector<pair<double, double>> turnint = {
@@ -156,14 +164,36 @@ void CreatureInitialization() {
 		make_pair(0.0, 0.0),
 		make_pair(0.0, 0.0),
 		make_pair(0.0, 0.0),
+		make_pair(0.0, 0.0),
+		make_pair(2.0*M_PI / 4.0, 6.0*M_PI / 4.0),
+		make_pair(6.0*M_PI / 4.0, 10.0*M_PI / 4.0),
+		make_pair(2.0*M_PI / 4.0, 6.0*M_PI / 4.0),
+		make_pair(6.0*M_PI / 4.0, 10.0*M_PI / 4.0),
+
+		// Голова
+		make_pair(0.0, 0.0),
+		make_pair(0.0, 0.0),
 		make_pair(0.0, 0.0)
 	};
 
-	vector<int> mvstates = { monster.GetNumStates() / 2, monster.GetNumStates() / 2, monster.GetNumStates(), 0, -1, -1, -1, -1, -1, -1 };
+	vector<int> mvstates = { monster.GetNumStates() / 2,
+		monster.GetNumStates() / 2,
+		monster.GetNumStates() - 1,
+		0,
+		-1, -1, -1, -1, -1, -1,
+		monster.GetNumStates() / 2,
+		monster.GetNumStates() / 2,
+		monster.GetNumStates() - 1,
+		0,
+		// Голова
+		-1, -1, -1
+	};
 
-	vector<vector<int>> refs(10);
+	vector<vector<int>> refs(16);
 	refs[0].push_back(2);
 	refs[1].push_back(3);
+	refs[10].push_back(12);
+	refs[11].push_back(13);
 
 	monster.InitCreature(joints, lines, mvlines, turnint, mvstates, refs);
 }
@@ -178,10 +208,24 @@ void Draw() {
 	glWrite(20, 40, (int*)GLUT_BITMAP_8_BY_13, spos);
 	//glLeave2D();
 
+	vector<int> line_states = monster.GetCurLinesStates();
+	string sstates = "";
+	for (int i = 0; i < line_states.size(); ++i) {
+		sstates += to_string(line_states[i]) + " ";
+	}
+	glWrite(20, 60, (int*)GLUT_BITMAP_8_BY_13, sstates);
+
 	glBegin(GL_LINES);
 	// ground
 	glVertex2f(0.0, ground_height);
 	glVertex2f(WinWidth, ground_height);
+
+	// center of gravity
+	glColor3d(1.0, 0.0, 0.0);
+	double cg = monster.GetCenterOfGravity();
+	glVertex2f(cg + 100.0, ground_height);
+	glVertex2f(cg + 100.0, 200.0 + ground_height);
+	glColor3d(1.0, 1.0, 1.0);
 
 	double dx = 0.0;
 	vector<double> xx;
@@ -227,9 +271,10 @@ void DoNextStep() {
 	prev_inputs = inputs;
 	SetInputs(inputs);
 	int action = -1;
-	//best_res[0][0] = monster.GetCurDeltaDistance();
-	double reward = monster.GetCurDeltaDistance();
-	prev_dist = monster.GetCurDeltaDistance();
+	//double reward = monster.GetCurDeltaDistance();
+	//prev_dist = monster.GetCurDeltaDistance();
+	double reward = monster.GetCenterOfGravity2();
+	prev_dist = reward;
 	cou++;
 
 	if (!firstStep) {
@@ -256,13 +301,13 @@ void DoNextStep() {
 		}
 
 	}
-	else {  
+	else {
 		nnet.Running(inputs);
 		Q = nnet.GetOutput();
 
 		double tmpQ = -DBL_MAX;
 		for (int i = 0; i < Q.GetNumCols(); ++i) {
-			if (tmpQ < Q(0, i) && monster.CanDoAction(i)) {
+			if ((tmpQ < Q(0, i)) && monster.CanDoAction(i)) {
 				tmpQ = Q(0, i);
 				action = i;
 			}
@@ -272,7 +317,7 @@ void DoNextStep() {
 	}
 
 	monster.UpdatePos(action);
-	if (fabs(prev_dist - monster.GetCurDeltaDistance()) < 0.01) {
+	if (fabs(prev_dist - monster.GetCenterOfGravity2()/*monster.GetCenterOfGravity()*/) < 1.0) {
 		do {
 			action = monster.GetNumActions()*rand() / RAND_MAX;
 			if (monster.CanDoAction(action))
@@ -284,7 +329,8 @@ void DoNextStep() {
 	prevQ = Q;
 
 	//Вывод текущей информации
-	cout << cou << "Current Delta Distance:  " << monster.GetCurDeltaDistance() << endl;
+	//cout << cou << "Current Delta Distance:  " << monster.GetCurDeltaDistance() << endl;
+	cout << cou << "Current Delta Distance:  " << (monster.GetCenterOfGravity2()) << endl;
 
 	if (cou % 50 == 0) {
 		cout << "==================================================================================" << endl;

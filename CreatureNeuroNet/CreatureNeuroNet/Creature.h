@@ -40,6 +40,7 @@ public:
 
 	int GetNumActions() { return 2*movable_lines.size(); } //поворот каждого отрезка в двух направлениях
 	int GetNumStates() { return num_turn_states; }
+	vector<int> GetCurLinesStates() { return states_mvlines; }
 	vector<pair<double, double>> GetJoints() { return joints; }
 
 
@@ -51,7 +52,7 @@ public:
 	pair<int, int> GetAction(int action_num);
 	bool CanDoAction(int action);
 	bool CanDoFullAction(int action);
-	void Rotate(int line, int tdir);
+	int Rotate(int line, int tdir);
 	void CorrectPos(int line, int tdir);
 	void CorrectPos(int line, int tdir, int point);
 	void Falling();
@@ -65,4 +66,8 @@ public:
 		cout << "---------------------------------------------------------------------" << endl;
 
 	}
+
+
+	double GetCenterOfGravity2();
+	double GetStartPos() { return start_pos; }
 };

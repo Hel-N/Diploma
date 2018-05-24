@@ -57,7 +57,7 @@ Matrix2d Matrix2d::Transpose() const {
 			res(i, j) = matrix[j][i];
 		}
 	}
-	return res;
+	return move(res);
 }
 // Поэлементное умножение матриц
 Matrix2d Matrix2d::MultElByEl(Matrix2d _m) const {
@@ -72,7 +72,7 @@ Matrix2d Matrix2d::MultElByEl(Matrix2d _m) const {
 		}
 	}
 
-	return res;
+	return move(res);
 }
 // Сложение квадрвтов всех элементов матрицы
 double Matrix2d::SumAllSqr() const {
@@ -137,7 +137,7 @@ Matrix2d Matrix2d::operator + (const double val) {
 		}
 	}
 
-	return res;
+	return move(res);
 }
 // Сложение матрицы с числом
 Matrix2d& Matrix2d::operator += (const double val) {
@@ -158,7 +158,7 @@ Matrix2d Matrix2d::operator + (Matrix2d& _m) {
 		}
 	}
 
-	return res;
+	return move(res);
 }
 // Сложение матриц
 Matrix2d& Matrix2d::operator += (Matrix2d& _m) {
@@ -175,7 +175,7 @@ Matrix2d Matrix2d::operator - (const double val) {
 		}
 	}
 
-	return res;
+	return move(res);
 }
 // Вычетание числа из матрицы
 Matrix2d& Matrix2d::operator -= (const double val) {
@@ -196,7 +196,7 @@ Matrix2d Matrix2d::operator - (Matrix2d& _m) {
 		}
 	}
 
-	return res;
+	return move(res);
 }
 // Вычетание матриц
 Matrix2d& Matrix2d::operator -= (Matrix2d& _m) {
@@ -213,7 +213,7 @@ Matrix2d Matrix2d::operator * (const double val) {
 		}
 	}
 
-	return res;
+	return move(res);
 }
 // Умножение матрицы на число
 Matrix2d& Matrix2d::operator *= (const double val) {
@@ -237,7 +237,7 @@ Matrix2d Matrix2d::operator * (Matrix2d& _m) {
 		}
 	}
 
-	return res;
+	return move(res);
 }
 // Произведение матриц
 Matrix2d& Matrix2d::operator *= (Matrix2d& _m) {
@@ -254,7 +254,7 @@ Matrix2d Matrix2d::operator / (const double val) {
 		}
 	}
 
-	return res;
+	return move(res);
 }
 // Деление элементов матрицы на число
 Matrix2d& Matrix2d::operator /= (const double val) {
