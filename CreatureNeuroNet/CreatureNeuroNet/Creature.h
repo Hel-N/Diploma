@@ -13,6 +13,7 @@ private:
 	int num_turn_states = 11; // на какое количество секторов будут разбиты углы поворота для отрезков
 	//int ground_height = 0;
 	double start_pos = 0.0;
+	double start_max_x = 0.0;
 	double cur_delta_distance = 0.0;
 	vector<pair<double, double>> joints; // суставы (точки соединения)
 	vector<pair<int, int>> lines; // отрезки, из которых состоит модель (две точки и длина)
@@ -42,11 +43,13 @@ public:
 	int GetNumStates() { return num_turn_states; }
 	vector<int> GetCurLinesStates() { return states_mvlines; }
 	vector<pair<double, double>> GetJoints() { return joints; }
+	double GetStartPos() { return start_pos; }
 
 
 	vector<Line> GetLines();
 	double GetCenterOfGravity();
 	double GetCurDeltaDistance();
+	double GetTraveledDistance();
 
 
 	pair<int, int> GetAction(int action_num);
@@ -67,7 +70,4 @@ public:
 
 	}
 
-
-	double GetCenterOfGravity2();
-	double GetStartPos() { return start_pos; }
 };

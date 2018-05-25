@@ -273,7 +273,7 @@ void DoNextStep() {
 	int action = -1;
 	//double reward = monster.GetCurDeltaDistance();
 	//prev_dist = monster.GetCurDeltaDistance();
-	double reward = monster.GetCenterOfGravity2();
+	double reward = monster.GetTraveledDistance();
 	prev_dist = reward;
 	cou++;
 
@@ -317,7 +317,7 @@ void DoNextStep() {
 	}
 
 	monster.UpdatePos(action);
-	if (fabs(prev_dist - monster.GetCenterOfGravity2()/*monster.GetCenterOfGravity()*/) < 1.0) {
+	if (fabs(prev_dist - monster.GetTraveledDistance()/*monster.GetCenterOfGravity()*/) < 1.0) {
 		do {
 			action = monster.GetNumActions()*rand() / RAND_MAX;
 			if (monster.CanDoAction(action))
@@ -330,7 +330,7 @@ void DoNextStep() {
 
 	//Вывод текущей информации
 	//cout << cou << "Current Delta Distance:  " << monster.GetCurDeltaDistance() << endl;
-	cout << cou << "Current Delta Distance:  " << (monster.GetCenterOfGravity2()) << endl;
+	cout << cou << "Current Delta Distance:  " << (monster.GetTraveledDistance()) << endl;
 
 	if (cou % 50 == 0) {
 		cout << "==================================================================================" << endl;

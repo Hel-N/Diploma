@@ -23,6 +23,12 @@ void Creature::InitCreature(vector<pair<double, double>> _joints, vector<pair<in
 	refs = _refs;
 
 	start_pos = GetCenterOfGravity();
+	start_max_x = -DBL_MAX;
+	for (int i = 0; i < joints.size(); ++i) {
+		if (joints[i].first > start_max_x) {
+			start_max_x = joints[i].first;
+		}
+	}
 }
 
 vector<Line> Creature::GetLines() {
@@ -52,6 +58,16 @@ double Creature::GetCenterOfGravity() {
 double Creature::GetCurDeltaDistance() {
 	double cx = GetCenterOfGravity();
 	return cx - start_pos;
+}
+
+double Creature::GetTraveledDistance() {
+	double tmp = -DBL_MAX;
+	for (int i = 0; i < joints.size(); ++i) {
+		if (joints[i].first > tmp) {
+			tmp = joints[i].first;
+		}
+	}
+	return tmp - start_max_x;
 }
 
 pair<int, int> Creature::GetAction(int action_num) {
@@ -323,23 +339,6 @@ void Creature::UpdatePos(int action_num) {
 			CorrectPos(line, tdir); // Можно немного изменить, чтобы добавлять точку поворота
 		}
 		else {
-			/*set<int> tmp;
-			tmp.insert(lines[mvline].first);
-			tmp.insert(lines[mvline].second);
-			for (int i = 0; i < refs[line].size(); ++i) {
-				tmp.insert(lines[movable_lines[refs[mvline][i]].first].first);
-				tmp.insert(lines[movable_lines[refs[mvline][i]].first].second);
-			}
-
-			double ymn = 1.0*1e9;
-			int p = 0;
-			for (auto it = tmp.begin(); it != tmp.end(); ++it) {
-				if (joints[*it].second < ymn) {
-					ymn = joints[*it].second;
-					p = *it;
-				}
-			}*/
-
 			int point = Rotate(line, tdir);
 			CorrectPos(line, tdir, point);
 		}
@@ -347,34 +346,4 @@ void Creature::UpdatePos(int action_num) {
 
 	// Падение
 	Falling();
-}
-
-double Creature::GetCenterOfGravity2() {
-	/*double sum_momets = 0.0;
-	double sum_mass = 0.0;
-	double res = 0.0;
-
-	for (int i = 0; i < lines.size(); ++i) {
-		bool fl = true;
-		for (int j = 0; j < movable_lines.size(); ++j) {
-			if (i == movable_lines[j].first)
-				fl = false;
-		}
-		if (fl) {
-			double cx = 1.0*(joints[lines[i].first].first + joints[lines[i].second].first) / 2; // координата x центра тяжести
-			sum_mass += lines_length[i]; // lines_length[i] - длина отрезка, и т.к. 1 ед. длины = 1 ед. массы, то используем длину
-			sum_momets += cx*lines_length[i]; // плечо на массу
-		}
-	}
-	return res = sum_momets / sum_mass;*/
-	//double tmp = -DBL_MAX;
-	//for (int i = 0; i < joints.size(); ++i) {
-	//	if (joints[i].first > tmp) {
-	//		tmp = joints[i].first;
-	//	}
-	//}
-
-	double tmp = (joints[0].first + joints[3].first) / 2 - start_pos;
-
-	return tmp;
 }
