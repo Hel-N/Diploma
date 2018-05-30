@@ -22,8 +22,6 @@ struct Test {
 };
 
 const double LearningRate = 0.01;
-const int NumInputsNeurons = 8*2;
-const int NumOutputsNeurons = 1;
 
 const int NUM_HIDDEN_NEURONS = 100;
 const int NUM_HIDDEN_LAYERS = 3;

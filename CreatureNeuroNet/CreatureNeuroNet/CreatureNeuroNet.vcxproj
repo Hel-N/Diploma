@@ -160,6 +160,7 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Creature.txt" />
     <Text Include="input.txt" />
     <Text Include="output.txt" />
   </ItemGroup>

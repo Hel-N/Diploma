@@ -5,11 +5,14 @@
 #include "Creature.h"
 #include "NeuroNet.h"
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <queue>
 #include <cmath>
 #include <string>
 #include <ctime>
+
+#define FILENAME "Creature.txt"
 
 using namespace std;
 int cou = 0;
@@ -42,6 +45,7 @@ void Draw();
 void Display();
 void DoNextStep();
 void CreatureInitialization();
+void CreatureInitializationFromFile();
 
 //=====================
 void glEnter2D(void);
@@ -56,18 +60,18 @@ int main(int argc, char** ardv) {
 
 	srand(time(NULL));
 	//Инициализация существа
-	CreatureInitialization();
+	CreatureInitializationFromFile();
 
 	vector<int> num_neurons = { NUM_HIDDEN_NEURONS, NUM_HIDDEN_NEURONS, monster.GetNumActions() };
 	vector<ActFuncTypes> aft = { TANH, TANH, LINE };
-	nnet = NeuroNet(NumInputsNeurons, NUM_HIDDEN_LAYERS, num_neurons, aft, monster.GetNumActions());
+	nnet = NeuroNet(monster.GetNumJoints(), NUM_HIDDEN_LAYERS, num_neurons, aft, monster.GetNumActions());
 
 	// Считывание весов и смещений
 	vector<Matrix2d> weights;
 	for (int i = 0; i < NUM_HIDDEN_LAYERS; ++i) {
 		Matrix2d _w;
 		if (i == 0)
-			_w = Matrix2d(NumInputsNeurons, num_neurons[i]);
+			_w = Matrix2d(monster.GetNumJoints(), num_neurons[i]);
 		else
 			_w = Matrix2d(num_neurons[i - 1], num_neurons[i]);
 		for (int j = 0; j < _w.GetNumRows(); ++j) {
@@ -121,7 +125,7 @@ int main(int argc, char** ardv) {
 }
 
 void CreatureInitialization() {
-	vector<pair<double, double>> joints = {
+	/*vector<pair<double, double>> joints = {
 		make_pair(50.0, 150.0), make_pair(100.0, 150.0),
 		make_pair(50.0, 100.0), make_pair(100.0, 100.0),
 		make_pair(0.0, 50.0), make_pair(150.0, 50.0),
@@ -195,7 +199,95 @@ void CreatureInitialization() {
 	refs[10].push_back(12);
 	refs[11].push_back(13);
 
-	monster.InitCreature(joints, lines, mvlines, turnint, mvstates, refs);
+	monster.InitCreature(joints, lines, mvlines, turnint, mvstates, refs);*/
+}
+
+void CreatureInitializationFromFile() {
+	ifstream fin(FILENAME);
+	if (fin.is_open()) {
+		vector<pair<double, double>> joints;
+		string s;
+		getline(fin, s);
+		int joint_count;
+		fin >> joint_count;
+		joints.resize(joint_count);
+		for (int i = 0; i < joints.size(); ++i) {
+			fin >> joints[i].first >> joints[i].second;
+		}
+
+		vector<pair<int, int>> lines;
+		getline(fin, s);
+		if (s == "") getline(fin, s);
+		int line_count;
+		fin >> line_count;
+		lines.resize(line_count);
+		for (int i = 0; i < lines.size(); ++i) {
+			fin >> lines[i].first >> lines[i].second;
+		}
+
+		vector<pair<int, int>> mvlines;
+		getline(fin, s);
+		if (s == "") getline(fin, s);
+		int mvline_count;
+		fin >> mvline_count;
+		mvlines.resize(mvline_count);
+		for (int i = 0; i < mvlines.size(); ++i) {
+			fin >> mvlines[i].first >> mvlines[i].second;
+		}
+
+		double fall_unit_angle;
+		double turn_unit_angle;
+		getline(fin, s);
+		if (s == "") getline(fin, s);
+		fin >> fall_unit_angle;
+		getline(fin, s);
+		if (s == "") getline(fin, s);
+		fin >> turn_unit_angle;
+
+		vector<pair<double, double>> turnints;
+		getline(fin, s);
+		if (s == "") getline(fin, s);
+		int turnint_count;
+		fin >> turnint_count;
+		turnints.resize(turnint_count);
+		for (int i = 0; i < turnints.size(); ++i) {
+			fin >> turnints[i].first >> turnints[i].second;
+		}
+
+		vector<pair<int, int>> mvstates;
+		getline(fin, s);
+		if (s == "") getline(fin, s);
+		int mvstate_count;
+		fin >> mvstate_count;
+		mvstates.resize(mvstate_count);
+		for (int i = 0; i < mvstates.size(); ++i) {
+			fin >> mvstates[i].first >> mvstates[i].second;
+		}
+
+		vector<vector<int>> refs;
+		getline(fin, s);
+		if (s == "") getline(fin, s);
+		int refs_count;
+		fin >> refs_count;
+		refs.resize(refs_count);
+		for (int i = 0; i < refs.size(); ++i) {
+			int rcou;
+			fin >> rcou;
+			refs[i].resize(rcou);
+			for (int j = 0; j < refs[i].size(); ++j) {
+				fin >> refs[i][j];
+			}
+		}
+
+		monster.InitCreature(joints, lines, mvlines, turnints, mvstates, refs);
+		monster.SetFallUnitAngle(fall_unit_angle);
+		monster.SetTurnUnitAngle(turn_unit_angle);
+
+		fin.close();
+	}
+	else {
+		exit(0);
+	}
 }
 
 void Draw() {
@@ -208,15 +300,16 @@ void Draw() {
 	glWrite(20, 40, (int*)GLUT_BITMAP_8_BY_13, spos);
 	//glLeave2D();
 
-	vector<int> line_states = monster.GetCurLinesStates();
+	vector<pair<int, int>> line_states = monster.GetCurLinesStates();
 	string sstates = "";
 	for (int i = 0; i < line_states.size(); ++i) {
-		sstates += to_string(line_states[i]) + " ";
+		sstates += to_string(line_states[i].first) + "/" + to_string(line_states[i].second - 1) + " ";
 	}
 	glWrite(20, 60, (int*)GLUT_BITMAP_8_BY_13, sstates);
 
 	glBegin(GL_LINES);
 	// ground
+	glColor3d(0.0, 1.0, 0.0);
 	glVertex2f(0.0, ground_height);
 	glVertex2f(WinWidth, ground_height);
 
@@ -241,7 +334,7 @@ void Draw() {
 		dx = fabs(xx[0] + 100);
 	}
 	else if (xx[xx.size() - 1] + 100 > WinWidth) {
-		dx = -((int)(xx[xx.size() - 1] + 100) / WinWidth* WinWidth);
+		dx = -xx[0];
 	}
 
 	for (int i = 0; i < lines.size(); ++i) {

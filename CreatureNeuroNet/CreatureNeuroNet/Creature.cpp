@@ -8,7 +8,7 @@
 using namespace std;
 
 void Creature::InitCreature(vector<pair<double, double>> _joints, vector<pair<int, int>> _lines, vector<pair<int, int>> _mvlines,
-	vector<pair<double, double>> _turnint, vector<int> states, vector<vector<int>> _refs) {
+	vector<pair<double, double>> _turnint, vector<pair<int, int>> states, vector<vector<int>> _refs) {
 	joints = _joints;
 	lines = _lines;
 
@@ -86,9 +86,10 @@ bool Creature::CanDoAction(int action) {
 	pair<int, int> line_and_dir = GetAction(action);
 
 	//Если отрезок находится в одном из крайних состояний
-	if (states_mvlines[movable_lines[line_and_dir.first].first] == 0 && line_and_dir.second == 1)
+	if (states_mvlines[movable_lines[line_and_dir.first].first].first == 0 && line_and_dir.second == 1)
 		return false;
-	if (states_mvlines[movable_lines[line_and_dir.first].first] == (num_turn_states - 1) && line_and_dir.second == -1)
+	if (states_mvlines[movable_lines[line_and_dir.first].first].first == (states_mvlines[movable_lines[line_and_dir.first].first].second - 1)
+		&& line_and_dir.second == -1)
 		return false;
 
 	return true;
@@ -108,7 +109,8 @@ bool Creature::CanDoFullAction(int action) {
 		angsign = 1.0;
 
 	int mvline = movable_lines[line].first;
-	double unit_angle = (turn_intervals[mvline].second - turn_intervals[mvline].first) / (num_turn_states - 1);
+
+	double unit_angle = turn_unit_angle;
 
 	// Перемещение
 	set<int> points;
@@ -232,15 +234,15 @@ int Creature::Rotate(int line, int tdir) {
 	int mvline = movable_lines[line].first;
 	// Обновление состояний
 	if (tdir == 1) {
-		states_mvlines[mvline]--;
+		states_mvlines[mvline].first--;
 		angsign = -1.0;
 	}
 	if (tdir == -1) {
-		states_mvlines[mvline]++;
+		states_mvlines[mvline].first++;
 		angsign = 1.0;
 	}
 
-	double unit_angle = (turn_intervals[mvline].second - turn_intervals[mvline].first) / (num_turn_states - 1);
+	double unit_angle = turn_unit_angle;
 
 	set<int> points;
 	int os = movable_lines[line].second;

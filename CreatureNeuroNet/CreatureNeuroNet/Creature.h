@@ -10,7 +10,7 @@ using namespace std;
 class Creature {
 private:
 	double fall_unit_angle = M_PI / 30; // единичный угол падения
-	int num_turn_states = 11; // на какое количество секторов будут разбиты углы поворота для отрезков
+	double turn_unit_angle = M_PI / 30; // единичный угол поворота
 	//int ground_height = 0;
 	double start_pos = 0.0;
 	double start_max_x = 0.0;
@@ -22,7 +22,7 @@ private:
 	vector<pair<int, int>> movable_lines; //{номер отрезка; номер сустава, в котором он поворачивается}
 
 	vector<pair<double, double>> turn_intervals; // левая и правая границы интервалов поворота отрезков 
-	vector<int> states_mvlines; // текущие состояния подвижных отрезков
+	vector<pair<int, int>> states_mvlines; // текущие состояния подвижных отрезков, количество состояний отрезка
 	vector<vector<int>> refs; //какие отрезки повернутся, если повернуть текущий
 	
     //vector<vector<pair<int, double>>> graph; // {(точка из joints, c которой соединена текущая точка), (Длина отрезка)}
@@ -32,24 +32,25 @@ public:
 					vector<pair<int, int>> _lines, 
 					vector<pair<int, int>> _mvlines, 
 					vector<pair<double, double>> _turnint, 
-					vector<int> states,
+					vector<pair<int, int>> states,
 					vector<vector<int>> _refs);
 
-	void SetFallUnitAngle(double a) { fall_unit_angle = a; };
-	void SetTurnUnitAngle(int a) { num_turn_states = a; };
 	//void SetGroundHeight(double y) { ground_height = y; };
 
 	int GetNumActions() { return 2*movable_lines.size(); } //поворот каждого отрезка в двух направлениях
-	int GetNumStates() { return num_turn_states; }
-	vector<int> GetCurLinesStates() { return states_mvlines; }
 	vector<pair<double, double>> GetJoints() { return joints; }
 	double GetStartPos() { return start_pos; }
+	vector<pair<int, int>> GetCurLinesStates() { return states_mvlines; }
+	int GetNumJoints() { return joints.size(); }
 
 
 	vector<Line> GetLines();
 	double GetCenterOfGravity();
 	double GetCurDeltaDistance();
 	double GetTraveledDistance();
+
+	void SetFallUnitAngle(double val) { fall_unit_angle = val; }
+	void SetTurnUnitAngle(double val) { turn_unit_angle = val; }
 
 
 	pair<int, int> GetAction(int action_num);
