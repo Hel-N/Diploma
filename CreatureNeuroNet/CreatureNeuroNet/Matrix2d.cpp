@@ -41,6 +41,13 @@ void Matrix2d::InitRandom(double minval, double maxval) {
 		}
 	}
 }
+void Matrix2d::InitValue(double val) {
+	for (int i = 0; i < num_rows; ++i) {
+		for (int j = 0; j < num_cols; ++j) {
+			matrix[i][j] = val;
+		}
+	}
+}
 int Matrix2d::GetNumRows() const {
 	return num_rows;
 }

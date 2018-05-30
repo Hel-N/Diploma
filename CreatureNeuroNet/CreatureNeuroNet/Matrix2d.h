@@ -15,6 +15,7 @@ public:
 	void InitMatrix(int nrow, int ncol, double val);
 	void InitMatrixDiagByOne(int nrow, int ncol);
 	void InitRandom(double minval, double maxval);
+	void InitValue(double val);
 
 	int GetNumRows() const;
 	int GetNumCols() const;

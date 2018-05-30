@@ -199,6 +199,10 @@ void NeuroNet::ResilientPropagation() {
 	}
 }
 double NeuroNet::RPropLearningOffline(vector<Test> & tests) {
+	for (int i = 0; i < layers.size(); ++i) {
+		layers[i].delta_sum.InitValue(0.0);
+		layers[i].grad_sum.InitValue(0.0);
+	}
 
 	for (int i = 0; i < tests.size(); ++i) {
 		Running(tests[i]);
