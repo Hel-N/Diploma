@@ -72,6 +72,10 @@ Layer::Layer() {
 	prev_grad_sum = Matrix2d();
 	weights_correct = Matrix2d();
 	biases_correct = Matrix2d();
+	rms = Matrix2d();
+	rms_biases = Matrix2d();
+	rmsn = Matrix2d();
+	rmsn_biases = Matrix2d();
 }
 Layer::Layer(int nneurons, int nprevneurons, ActFuncTypes act_func) {
 	activation_func = act_func;
@@ -98,6 +102,11 @@ Layer::Layer(int nneurons, int nprevneurons, ActFuncTypes act_func) {
 	weights_correct.InitRandom(0.0, 1.0);
 	biases_correct = Matrix2d(1, nneurons);
 	biases_correct.InitRandom(-1.0, 1.0);
+
+	rms = Matrix2d(nneurons, nprevneurons);
+	rms_biases = Matrix2d(1, nneurons);
+	rmsn = Matrix2d(nneurons, nprevneurons);
+	rmsn_biases = Matrix2d(1, nneurons);
 }
 Layer& Layer::operator = (Layer& _l) {
 	activation_func = _l.activation_func;
@@ -119,6 +128,11 @@ Layer& Layer::operator = (Layer& _l) {
 
 	weights_correct = _l.weights_correct;
 	biases_correct = _l.biases_correct;
+
+	rms = _l.rms;
+	rms_biases = _l.rms_biases;
+	rmsn = _l.rmsn;
+	rmsn_biases = _l.rmsn_biases;
 
 	return *this;
 }
@@ -144,6 +158,11 @@ void Layer::Init(int nneurons, int nprevneurons, ActFuncTypes act_func, Matrix2d
 	weights_correct.InitRandom(0.0, 1.0);
 	biases_correct = Matrix2d(1, nneurons);
 	biases_correct.InitRandom(-1.0, 1.0);
+
+	rms = Matrix2d(nneurons, nprevneurons);
+	rms_biases = Matrix2d(1, nneurons);
+	rmsn = Matrix2d(nneurons, nprevneurons);
+	rmsn_biases = Matrix2d(1, nneurons);
 }
 int Layer::GetNumNeurons() {
 	return num_neurons;

@@ -24,6 +24,7 @@ public:
 	Matrix2d MultElByEl(Matrix2d _m) const;				// Поэлементное умножение матриц
 	double SumAll() const;								// Сложение всех элементов матрицы
 	double SumAllSqr() const;							// Сложение квадрвтов всех элементов матрицы
+	Matrix2d Sqrt();
 
 	double& operator () (int i, int j);
 	Matrix2d& operator = (vector<vector<double>>& _m);
@@ -46,4 +47,6 @@ public:
 
 	Matrix2d operator / (const double val);		// Деление элементов матрицы на число
 	Matrix2d& operator /= (const double val);		// Деление элементов матрицы на число
+
+	friend Matrix2d operator / (const double val, const Matrix2d& _m);
 };

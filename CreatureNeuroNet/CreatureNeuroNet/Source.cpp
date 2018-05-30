@@ -389,7 +389,9 @@ void DoNextStep() {
 		while (epoch--) {
 			//if (nnet.RunningLearningOffline(tests) == 0.0)
 			//	break;
-			if (nnet.RPropLearningOffline(tests) < TRAIN_EPS) //Добавить расчет ошибки 
+			//if (nnet.RPropLearningOffline(tests) < TRAIN_EPS) //Добавить расчет ошибки 
+			//	break;
+			if (nnet.RMSLearningOffline(tests) < TRAIN_EPS) //Добавить расчет ошибки 
 				break;
 		}
 

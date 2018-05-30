@@ -103,6 +103,16 @@ double Matrix2d::SumAll() const {
 
 	return res;
 }
+Matrix2d Matrix2d::Sqrt() {
+	Matrix2d res(num_rows, num_cols);
+	for (int i = 0; i < num_rows; ++i) {
+		for (int j = 0; j < num_cols; ++j) {
+			res(i, j) = sqrt(matrix[i][j]);
+		}
+	}
+
+	return move(res);
+}
 double& Matrix2d::operator () (int i, int j) {
 	if ((i < 0 || i >= num_rows) || (j < 0 || j >= num_cols)) {
 		//Error!
@@ -268,4 +278,15 @@ Matrix2d& Matrix2d::operator /= (const double val) {
 	Matrix2d res = *this;
 	res = res / val;
 	return *this = res;
+}
+
+Matrix2d operator / (const double val, const Matrix2d& _m) {
+	Matrix2d res(_m.num_rows, _m.num_cols);
+	for (int i = 0; i < _m.num_rows; ++i) {
+		for (int j = 0; j < _m.num_cols; ++j) {
+			res(i, j) = val / _m.matrix[i][j];
+		}
+	}
+
+	return move(res);
 }

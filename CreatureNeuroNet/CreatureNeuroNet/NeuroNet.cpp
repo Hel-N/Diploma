@@ -250,6 +250,67 @@ double NeuroNet::RPropLearningOffline(queue<Test> tests) {
 	return RPropLearningOffline(vtests);
 }
 
+void NeuroNet::RMSPropagation()
+{
+	for (int i = 1; i < layers.size() - 1; ++i)
+	{
+		layers[i].weights -= (RMS_LEARN_RATE / (layers[i].rms - layers[i].rmsn.MultElByEl(layers[i].rmsn) + RMS_EPS).Sqrt()).MultElByEl(layers[i].grad_sum);
+		layers[i].biases -= (RMS_LEARN_RATE / (layers[i].rms_biases - layers[i].rmsn_biases.MultElByEl(layers[i].rmsn_biases) + RMS_EPS).Sqrt()).MultElByEl(layers[i].delta_sum);
+	}
+}
+double NeuroNet::RMSLearningOffline(vector<Test> & tests)
+{
+	for (int i = 0; i < layers.size(); ++i)
+	{
+		layers[i].grad_sum.InitValue(0.0);
+		layers[i].delta_sum.InitValue(0.0);
+	}
+
+	for (int i = 0; i < tests.size(); ++i)
+	{
+		Running(tests[i]);
+		CalcDeltaAndGrad(tests[i]);
+
+		for (int i = 1; i < layers.size() - 1; ++i) {
+			layers[i].delta_sum += layers[i].delta;
+			layers[i].grad_sum += layers[i].grad;
+		}
+	}
+
+	for (int i = 1; i < layers.size() - 1; ++i)
+	{
+		layers[i].rms = layers[i].rms * RMS_GAMMA + layers[i].grad_sum.MultElByEl(layers[i].grad_sum) * (1.0 - RMS_GAMMA);
+		layers[i].rms_biases = layers[i].rms_biases * RMS_GAMMA + layers[i].delta_sum.MultElByEl(layers[i].delta_sum) * (1.0 - RMS_GAMMA);
+		layers[i].rmsn = layers[i].rmsn * RMS_GAMMA + layers[i].grad_sum * (1.0 - RMS_GAMMA);
+		layers[i].rmsn_biases = layers[i].rmsn_biases * RMS_GAMMA + layers[i].delta_sum * (1.0 - RMS_GAMMA);
+	}
+
+	RMSPropagation();
+
+	for (int i = 0; i < layers.size(); ++i)
+	{
+		layers[i].prev_grad_sum = layers[i].grad_sum;
+		layers[i].prev_delta_sum = layers[i].delta_sum;
+	}
+
+	double err = 0.0;
+	for (int i = 0; i < tests.size(); ++i) {
+		Running(tests[i]);
+		err += CalcError(tests[i]);
+	}
+
+	return err;
+}
+double NeuroNet::RMSLearningOffline(queue<Test> tests) {
+	vector<Test> vtests;
+	queue<Test> qt = tests;
+	while (!qt.empty()) {
+		vtests.push_back(qt.front());
+		qt.pop();
+	}
+	return RMSLearningOffline(vtests);
+}
+
 void NeuroNet::PrintWeightsAndBiases(bool print_null) {
 	cout << "----------Weights------------" << endl;
 	for (int i = 1; i < layers.size() - 1; ++i) {

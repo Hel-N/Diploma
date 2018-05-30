@@ -31,6 +31,13 @@ public:
 	Matrix2d weights_correct;
 	Matrix2d biases_correct;
 
+	//RMS
+	Matrix2d rms;
+	Matrix2d rms_biases;
+	Matrix2d rmsn;
+	Matrix2d rmsn_biases;
+
+
 	Layer();
 	Layer(int nneurons, int nprevneurons, ActFuncTypes act_func);
 

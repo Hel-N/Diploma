@@ -26,6 +26,11 @@ const double LearningRate = 0.01;
 const int NUM_HIDDEN_NEURONS = 100;
 const int NUM_HIDDEN_LAYERS = 3;
 
+//For RMS
+const double RMS_GAMMA = 0.95;
+const double RMS_LEARN_RATE = 0.001;
+const double RMS_EPS = 1e-8;
+
 class NeuroNet {
 protected:
 	int num_layers;
@@ -49,6 +54,10 @@ public:
 	void ResilientPropagation();
 	double RPropLearningOffline(vector<Test> & tests);
 	double RPropLearningOffline(queue<Test> tests);
+	void RMSPropagation();
+	double NeuroNet::RMSLearningOffline(vector<Test> & tests);
+	double NeuroNet::RMSLearningOffline(queue<Test> tests);
+
 	void PrintWeightsAndBiases(bool print_null);
 
 	Matrix2d GetOutput();
