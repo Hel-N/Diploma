@@ -23,8 +23,8 @@ NeuroNet::NeuroNet(int ninputs, int nlayers, vector<int> nlneurons, vector<ActFu
 		layers.push_back(Layer(nlneurons[i], layers.back().GetNumNeurons(), _aft[i]));
 	}
 	int nprevneurons = layers.back().GetNumNeurons();
-	Matrix2d _wm;
-	_wm.InitMatrixDiagByOne(noutputs, nprevneurons);
+	Matrix2d _wm(noutputs, nprevneurons);
+	_wm.InitMatrixDiagByOne();
 	Matrix2d _bm = Matrix2d(noutputs, nprevneurons);
 	layers.push_back(Layer());
 	layers.back().Init(noutputs, nprevneurons, LINE, _bm, _wm);
@@ -48,10 +48,11 @@ void NeuroNet::Init(int ninputs, int nlayers, vector<int> nlneurons, vector<ActF
 		layers.back().Init(nlneurons[i], nprevneurons, _aft[i], _biases[i], _weights[i]);
 	}
 	nprevneurons = layers.back().GetNumNeurons();
-	_wm.InitMatrixDiagByOne(noutputs, nprevneurons);
-	_bm = Matrix2d(noutputs, nprevneurons);
+	Matrix2d _wmout(noutputs, nprevneurons);
+	_wmout.InitMatrixDiagByOne();
+	Matrix2d _bmout(noutputs, nprevneurons);
 	layers.push_back(Layer());
-	layers.back().Init(noutputs, nprevneurons, LINE, _bm, _wm);
+	layers.back().Init(noutputs, nprevneurons, LINE, _bmout, _wmout);
 }
 void NeuroNet::AddTest(queue<Test>& ts, vector<vector<double>> _in, vector<vector<double>> _out) {
 	Matrix2d test_in;
@@ -74,7 +75,7 @@ void NeuroNet::Running(Test& test) {
 	int m = layers[0].states.GetNumCols();
 	for (int i = 0; i < n; ++i) {
 		for (int j = 0; j < m; ++j) {
-			layers[0].states(i, j) = test.inputs(i, j);
+			layers[0].states.at(i, j) = test.inputs.at(i, j);
 		}
 	}
 	layers[0].CalcAxons();
@@ -155,46 +156,46 @@ void NeuroNet::ResilientPropagation() {
 			for (int k = 0; k < layers[i].grad_sum.GetNumCols(); ++k)
 			{
 				double correct_val = 0.0;
-				double curmatrixult = layers[i].grad_sum(j, k) * layers[i].prev_grad_sum(j, k);
+				double curmatrixult = layers[i].grad_sum.at(j, k) * layers[i].prev_grad_sum.at(j, k);
 				if (curmatrixult == 0.0)
 					correct_val = rand() / RAND_MAX;
 				else if (curmatrixult > 0.0)
-					correct_val = min(EttaPlus * layers[i].weights_correct(j, k), MaxCorrectVal);
+					correct_val = min(EttaPlus * layers[i].weights_correct.at(j, k), MaxCorrectVal);
 				else if (curmatrixult < 0.0)
-					correct_val = max(EttaMinus * layers[i].weights_correct(j, k), MinCorrectVal);
+					correct_val = max(EttaMinus * layers[i].weights_correct.at(j, k), MinCorrectVal);
 
-				layers[i].weights_correct(j, k) = correct_val;
+				layers[i].weights_correct.at(j, k) = correct_val;
 
-				if (layers[i].grad_sum(j, k) == 0.0)
+				if (layers[i].grad_sum.at(j, k) == 0.0)
 					continue;
 
-				if (layers[i].grad_sum(j, k) > 0.0)
-					layers[i].weights(j, k) -= correct_val;
+				if (layers[i].grad_sum.at(j, k) > 0.0)
+					layers[i].weights.at(j, k) -= correct_val;
 				else
-					layers[i].weights(j, k) += correct_val;
+					layers[i].weights.at(j, k) += correct_val;
 			}
 		}
 
 		for (int j = 0; j < layers[i].delta_sum.GetNumRows(); ++j)
 		{
 			double cur_correct = 0.0;
-			double curmatrixult = layers[i].delta_sum(0, j) * layers[i].prev_delta_sum(0, j);
+			double curmatrixult = layers[i].delta_sum.at(0, j) * layers[i].prev_delta_sum.at(0, j);
 			if (curmatrixult == 0.0)
 				cur_correct = rand() / RAND_MAX;
 			else if (curmatrixult > 0.0)
-				cur_correct = min(EttaPlus * layers[i].biases_correct(0, j), MaxCorrectVal);
+				cur_correct = min(EttaPlus * layers[i].biases_correct.at(0, j), MaxCorrectVal);
 			else if (curmatrixult < 0.0)
-				cur_correct = max(EttaMinus * layers[i].biases_correct(0, j), MinCorrectVal);
+				cur_correct = max(EttaMinus * layers[i].biases_correct.at(0, j), MinCorrectVal);
 
-			layers[i].biases_correct(0, j) = cur_correct;
+			layers[i].biases_correct.at(0, j) = cur_correct;
 
-			if (layers[i].delta_sum(0, j) == 0.0) 
+			if (layers[i].delta_sum.at(0, j) == 0.0)
 				continue;
 
-			if (layers[i].delta_sum(0, j) > 0.0)
-				layers[i].biases(0, j) -= cur_correct;
+			if (layers[i].delta_sum.at(0, j) > 0.0)
+				layers[i].biases.at(0, j) -= cur_correct;
 			else
-				layers[i].biases(0, j) += cur_correct;
+				layers[i].biases.at(0, j) += cur_correct;
 		}
 	}
 }
@@ -253,7 +254,7 @@ void NeuroNet::PrintWeightsAndBiases(bool print_null) {
 		for (int j = 0; j < m.GetNumRows(); ++j) {
 			for (int k = 0; k < m.GetNumCols(); ++k) {
 				if (!print_null)
-					cout << fixed << setprecision(7) << m(j, k) << " ";
+					cout << fixed << setprecision(7) << m.at(j, k) << " ";
 				else
 					cout << fixed << setprecision(7) << 0.0 << " ";
 			}
@@ -266,7 +267,7 @@ void NeuroNet::PrintWeightsAndBiases(bool print_null) {
 		for (int j = 0; j < m.GetNumRows(); ++j) {
 			for (int k = 0; k < m.GetNumCols(); ++k) {
 				if (!print_null)
-					cout << fixed << setprecision(7) << m(j, k) << " ";
+					cout << fixed << setprecision(7) << m.at(j, k) << " ";
 				else
 					cout << fixed << setprecision(7) << 0.0 << " ";
 			}
@@ -312,7 +313,7 @@ void NeuroNet::SetBiases(vector<Matrix2d> _b) {
 }
 ostream& operator << (ostream& out, NeuroNet& _nnet) {
 	for (int i = 0; i < _nnet.num_outputs; ++i) {
-		out << fixed << setprecision(6) << _nnet.outputs(0, i) << " ";
+		out << fixed << setprecision(6) << _nnet.outputs.at(0, i) << " ";
 	}
 	return out;
 }

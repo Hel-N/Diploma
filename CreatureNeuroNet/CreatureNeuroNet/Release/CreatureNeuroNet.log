@@ -1,2 +1,34 @@
-﻿  CreatureNeuroNet.vcxproj -> C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\CreatureNeuroNet\Release\CreatureNeuroNet.exe
+﻿  NeuroNet.cpp
+NeuroNet.cpp(83): warning C4018: '<': signed/unsigned mismatch
+NeuroNet.cpp(99): warning C4018: '<': signed/unsigned mismatch
+NeuroNet.cpp(104): warning C4018: '<': signed/unsigned mismatch
+NeuroNet.cpp(108): warning C4018: '<': signed/unsigned mismatch
+NeuroNet.cpp(116): warning C4018: '<': signed/unsigned mismatch
+NeuroNet.cpp(128): warning C4018: '<': signed/unsigned mismatch
+NeuroNet.cpp(152): warning C4018: '<': signed/unsigned mismatch
+NeuroNet.cpp(204): warning C4018: '<': signed/unsigned mismatch
+NeuroNet.cpp(208): warning C4018: '<': signed/unsigned mismatch
+NeuroNet.cpp(216): warning C4018: '<': signed/unsigned mismatch
+NeuroNet.cpp(227): warning C4018: '<': signed/unsigned mismatch
+NeuroNet.cpp(233): warning C4018: '<': signed/unsigned mismatch
+NeuroNet.cpp(252): warning C4018: '<': signed/unsigned mismatch
+NeuroNet.cpp(265): warning C4018: '<': signed/unsigned mismatch
+NeuroNet.cpp(287): warning C4018: '<': signed/unsigned mismatch
+NeuroNet.cpp(296): warning C4018: '<': signed/unsigned mismatch
+NeuroNet.cpp(303): warning C4018: '<': signed/unsigned mismatch
+NeuroNet.cpp(309): warning C4018: '<': signed/unsigned mismatch
+  Source.cpp
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\Creature.h(66): warning C4018: '<': signed/unsigned mismatch
+Source.cpp(213): warning C4018: '<': signed/unsigned mismatch
+Source.cpp(234): warning C4018: '<': signed/unsigned mismatch
+Source.cpp(247): warning C4018: '<': signed/unsigned mismatch
+Source.cpp(264): warning C4018: '<': signed/unsigned mismatch
+Source.cpp(373): warning C4018: '<': signed/unsigned mismatch
+  Generating code
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\layer.cpp(175): warning C4715: 'Layer::CalcDiffs': not all control paths return a value
+  403 of 1647 functions (24.5%) were compiled, the rest were copied from previous compilation.
+    33 functions were new in current compilation
+    92 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  CreatureNeuroNet.vcxproj -> C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\CreatureNeuroNet\Release\CreatureNeuroNet.exe
   CreatureNeuroNet.vcxproj -> C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\CreatureNeuroNet\Release\CreatureNeuroNet.pdb (Full PDB)

@@ -18,7 +18,7 @@ const int WinHeight = 500;
 
 double ground_height = 200.0;
 
-const int EPOCH = 50;
+const int EPOCH = 1;
 const double TRAIN_EPS = 0.01;
 const double QGAMMA = 0.9; // Коэффициент доверия
 Matrix2d Q;
@@ -74,7 +74,7 @@ int main(int argc, char** ardv) {
 			for (int k = 0; k < _w.GetNumCols(); ++k) {
 				double tmp;
 				cin >> tmp;
-				_w(j, k) = tmp;
+				_w.at(j, k) = tmp;
 			}
 		}
 		weights.push_back(_w);
@@ -89,7 +89,7 @@ int main(int argc, char** ardv) {
 			for (int k = 0; k < _b.GetNumCols(); ++k) {
 				double tmp;
 				cin >> tmp;
-				_b(j, k) = tmp;
+				_b.at(j, k) = tmp;
 			}
 		}
 		biases.push_back(_b);
@@ -284,12 +284,12 @@ void DoNextStep() {
 
 		double tmpQ = -DBL_MAX;
 		for (int i = 0; i < Q.GetNumCols(); ++i) {
-			if (tmpQ < Q(0, i) && monster.CanDoAction(i)) {
-				tmpQ = Q(0, i);
+			if (tmpQ < Q.at(0, i) && monster.CanDoAction(i)) {
+				tmpQ = Q.at(0, i);
 				action = i;
 			}
 		}
-		Q(0, prevAction) = reward + QGAMMA*tmpQ;
+		Q.at(0, prevAction) = reward + QGAMMA*tmpQ;
 
 		nnet.AddTest(tests, prev_inputs, Q);
 		int epoch = EPOCH;
@@ -307,8 +307,8 @@ void DoNextStep() {
 
 		double tmpQ = -DBL_MAX;
 		for (int i = 0; i < Q.GetNumCols(); ++i) {
-			if ((tmpQ < Q(0, i)) && monster.CanDoAction(i)) {
-				tmpQ = Q(0, i);
+			if ((tmpQ < Q.at(0, i)) && monster.CanDoAction(i)) {
+				tmpQ = Q.at(0, i);
 				action = i;
 			}
 		}
@@ -345,7 +345,7 @@ void Timer(int val) // Таймер(промежуток времени, в котором будет производится в
 {
 	Display();
 	DoNextStep();
-	glutTimerFunc(50, Timer, 0); // новый вызов таймера( 100 - промежуток времени(в милисекундах), через который он будет вызыватся, timer - вызываемый паблик) 
+	glutTimerFunc(100, Timer, 0); // новый вызов таймера( 100 - промежуток времени(в милисекундах), через который он будет вызыватся, timer - вызываемый паблик) 
 }
 
 //===============================================
