@@ -1,7 +1,9 @@
 #pragma comment(lib, "glut32.lib")
+#pragma comment(lib, "glaux.lib")
 #define _USE_MATH_DEFINES
 #define _CRT_SECURE_NO_WARNINGS
 #include "glut.h"
+#include "glaux.h"
 #include "Creature.h"
 #include "NeuroNet.h"
 #include <iostream>
@@ -16,13 +18,19 @@
 
 using namespace std;
 
+//Для отрисовки фона-------
+double DeltaX = 0.0;
+GLuint texture;
+//-------------------------
+
+
 double reward = 0.0;
 
 int cou = 0;
 const int WinWidth = 840;
 const int WinHeight = 500;
 
-double ground_height = 200.0;
+double ground_height = 40.0;
 
 const int EPOCH = 10;
 const double TRAIN_EPS = 0.001;
@@ -54,6 +62,9 @@ void CreatureInitializationFromFile();
 void glEnter2D(void);
 void glLeave2D(void);
 void glWrite(float x, float y, int *font, string s);
+
+void LoadTexture();
+void DrawBackground();
 
 //=====================
 
@@ -124,6 +135,8 @@ int main(int argc, char** ardv) {
 
 	glutDisplayFunc(Display);
 	glutTimerFunc(70, Timer, 0);
+
+	LoadTexture();
 
 	glutMainLoop(); // Запуск основного цикла OpenGL
 }
@@ -297,33 +310,73 @@ void CreatureInitializationFromFile() {
 	}
 }
 
+void DrawBackground() {
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, texture);
+
+	glBegin(GL_QUADS);
+	glTexCoord2f(DeltaX / WinWidth, 0.0); // от 0 до 1
+	glVertex2f(0, 0);
+
+	glTexCoord2f(1.0, 0.0); // от 0 до 1
+	glVertex2f(WinWidth - DeltaX, 0);
+
+	glTexCoord2f(1.0, 1.0); // от 0 до 1
+	glVertex2f(WinWidth - DeltaX, WinHeight);
+
+	glTexCoord2f(DeltaX / WinWidth, 1.0); // от 0 до 1
+	glVertex2f(0, WinHeight);
+	glEnd();
+
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0, 0.0); // от 0 до 1
+	glVertex2f(WinWidth - DeltaX, 0);
+
+	glTexCoord2f(DeltaX / WinWidth, 0.0); // от 0 до 1
+	glVertex2f(WinWidth, 0);
+
+	glTexCoord2f(DeltaX / WinWidth, 1.0); // от 0 до 1
+	glVertex2f(WinWidth, WinHeight);
+
+	glTexCoord2f(0.0, 1.0); // от 0 до 1
+	glVertex2f(WinWidth - DeltaX, WinHeight);
+	glEnd();
+
+	glDisable(GL_TEXTURE_2D);
+}
+
 void Draw() {
+	int tmp = monster.GetCenterOfGravity() / WinWidth;
+	DeltaX = monster.GetCenterOfGravity() - tmp*WinWidth;
+	DrawBackground();
+
+	DeltaX = monster.GetCurDeltaDistance();
 
 	// Вывофд информации
+	glColor3d(0.0, 0.0, 0.0);
 	glEnter2D();
 	string tmps = to_string(cou) + "  dist: " + to_string(monster.GetCurDeltaDistance());
-	glWrite(20, 20, (int*)GLUT_BITMAP_8_BY_13, tmps);
+	glWrite(20, WinHeight - 80, (int*)GLUT_BITMAP_8_BY_13, tmps);
 	string spos = "XPos: " + to_string(monster.GetCenterOfGravity()) + " YPos: " + to_string(monster.GetCenterOfGravityY());
-	glWrite(20, 40, (int*)GLUT_BITMAP_8_BY_13, spos);
-	//glLeave2D();
+	glWrite(20, WinHeight - 60, (int*)GLUT_BITMAP_8_BY_13, spos);
+	
 
 	vector<pair<int, int>> line_states = monster.GetCurLinesStates();
 	string sstates = "";
 	for (int i = 0; i < line_states.size(); ++i) {
 		sstates += to_string(line_states[i].first) + "/" + to_string(line_states[i].second - 1) + " ";
 	}
-	glWrite(20, 60, (int*)GLUT_BITMAP_8_BY_13, sstates);
+	glWrite(20, WinHeight - 40, (int*)GLUT_BITMAP_8_BY_13, sstates);
 
 	string rewstr = "Rew: " + to_string(reward);
-	glWrite(20, 80, (int*)GLUT_BITMAP_8_BY_13, rewstr);
+	glWrite(20, WinHeight - 20, (int*)GLUT_BITMAP_8_BY_13, rewstr);
 
 	glBegin(GL_LINES);
 	// ground
 	glColor3d(0.0, 1.0, 0.0);
 	glVertex2f(0.0, ground_height);
 	glVertex2f(WinWidth, ground_height);
-
-	
+		
 
 	double dx = 0.0;
 	vector<double> xx;
@@ -335,28 +388,31 @@ void Draw() {
 	}
 	sort(xx.begin(), xx.end());
 
-	if (xx[0] + 100 < 0) {
-		dx = fabs(xx[0] + 100);
-	}
-	else if (xx[xx.size() - 1] + 100 > WinWidth) {
-		dx = -xx[0];
-	}
+	//if (xx[0] + 100 < 0) {
+	//	dx = fabs(xx[0] + 100);
+	//}
+	//else if (xx[xx.size() - 1] + 100 > WinWidth) {
+	//	dx = -xx[0];
+	//}
 
 	// center of gravity
 	glColor3d(1.0, 0.0, 0.0);
 	double cg = monster.GetCenterOfGravity();
-	glVertex2f(cg + 100.0 + dx, ground_height);
-	glVertex2f(cg + 100.0 + dx, 200.0 + ground_height);
+	glVertex2f(cg + 100.0 + dx - DeltaX, ground_height);
+	glVertex2f(cg + 100.0 + dx - DeltaX, 200.0 + ground_height);
 
 	double cgy = monster.GetCenterOfGravityY();
-	glVertex2f(cg + 100.0 + dx - 10.0, cgy + ground_height);
-	glVertex2f(cg + 100.0 + dx + 10.0, cgy + ground_height);
-	glColor3d(1.0, 1.0, 1.0);
+	glVertex2f(cg + 100.0 + dx - 10.0 - DeltaX, cgy + ground_height);
+	glVertex2f(cg + 100.0 + dx + 10.0 - DeltaX, cgy + ground_height);
 
+	glColor3d(0.0, 0.0, 0.0);
+	//glLineWidth(5);
 	for (int i = 0; i < lines.size(); ++i) {
-		glVertex2d(lines[i].a.x + 100 + dx, lines[i].a.y + ground_height);
-		glVertex2d(lines[i].b.x + 100 + dx, lines[i].b.y + ground_height);
+		glVertex2d(lines[i].a.x + 100 + dx - DeltaX, lines[i].a.y + ground_height);
+		glVertex2d(lines[i].b.x + 100 + dx - DeltaX, lines[i].b.y + ground_height);
 	}
+	glColor3d(1.0, 1.0, 1.0);
+	//glLineWidth(1);
 	glEnd();
 }
 
@@ -485,4 +541,15 @@ void glWrite(float x, float y, int *font, string s) {
 	glRasterPos2f(x, y);
 	for (i = 0; i < s.length(); i++)
 		glutBitmapCharacter(font, s[i]);
+}
+
+//Для фона
+void LoadTexture() {
+	AUX_RGBImageRec *texture1 = auxDIBImageLoadA("3.bmp");
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, texture1->sizeX, texture1->sizeY,
+		0, GL_RGB, GL_UNSIGNED_BYTE, texture1->data);
 }
