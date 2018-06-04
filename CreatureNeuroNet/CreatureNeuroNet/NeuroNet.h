@@ -5,7 +5,7 @@
 #include <queue>
 using namespace std;
 
-const int NUM_TESTS = 200;
+const int NUM_TESTS = 20;
 
 struct Test {
 	Matrix2d inputs;

@@ -15,14 +15,17 @@
 #define FILENAME "Creature.txt"
 
 using namespace std;
+
+double reward = 0.0;
+
 int cou = 0;
 const int WinWidth = 840;
 const int WinHeight = 500;
 
 double ground_height = 200.0;
 
-const int EPOCH = 50;
-const double TRAIN_EPS = 0.01;
+const int EPOCH = 10;
+const double TRAIN_EPS = 0.001;
 const double QGAMMA = 0.9; // Коэффициент доверия
 Matrix2d Q;
 Matrix2d prevQ;
@@ -61,6 +64,7 @@ int main(int argc, char** ardv) {
 	srand(time(NULL));
 	//Инициализация существа
 	CreatureInitializationFromFile();
+	//CreatureInitialization();
 
 	vector<int> num_neurons = { NUM_HIDDEN_NEURONS, NUM_HIDDEN_NEURONS, monster.GetNumActions() };
 	vector<ActFuncTypes> aft = { TANH, TANH, LINE };
@@ -125,7 +129,7 @@ int main(int argc, char** ardv) {
 }
 
 void CreatureInitialization() {
-	/*vector<pair<double, double>> joints = {
+	vector<pair<double, double>> joints = {
 		make_pair(50.0, 150.0), make_pair(100.0, 150.0),
 		make_pair(50.0, 100.0), make_pair(100.0, 100.0),
 		make_pair(0.0, 50.0), make_pair(150.0, 50.0),
@@ -180,17 +184,18 @@ void CreatureInitialization() {
 		make_pair(0.0, 0.0)
 	};
 
-	vector<int> mvstates = { monster.GetNumStates() / 2,
-		monster.GetNumStates() / 2,
-		monster.GetNumStates() - 1,
-		0,
-		-1, -1, -1, -1, -1, -1,
-		monster.GetNumStates() / 2,
-		monster.GetNumStates() / 2,
-		monster.GetNumStates() - 1,
-		0,
+	vector<pair<int, int>> mvstates = { 
+		make_pair(9, 19),
+		make_pair(9, 19),
+		make_pair(9, 10),
+		make_pair(0, 10),
+		make_pair(-1, 0), make_pair(-1, 0), make_pair(-1, 0), make_pair(-1, 0), make_pair(-1, 0), make_pair(-1, 0),
+		make_pair(9, 19),
+		make_pair(9, 19),
+		make_pair(9, 19),
+		make_pair(0, 19),
 		// Голова
-		-1, -1, -1
+		make_pair(-1, 0), make_pair(-1, 0), make_pair(-1, 0)
 	};
 
 	vector<vector<int>> refs(16);
@@ -199,7 +204,9 @@ void CreatureInitialization() {
 	refs[10].push_back(12);
 	refs[11].push_back(13);
 
-	monster.InitCreature(joints, lines, mvlines, turnint, mvstates, refs);*/
+	monster.InitCreature(joints, lines, mvlines, turnint, mvstates, refs);
+	monster.SetFallUnitAngle(M_PI / 18.0);
+	monster.SetTurnUnitAngle(M_PI / 18.0);
 }
 
 void CreatureInitializationFromFile() {
@@ -296,7 +303,7 @@ void Draw() {
 	glEnter2D();
 	string tmps = to_string(cou) + "  dist: " + to_string(monster.GetCurDeltaDistance());
 	glWrite(20, 20, (int*)GLUT_BITMAP_8_BY_13, tmps);
-	string spos = "XPos: " + to_string(monster.GetCenterOfGravity());
+	string spos = "XPos: " + to_string(monster.GetCenterOfGravity()) + " YPos: " + to_string(monster.GetCenterOfGravityY());
 	glWrite(20, 40, (int*)GLUT_BITMAP_8_BY_13, spos);
 	//glLeave2D();
 
@@ -307,18 +314,16 @@ void Draw() {
 	}
 	glWrite(20, 60, (int*)GLUT_BITMAP_8_BY_13, sstates);
 
+	string rewstr = "Rew: " + to_string(reward);
+	glWrite(20, 80, (int*)GLUT_BITMAP_8_BY_13, rewstr);
+
 	glBegin(GL_LINES);
 	// ground
 	glColor3d(0.0, 1.0, 0.0);
 	glVertex2f(0.0, ground_height);
 	glVertex2f(WinWidth, ground_height);
 
-	// center of gravity
-	glColor3d(1.0, 0.0, 0.0);
-	double cg = monster.GetCenterOfGravity();
-	glVertex2f(cg + 100.0, ground_height);
-	glVertex2f(cg + 100.0, 200.0 + ground_height);
-	glColor3d(1.0, 1.0, 1.0);
+	
 
 	double dx = 0.0;
 	vector<double> xx;
@@ -336,6 +341,17 @@ void Draw() {
 	else if (xx[xx.size() - 1] + 100 > WinWidth) {
 		dx = -xx[0];
 	}
+
+	// center of gravity
+	glColor3d(1.0, 0.0, 0.0);
+	double cg = monster.GetCenterOfGravity();
+	glVertex2f(cg + 100.0 + dx, ground_height);
+	glVertex2f(cg + 100.0 + dx, 200.0 + ground_height);
+
+	double cgy = monster.GetCenterOfGravityY();
+	glVertex2f(cg + 100.0 + dx - 10.0, cgy + ground_height);
+	glVertex2f(cg + 100.0 + dx + 10.0, cgy + ground_height);
+	glColor3d(1.0, 1.0, 1.0);
 
 	for (int i = 0; i < lines.size(); ++i) {
 		glVertex2d(lines[i].a.x + 100 + dx, lines[i].a.y + ground_height);
@@ -364,10 +380,12 @@ void DoNextStep() {
 	prev_inputs = inputs;
 	SetInputs(inputs);
 	int action = -1;
-	//double reward = monster.GetCurDeltaDistance();
-	//prev_dist = monster.GetCurDeltaDistance();
-	double reward = monster.GetTraveledDistance();
-	prev_dist = reward;
+	reward = 0.0;
+	reward = prev_dist - monster.GetCurDeltaDistance() /*- 10.0 / monster.GetCenterOfGravityY()*/;
+	//reward = fabs(monster.GetCurDeltaDistance()) - monster.GetFalling()*10.0/* - 50.0/monster.GetCenterOfGravityY()*/;
+	prev_dist = monster.GetCurDeltaDistance();
+	//double reward = monster.GetTraveledDistance();
+	//prev_dist = reward;
 	cou++;
 
 	if (!firstStep) {
@@ -412,7 +430,7 @@ void DoNextStep() {
 	}
 
 	monster.UpdatePos(action);
-	if (fabs(prev_dist - monster.GetTraveledDistance()/*monster.GetCenterOfGravity()*/) < 1.0) {
+	if (fabs(prev_dist - /*monster.GetTraveledDistance()*/monster.GetCurDeltaDistance()) < 10.0) {
 		do {
 			action = monster.GetNumActions()*rand() / RAND_MAX;
 			if (monster.CanDoAction(action))
@@ -424,8 +442,8 @@ void DoNextStep() {
 	prevQ = Q;
 
 	//Вывод текущей информации
-	//cout << cou << "Current Delta Distance:  " << monster.GetCurDeltaDistance() << endl;
-	cout << cou << "Current Delta Distance:  " << (monster.GetTraveledDistance()) << endl;
+	cout << cou << "Current Delta Distance:  " << monster.GetCurDeltaDistance() << endl;
+	//cout << cou << "Current Delta Distance:  " << (monster.GetTraveledDistance()) << endl;
 
 	if (cou % 50 == 0) {
 		cout << "==================================================================================" << endl;

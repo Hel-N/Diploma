@@ -55,6 +55,19 @@ double Creature::GetCenterOfGravity() {
 	return res = sum_momets / sum_mass;
 }
 
+double Creature::GetCenterOfGravityY() {
+	double sum_momets = 0.0;
+	double sum_mass = 0.0;
+	double res = 0.0;
+
+	for (int i = 0; i < lines.size(); ++i) {
+		double cx = 1.0*(joints[lines[i].first].second + joints[lines[i].second].second) / 2; 
+		sum_mass += lines_length[i]; // lines_length[i] - длина отрезка, и т.к. 1 ед. длины = 1 ед. массы, то используем длину
+		sum_momets += cx*lines_length[i]; // плечо на массу
+	}
+	return res = sum_momets / sum_mass;
+}
+
 double Creature::GetCurDeltaDistance() {
 	double cx = GetCenterOfGravity();
 	return cx - start_pos;
@@ -184,6 +197,8 @@ void Creature::Falling() {
 	}
 
 	if (fall_flag != 0) {
+		falling = 10.0;
+
 		double angle_sign = 0.0;
 		if (fall_flag == 1) angle_sign = -1.0;
 		else angle_sign = 1.0;
@@ -225,6 +240,9 @@ void Creature::Falling() {
 				joints[i].second = joints[turn_point].second + d*sin(angle);
 			}
 		}
+	}
+	else {
+		falling = 0.0;
 	}
 
 }

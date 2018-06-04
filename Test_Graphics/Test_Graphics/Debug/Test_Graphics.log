@@ -1,13 +1,11 @@
 ﻿  Source.cpp
-c:\users\елена\documents\visual studio 2015\projects\diploma\test_graphics\test_graphics\source.cpp(69): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\test_graphics\test_graphics\source.cpp(70): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\test_graphics\test_graphics\source.cpp(82): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\test_graphics\test_graphics\source.cpp(83): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\test_graphics\test_graphics\source.cpp(149): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\test_graphics\test_graphics\source.cpp(161): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\test_graphics\test_graphics\source.cpp(201): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\test_graphics\test_graphics\source.cpp(213): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\test_graphics\test_graphics\source.cpp(228): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\test_graphics\test_graphics\source.cpp(57): warning C4715: 'getAngle': not all control paths return a value
+c:\users\елена\documents\visual studio 2015\projects\diploma\test_graphics\test_graphics\source.cpp(86): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\test_graphics\test_graphics\source.cpp(87): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\test_graphics\test_graphics\source.cpp(202): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\test_graphics\test_graphics\source.cpp(214): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\test_graphics\test_graphics\source.cpp(257): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\test_graphics\test_graphics\source.cpp(269): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\test_graphics\test_graphics\source.cpp(284): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\test_graphics\test_graphics\source.cpp(74): warning C4715: 'getAngle': not all control paths return a value
   Test_Graphics.vcxproj -> C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\Test_Graphics\Debug\Test_Graphics.exe
   Test_Graphics.vcxproj -> C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\Test_Graphics\Debug\Test_Graphics.pdb (Full PDB)

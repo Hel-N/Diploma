@@ -1,6 +1,8 @@
 #pragma comment(lib, "glut32.lib")
+#pragma comment(lib, "glaux.lib")
 #define _USE_MATH_DEFINES
 #include "glut.h"
+#include "glaux.h"
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -8,8 +10,8 @@
 
 using namespace std;
 
-int win_width = 640;
-int win_height = 480;
+int win_width = 1200;
+int win_height = 450;
 int win_far = 10;
 
 double l = 75;
@@ -18,6 +20,9 @@ double al = 0.0;
 double x = 0.0, y = 0.0;
 int steps = 10;
 
+double Dx = 1.0;
+double XX = 0.0;
+
 vector<pair<int, int>> points;
 vector<vector<pair<int, double>>> g; // v, l
 vector<int> supports; // точки опоры
@@ -25,6 +30,18 @@ int fl_fall = 0; // -1 - left, 0 - balance, 1 - right
 double alpha = 0.0;
 double d_alpha = 0.0;
 int os;
+
+GLuint texture;
+
+void LoadTexture() {
+	AUX_RGBImageRec *texture1 = auxDIBImageLoadA("3.bmp");
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, texture1->sizeX, texture1->sizeY, 
+		0, GL_RGB, GL_UNSIGNED_BYTE, texture1->data);
+}
 
 double getAngle(int x1, int y1, int x2, int y2) {   //         / x2,y2
 	double res = 0.0;								//        /
@@ -77,15 +94,51 @@ double getCenterOfGravity() {
 }
 
 void Draw() {
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	
+	glBegin(GL_QUADS);
+	glTexCoord2f(XX/win_width, 0.0); // от 0 до 1
+	glVertex2f(0, 0);
 
-	glBegin(GL_LINES);
-	for (int i = 0; i < g.size(); ++i) {
-		for (int j = 0; j < g[i].size(); ++j) {
-			glVertex2f(points[i].first, points[i].second);
-			glVertex2f(points[g[i][j].first].first, points[g[i][j].first].second);
-		}
-	}
+	glTexCoord2f(1.0, 0.0); // от 0 до 1
+	glVertex2f(win_width - XX, 0);
+
+	glTexCoord2f(1.0, 1.0); // от 0 до 1
+	glVertex2f(win_width - XX, win_height);
+
+	glTexCoord2f(XX / win_width, 1.0); // от 0 до 1
+	glVertex2f(0, win_height);
 	glEnd();
+
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0, 0.0); // от 0 до 1
+	glVertex2f(win_width - XX, 0);
+
+	glTexCoord2f(XX / win_width, 0.0); // от 0 до 1
+	glVertex2f(win_width, 0);
+
+	glTexCoord2f(XX / win_width, 1.0); // от 0 до 1
+	glVertex2f(win_width, win_height);
+
+	glTexCoord2f(0.0, 1.0); // от 0 до 1
+	glVertex2f(win_width - XX, win_height);
+	glEnd();
+
+	glDisable(GL_TEXTURE_2D);
+
+	XX += Dx;
+	int xxx = XX / win_width;
+	XX = XX - xxx*win_width;
+
+	//glBegin(GL_LINES);
+	//for (int i = 0; i < g.size(); ++i) {
+	//	for (int j = 0; j < g[i].size(); ++j) {
+	//		glVertex2f(points[i].first, points[i].second);
+	//		glVertex2f(points[g[i][j].first].first, points[g[i][j].first].second);
+	//	}
+	//}
+	//glEnd();
 
 	/*glColor3f(1.0, 1.0, 1.0);
 
@@ -177,6 +230,9 @@ void timer(int = 0) // “аймер игры(промежуток времени, в котором будет производи
 }
 
 int main(int argc, char** ardv) {
+	
+	//glEnable(GL_TEXTURE_2D);
+
 	// добавить проверку на наличие одинаковых координат
 	points.push_back({ 50, 150 });
 	points.push_back({ 100, 150 });
@@ -237,19 +293,22 @@ int main(int argc, char** ardv) {
 	
 
 	glutInit(&argc, ardv);
-	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 	glutInitWindowSize(win_width, win_height);
-	glutInitWindowPosition(20, 20);
+	//glutInitWindowPosition(20, 20);
 	glutCreateWindow("Test_1");
 	glClearColor(0, 0, 0, 1.0); // цвет очистки экрана RGBAlpha
 
 	glMatrixMode(GL_PROJECTION);//????
 	glLoadIdentity(); //????
 	gluOrtho2D(0, win_width, 0, win_height); // ќртогональна€ система координат (3D декартова система координат)
+	//glMatrixMode(GL_MODELVIEW);
 
 
 	glutDisplayFunc(Display);
 	glutTimerFunc(50, timer, 0);
+
+	LoadTexture();
 
 	glutMainLoop(); // «апуск основного цикла OpenGL
 	return 0;

@@ -15,6 +15,9 @@ private:
 	double start_pos = 0.0;
 	double start_max_x = 0.0;
 	double cur_delta_distance = 0.0;
+
+	double falling = 0.0;
+
 	vector<pair<double, double>> joints; // суставы (точки соединения)
 	vector<pair<int, int>> lines; // отрезки, из которых состоит модель (две точки и длина)
 	vector<double> lines_length;
@@ -46,8 +49,11 @@ public:
 
 	vector<Line> GetLines();
 	double GetCenterOfGravity();
+	double GetCenterOfGravityY();
 	double GetCurDeltaDistance();
 	double GetTraveledDistance();
+
+	double GetFalling() { return falling; }
 
 	void SetFallUnitAngle(double val) { fall_unit_angle = val; }
 	void SetTurnUnitAngle(double val) { turn_unit_angle = val; }
