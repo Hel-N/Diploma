@@ -14,19 +14,28 @@
 
 #define FILENAME "Creature.txt"
 
+ofstream fout("weights_and_biases.txt");
+ofstream cfout("current_creature.txt");
+
 using namespace std;
 
 double reward = 0.0;
 
-int cou = 0;
+int run_count = 8; //количество запусков модели
+int cur_running = 1; //текущий запуск
+
+int cur_tick = 0;
 const int WinWidth = 840;
 const int WinHeight = 500;
 
-double ground_height = 200.0;
+double ground_height = 150.0;
 
 const int EPOCH = 10;
 const double TRAIN_EPS = 0.001;
 const double QGAMMA = 0.9; // Коэффициент доверия
+
+const double TICK_COUNT = 10000;
+
 Matrix2d Q;
 Matrix2d prevQ;
 int prevAction;
@@ -41,7 +50,6 @@ Creature monster;
 NeuroNet nnet;
 
 queue<Test> tests;
-vector<vector<double>> best_res(1, vector<double>(1, 0.0));
 
 void Timer(int val = 0);
 void Draw();
@@ -57,59 +65,22 @@ void glWrite(float x, float y, int *font, string s);
 
 //=====================
 
+//Clear and Start-----------------------------
+void ClearAll();
+void StartInitialisation();
+//--------------------------------------------
+
+string GetRunningName(int running_num);
+
+double GetReward(int running_num);
+
 int main(int argc, char** ardv) {
 	freopen("input.txt", "r", stdin);
 	freopen("output.txt", "w", stdout);
 
 	srand(time(NULL));
-	//Инициализация существа
-	CreatureInitializationFromFile();
-	//CreatureInitialization();
 
-	vector<int> num_neurons = { NUM_HIDDEN_NEURONS, NUM_HIDDEN_NEURONS, monster.GetNumActions() };
-	vector<ActFuncTypes> aft = { TANH, TANH, LINE };
-	nnet = NeuroNet(monster.GetNumJoints(), NUM_HIDDEN_LAYERS, num_neurons, aft, monster.GetNumActions());
-
-	// Считывание весов и смещений
-	vector<Matrix2d> weights;
-	for (int i = 0; i < NUM_HIDDEN_LAYERS; ++i) {
-		Matrix2d _w;
-		if (i == 0)
-			_w = Matrix2d(monster.GetNumJoints(), num_neurons[i]);
-		else
-			_w = Matrix2d(num_neurons[i - 1], num_neurons[i]);
-		for (int j = 0; j < _w.GetNumRows(); ++j) {
-			for (int k = 0; k < _w.GetNumCols(); ++k) {
-				double tmp;
-				cin >> tmp;
-				_w(j, k) = tmp;
-			}
-		}
-		weights.push_back(_w);
-	}
-
-	vector<Matrix2d> biases;
-	for (int i = 0; i < NUM_HIDDEN_LAYERS; ++i) {
-		Matrix2d _b;
-
-		_b = Matrix2d(1, num_neurons[i]);
-		for (int j = 0; j < _b.GetNumRows(); ++j) {
-			for (int k = 0; k < _b.GetNumCols(); ++k) {
-				double tmp;
-				cin >> tmp;
-				_b(j, k) = tmp;
-			}
-		}
-		biases.push_back(_b);
-	}
-
-	//Установка весов и смещений---------------------------------------------------
-	//nnet.SetWeights(weights);
-	//nnet.SetBiases(biases);
-	//-------------------------------------------------------------------
-
-	int num_inp = 2 * monster.GetJoints().size();
-	inputs.resize(1, vector<double>(num_inp));
+	StartInitialisation();
 
 	glutInit(&argc, ardv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
@@ -118,9 +89,9 @@ int main(int argc, char** ardv) {
 	glutCreateWindow("Test_1");
 	glClearColor(0, 0, 0, 1.0); // цвет очистки экрана RGBAlpha
 
-	glMatrixMode(GL_PROJECTION);//????
-	glLoadIdentity(); //????
-	gluOrtho2D(0, WinWidth, 0, WinHeight); // Ортогональная система координат (3D декартова система координат)
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluOrtho2D(0, WinWidth, 0, WinHeight);
 
 	glutDisplayFunc(Display);
 	glutTimerFunc(70, Timer, 0);
@@ -184,7 +155,7 @@ void CreatureInitialization() {
 		make_pair(0.0, 0.0)
 	};
 
-	vector<pair<int, int>> mvstates = { 
+	vector<pair<int, int>> mvstates = {
 		make_pair(9, 19),
 		make_pair(9, 19),
 		make_pair(9, 10),
@@ -298,10 +269,13 @@ void CreatureInitializationFromFile() {
 }
 
 void Draw() {
-
+	//Номер запуска
+	string tmp_running = "Running number: " + to_string(cur_running) + " (" + GetRunningName(cur_running) + ")";
+	glWrite(20, WinHeight - 20, (int*)GLUT_BITMAP_8_BY_13, tmp_running);
+	
 	// Вывофд информации
 	glEnter2D();
-	string tmps = to_string(cou) + "  dist: " + to_string(monster.GetCurDeltaDistance());
+	string tmps = to_string(cur_tick) + "  dist: " + to_string(monster.GetCurDeltaDistance());
 	glWrite(20, 20, (int*)GLUT_BITMAP_8_BY_13, tmps);
 	string spos = "XPos: " + to_string(monster.GetCenterOfGravity()) + " YPos: " + to_string(monster.GetCenterOfGravityY());
 	glWrite(20, 40, (int*)GLUT_BITMAP_8_BY_13, spos);
@@ -323,7 +297,6 @@ void Draw() {
 	glVertex2f(0.0, ground_height);
 	glVertex2f(WinWidth, ground_height);
 
-	
 
 	double dx = 0.0;
 	vector<double> xx;
@@ -380,13 +353,13 @@ void DoNextStep() {
 	prev_inputs = inputs;
 	SetInputs(inputs);
 	int action = -1;
-	reward = 0.0;
-	reward = prev_dist - monster.GetCurDeltaDistance() /*- 10.0 / monster.GetCenterOfGravityY()*/;
+	reward = GetReward(cur_running);
+	//reward = fabs(monster.GetCurDeltaDistance()) - fabs(prev_dist) /*- 10.0 / monster.GetCenterOfGravityY()*/;
 	//reward = fabs(monster.GetCurDeltaDistance()) - monster.GetFalling()*10.0/* - 50.0/monster.GetCenterOfGravityY()*/;
 	prev_dist = monster.GetCurDeltaDistance();
 	//double reward = monster.GetTraveledDistance();
 	//prev_dist = reward;
-	cou++;
+	cur_tick++;
 
 	if (!firstStep) {
 
@@ -442,15 +415,16 @@ void DoNextStep() {
 	prevQ = Q;
 
 	//Вывод текущей информации
-	cout << cou << "Current Delta Distance:  " << monster.GetCurDeltaDistance() << endl;
+	cout << cur_tick << "  " << monster.GetCurDeltaDistance() << endl;
 	//cout << cou << "Current Delta Distance:  " << (monster.GetTraveledDistance()) << endl;
 
-	if (cou % 50 == 0) {
-		cout << "==================================================================================" << endl;
-		nnet.PrintWeightsAndBiases(false);
-		cout << "==================================================================================" << endl;
-		monster.PrintCreatureJoints();
-		cout << endl << endl;
+	if (cur_tick % 50 == 0) {
+		fout << "==================================================================================" << endl;
+		nnet.PrintWeightsAndBiases(fout, false);
+		fout << "==================================================================================" << endl;
+		fout << endl << endl;
+
+		monster.PrintCreatureJoints(cfout);
 	}
 }
 
@@ -458,7 +432,13 @@ void Timer(int val) // Таймер(промежуток времени, в котором будет производится в
 {
 	Display();
 	DoNextStep();
-	glutTimerFunc(50, Timer, 0); // новый вызов таймера( 100 - промежуток времени(в милисекундах), через который он будет вызыватся, timer - вызываемый паблик) 
+	if (cur_tick >= TICK_COUNT) {
+		cur_running++;
+		if (cur_running <= run_count) 
+			StartInitialisation();
+	}
+	if (cur_running <= run_count)
+		glutTimerFunc(50, Timer, 0); // новый вызов таймера( 100 - промежуток времени(в милисекундах), через который он будет вызыватся, timer - вызываемый паблик) 
 }
 
 //===============================================
@@ -485,4 +465,130 @@ void glWrite(float x, float y, int *font, string s) {
 	glRasterPos2f(x, y);
 	for (i = 0; i < s.length(); i++)
 		glutBitmapCharacter(font, s[i]);
+}
+
+//Clear and Start-----------------------------
+void ClearAll() {
+	reward = 0.0;
+	cur_tick = 0;
+	Q.Clear();
+	prevQ.Clear();
+	prevAction = -1;
+	firstStep = true;
+
+	prev_dist = 0.0;
+
+	inputs.clear();
+	prev_inputs.Clear();
+
+	monster.Clear();
+	nnet.Clear();
+
+	while (!tests.empty()) {
+		tests.pop();
+	}
+}
+
+void StartInitialisation() {
+	ClearAll();
+
+	fout << endl << cur_running << "_Running++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+	cout << endl << cur_running << "_Running++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+	cfout << endl << cur_running << "_Running++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+
+	//Инициализация существа
+	CreatureInitializationFromFile();
+	//CreatureInitialization();
+
+	vector<int> num_neurons = { NUM_HIDDEN_NEURONS, NUM_HIDDEN_NEURONS, monster.GetNumActions() };
+	vector<ActFuncTypes> aft = { TANH, TANH, LINE };
+	nnet = NeuroNet(monster.GetNumJoints(), NUM_HIDDEN_LAYERS, num_neurons, aft, monster.GetNumActions());
+
+	// Считывание весов и смещений
+	vector<Matrix2d> weights;
+	for (int i = 0; i < NUM_HIDDEN_LAYERS; ++i) {
+		Matrix2d _w;
+		if (i == 0)
+			_w = Matrix2d(monster.GetNumJoints(), num_neurons[i]);
+		else
+			_w = Matrix2d(num_neurons[i - 1], num_neurons[i]);
+		for (int j = 0; j < _w.GetNumRows(); ++j) {
+			for (int k = 0; k < _w.GetNumCols(); ++k) {
+				double tmp;
+				cin >> tmp;
+				_w(j, k) = tmp;
+			}
+		}
+		weights.push_back(_w);
+	}
+
+	vector<Matrix2d> biases;
+	for (int i = 0; i < NUM_HIDDEN_LAYERS; ++i) {
+		Matrix2d _b;
+
+		_b = Matrix2d(1, num_neurons[i]);
+		for (int j = 0; j < _b.GetNumRows(); ++j) {
+			for (int k = 0; k < _b.GetNumCols(); ++k) {
+				double tmp;
+				cin >> tmp;
+				_b(j, k) = tmp;
+			}
+		}
+		biases.push_back(_b);
+	}
+
+	//Установка весов и смещений---------------------------------------------------
+	nnet.SetWeights(weights);
+	nnet.SetBiases(biases);
+	//-------------------------------------------------------------------
+
+	int num_inp = 2 * monster.GetJoints().size();
+	inputs.resize(1, vector<double>(num_inp));
+}
+//--------------------------------------------
+
+string GetRunningName(int running_num) {
+	switch (running_num) {
+	case 1:
+		return "AllDistance";
+	case 2:
+		return "AllDistance + CGY";
+	case 3:
+		return "AllDistance + Falling";
+	case 4:
+		return "AllDistance + Falling + CGY";
+	case 5:
+		return "UnitDistance";
+	case 6:
+		return "UnitDistance + CGY";
+	case 7:
+		return "UnitDistance + Falling";
+	case 8:
+		return "UnitDistance + Falling + CGY";
+	default:
+		return "No name";
+	}
+}
+
+double GetReward(int running_num) {
+	switch (running_num) {
+	case 1:
+		return fabs(monster.GetCurDeltaDistance());
+	case 2:
+		return fabs(monster.GetCurDeltaDistance()) - 50.0 / monster.GetCenterOfGravityY();
+	case 3:
+		return fabs(monster.GetCurDeltaDistance()) - monster.GetFalling()*10.0;
+	case 4:
+		return fabs(monster.GetCurDeltaDistance()) - monster.GetFalling()*10.0 - 50.0 / monster.GetCenterOfGravityY();
+	case 5:
+		return fabs(monster.GetCurDeltaDistance()) - fabs(prev_dist);
+	case 6:
+		return fabs(monster.GetCurDeltaDistance()) - fabs(prev_dist) - 10.0 / monster.GetCenterOfGravityY();
+	case 7:
+		return fabs(monster.GetCurDeltaDistance()) - fabs(prev_dist) - monster.GetFalling();
+	case 8:
+		return fabs(monster.GetCurDeltaDistance()) - fabs(prev_dist) - monster.GetFalling() - 10.0 / monster.GetCenterOfGravityY();
+	default:
+		return 0.0;
+	}
 }

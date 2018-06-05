@@ -5,7 +5,8 @@
 #include <queue>
 using namespace std;
 
-const int NUM_TESTS = 20;
+const int TOTAL_TESTS_NUMBER = 10000;
+const int CUR_TESTS_NUMBER = 20;
 
 struct Test {
 	Matrix2d inputs;
@@ -43,6 +44,7 @@ public:
 	NeuroNet(int ninputs, int nlayers, vector<int> nlneurons, vector<ActFuncTypes> _aft, int noutputs);
 
 	void Init(int ninputs, int nlayers, vector<int> nlneurons, vector<ActFuncTypes> _aft, int noutputs, vector<Matrix2d> _biases, vector<Matrix2d> _weights);
+	void Clear();
 
 	void AddTest(queue<Test>& ts, vector<vector<double>> _in, vector<vector<double>> _out);
 	void AddTest(queue<Test>& ts, Matrix2d _in, Matrix2d _out);
@@ -58,7 +60,7 @@ public:
 	double NeuroNet::RMSLearningOffline(vector<Test> & tests);
 	double NeuroNet::RMSLearningOffline(queue<Test> tests);
 
-	void PrintWeightsAndBiases(bool print_null);
+	void PrintWeightsAndBiases(ostream& fout, bool print_null);
 
 	Matrix2d GetOutput();
 	void CalcDeltaAndGrad(Test& test);

@@ -37,6 +37,8 @@ public:
 					vector<pair<double, double>> _turnint, 
 					vector<pair<int, int>> states,
 					vector<vector<int>> _refs);
+	
+	void Clear();
 
 	//void SetGroundHeight(double y) { ground_height = y; };
 
@@ -68,13 +70,6 @@ public:
 	void Falling();
 	void UpdatePos(int action_num); // номер действия
 
-	void PrintCreatureJoints() {
-		cout << "--------------------------Creature Joints----------------------------" << endl;
-		for (int i = 0; i < joints.size(); ++i) {
-			cout <<  fixed <<setprecision(8) << joints[i].first << " " << fixed << setprecision(8) << joints[i].second << endl;
-		}
-		cout << "---------------------------------------------------------------------" << endl;
-
-	}
+	void PrintCreatureJoints(ostream& fout);
 
 };

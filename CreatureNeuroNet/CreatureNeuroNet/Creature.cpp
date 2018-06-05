@@ -31,6 +31,18 @@ void Creature::InitCreature(vector<pair<double, double>> _joints, vector<pair<in
 	}
 }
 
+void Creature::Clear() {
+	joints.clear();
+	lines.clear(); 
+	lines_length.clear();
+
+	movable_lines.clear(); 
+
+	turn_intervals.clear();  
+	states_mvlines.clear(); 
+	refs.clear();
+}
+
 vector<Line> Creature::GetLines() {
 	vector<Line> res;
 
@@ -366,4 +378,13 @@ void Creature::UpdatePos(int action_num) {
 
 	// Падение
 	Falling();
+}
+
+void Creature::PrintCreatureJoints(ostream& fout) {
+	fout << "--------------------------Creature Joints----------------------------" << endl;
+	for (int i = 0; i < joints.size(); ++i) {
+		fout << fixed << setprecision(8) << joints[i].first << " " << fixed << setprecision(8) << joints[i].second << endl;
+	}
+	fout << "---------------------------------------------------------------------" << endl;
+
 }

@@ -161,8 +161,10 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Creature.txt" />
+    <Text Include="current_creature.txt" />
     <Text Include="input.txt" />
     <Text Include="output.txt" />
+    <Text Include="weights_and_biases.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common.h" />

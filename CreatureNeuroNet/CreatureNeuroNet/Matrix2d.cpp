@@ -48,6 +48,12 @@ void Matrix2d::InitValue(double val) {
 		}
 	}
 }
+void Matrix2d::Clear() {
+	num_rows = 0;
+	num_cols = 0;
+	matrix.clear();
+	matrix.resize(0);
+}
 int Matrix2d::GetNumRows() const {
 	return num_rows;
 }

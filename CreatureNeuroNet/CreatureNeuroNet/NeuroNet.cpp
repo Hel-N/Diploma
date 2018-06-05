@@ -13,6 +13,7 @@ NeuroNet::NeuroNet() {
 	num_layers = 0;
 	num_outputs = 0;
 	layers.resize(0);
+	outputs = Matrix2d();
 }
 NeuroNet::NeuroNet(int ninputs, int nlayers, vector<int> nlneurons, vector<ActFuncTypes> _aft, int noutputs) {
 	num_inputs = ninputs;
@@ -53,18 +54,26 @@ void NeuroNet::Init(int ninputs, int nlayers, vector<int> nlneurons, vector<ActF
 	layers.push_back(Layer());
 	layers.back().Init(noutputs, nprevneurons, LINE, _bm, _wm);
 }
+void NeuroNet::Clear() {
+	num_inputs = 0;
+	num_layers = 0;
+	num_outputs = 0;
+	layers.clear();
+	layers.resize(0);
+	outputs.Clear();
+}
 void NeuroNet::AddTest(queue<Test>& ts, vector<vector<double>> _in, vector<vector<double>> _out) {
 	Matrix2d test_in;
 	Matrix2d test_out;
 	test_in = _in;
 	test_out = _out;
-	if (ts.size() >= NUM_TESTS)
+	if (ts.size() >= TOTAL_TESTS_NUMBER)
 		ts.pop();
 	Test new_test(test_in, test_out);
 	ts.push(new_test);
 }
 void NeuroNet::AddTest(queue<Test>& ts, Matrix2d _in, Matrix2d _out) {
-	if (ts.size() >= NUM_TESTS)
+	if (ts.size() >= TOTAL_TESTS_NUMBER)
 		ts.pop();
 	Test new_test(_in, _out);
 	ts.push(new_test);
@@ -100,7 +109,9 @@ double NeuroNet::RunningLearningOffline(vector<Test> & tests) {
 		_grad[i] = Matrix2d(layers[i].grad.GetNumRows(), layers[i].grad.GetNumCols());
 	}
 
-	for (int i = 0; i < tests.size(); ++i) {
+	random_shuffle(tests.begin(), tests.end());
+
+	for (int i = 0; i < min(CUR_TESTS_NUMBER, (int)tests.size()); ++i) {
 		Running(tests[i]);
 		CalcDeltaAndGrad(tests[i]);
 
@@ -204,7 +215,9 @@ double NeuroNet::RPropLearningOffline(vector<Test> & tests) {
 		layers[i].grad_sum.InitValue(0.0);
 	}
 
-	for (int i = 0; i < tests.size(); ++i) {
+	random_shuffle(tests.begin(), tests.end());
+
+	for (int i = 0; i < min(CUR_TESTS_NUMBER, (int)tests.size()); ++i) {
 		Running(tests[i]);
 		CalcDeltaAndGrad(tests[i]);
 
@@ -266,7 +279,9 @@ double NeuroNet::RMSLearningOffline(vector<Test> & tests)
 		layers[i].delta_sum.InitValue(0.0);
 	}
 
-	for (int i = 0; i < tests.size(); ++i)
+	random_shuffle(tests.begin(), tests.end());
+
+	for (int i = 0; i < min(CUR_TESTS_NUMBER, (int)tests.size()); ++i)
 	{
 		Running(tests[i]);
 		CalcDeltaAndGrad(tests[i]);
@@ -311,31 +326,31 @@ double NeuroNet::RMSLearningOffline(queue<Test> tests) {
 	return RMSLearningOffline(vtests);
 }
 
-void NeuroNet::PrintWeightsAndBiases(bool print_null) {
-	cout << "----------Weights------------" << endl;
+void NeuroNet::PrintWeightsAndBiases(ostream& fout, bool print_null) {
+	fout << "----------Weights------------" << endl;
 	for (int i = 1; i < layers.size() - 1; ++i) {
 		Matrix2d m = layers[i].weights.Transpose();
 		for (int j = 0; j < m.GetNumRows(); ++j) {
 			for (int k = 0; k < m.GetNumCols(); ++k) {
 				if (!print_null)
-					cout << fixed << setprecision(7) << m(j, k) << " ";
+					fout << fixed << setprecision(7) << m(j, k) << " ";
 				else
-					cout << fixed << setprecision(7) << 0.0 << " ";
+					fout << fixed << setprecision(7) << 0.0 << " ";
 			}
-			cout << endl;
+			fout << endl;
 		}
 	}
-	cout << "----------Biases------------" << endl;
+	fout << "----------Biases------------" << endl;
 	for (int i = 1; i < layers.size() - 1; ++i) {
 		Matrix2d m = layers[i].biases;
 		for (int j = 0; j < m.GetNumRows(); ++j) {
 			for (int k = 0; k < m.GetNumCols(); ++k) {
 				if (!print_null)
-					cout << fixed << setprecision(7) << m(j, k) << " ";
+					fout << fixed << setprecision(7) << m(j, k) << " ";
 				else
-					cout << fixed << setprecision(7) << 0.0 << " ";
+					fout << fixed << setprecision(7) << 0.0 << " ";
 			}
-			cout << endl;
+			fout << endl;
 		}
 	}
 }

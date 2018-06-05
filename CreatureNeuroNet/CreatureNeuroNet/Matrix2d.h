@@ -17,6 +17,8 @@ public:
 	void InitRandom(double minval, double maxval);
 	void InitValue(double val);
 
+	void Clear();
+
 	int GetNumRows() const;
 	int GetNumCols() const;
 
