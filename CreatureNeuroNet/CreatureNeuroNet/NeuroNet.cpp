@@ -311,31 +311,31 @@ double NeuroNet::RMSLearningOffline(queue<Test> tests) {
 	return RMSLearningOffline(vtests);
 }
 
-void NeuroNet::PrintWeightsAndBiases(bool print_null) {
-	cout << "----------Weights------------" << endl;
+void NeuroNet::PrintWeightsAndBiases(ostream& fout, bool print_null) {
+	fout << "----------Weights------------" << endl;
 	for (int i = 1; i < layers.size() - 1; ++i) {
 		Matrix2d m = layers[i].weights.Transpose();
 		for (int j = 0; j < m.GetNumRows(); ++j) {
 			for (int k = 0; k < m.GetNumCols(); ++k) {
 				if (!print_null)
-					cout << fixed << setprecision(7) << m(j, k) << " ";
+					fout << fixed << setprecision(7) << m(j, k) << " ";
 				else
-					cout << fixed << setprecision(7) << 0.0 << " ";
+					fout << fixed << setprecision(7) << 0.0 << " ";
 			}
-			cout << endl;
+			fout << endl;
 		}
 	}
-	cout << "----------Biases------------" << endl;
+	fout << "----------Biases------------" << endl;
 	for (int i = 1; i < layers.size() - 1; ++i) {
 		Matrix2d m = layers[i].biases;
 		for (int j = 0; j < m.GetNumRows(); ++j) {
 			for (int k = 0; k < m.GetNumCols(); ++k) {
 				if (!print_null)
-					cout << fixed << setprecision(7) << m(j, k) << " ";
+					fout << fixed << setprecision(7) << m(j, k) << " ";
 				else
-					cout << fixed << setprecision(7) << 0.0 << " ";
+					fout << fixed << setprecision(7) << 0.0 << " ";
 			}
-			cout << endl;
+			fout << endl;
 		}
 	}
 }

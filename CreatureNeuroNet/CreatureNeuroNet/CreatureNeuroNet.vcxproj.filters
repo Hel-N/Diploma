@@ -44,6 +44,9 @@
     <Text Include="Creature.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="weights_and_biases.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Creature.h">

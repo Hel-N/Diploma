@@ -16,6 +16,8 @@
 
 #define FILENAME "Creature.txt"
 
+ofstream fout("weights_and_biases.txt");
+
 using namespace std;
 
 //Для отрисовки фона-------
@@ -26,15 +28,17 @@ GLuint texture;
 
 double reward = 0.0;
 
-int cou = 0;
-const int WinWidth = 840;
-const int WinHeight = 500;
+int cur_tick = 0;
+const int WinWidth = 1200;
+const int WinHeight = 450;
 
 double ground_height = 40.0;
 
 const int EPOCH = 10;
 const double TRAIN_EPS = 0.001;
 const double QGAMMA = 0.9; // Коэффициент доверия
+const double TICK_COUNT = 10000;
+
 Matrix2d Q;
 Matrix2d prevQ;
 int prevAction;
@@ -115,8 +119,8 @@ int main(int argc, char** ardv) {
 	}
 
 	//Установка весов и смещений---------------------------------------------------
-	//nnet.SetWeights(weights);
-	//nnet.SetBiases(biases);
+	nnet.SetWeights(weights);
+	nnet.SetBiases(biases);
 	//-------------------------------------------------------------------
 
 	int num_inp = 2 * monster.GetJoints().size();
@@ -197,7 +201,7 @@ void CreatureInitialization() {
 		make_pair(0.0, 0.0)
 	};
 
-	vector<pair<int, int>> mvstates = { 
+	vector<pair<int, int>> mvstates = {
 		make_pair(9, 19),
 		make_pair(9, 19),
 		make_pair(9, 10),
@@ -355,11 +359,11 @@ void Draw() {
 	// Вывофд информации
 	glColor3d(0.0, 0.0, 0.0);
 	glEnter2D();
-	string tmps = to_string(cou) + "  dist: " + to_string(monster.GetCurDeltaDistance());
+	string tmps = to_string(cur_tick) + "  dist: " + to_string(monster.GetCurDeltaDistance());
 	glWrite(20, WinHeight - 80, (int*)GLUT_BITMAP_8_BY_13, tmps);
 	string spos = "XPos: " + to_string(monster.GetCenterOfGravity()) + " YPos: " + to_string(monster.GetCenterOfGravityY());
 	glWrite(20, WinHeight - 60, (int*)GLUT_BITMAP_8_BY_13, spos);
-	
+
 
 	vector<pair<int, int>> line_states = monster.GetCurLinesStates();
 	string sstates = "";
@@ -373,10 +377,10 @@ void Draw() {
 
 	glBegin(GL_LINES);
 	// ground
-	glColor3d(0.0, 1.0, 0.0);
+	glColor3d(0.02, 0.39, 0.176);
 	glVertex2f(0.0, ground_height);
 	glVertex2f(WinWidth, ground_height);
-		
+
 
 	double dx = 0.0;
 	vector<double> xx;
@@ -404,16 +408,31 @@ void Draw() {
 	double cgy = monster.GetCenterOfGravityY();
 	glVertex2f(cg + 100.0 + dx - 10.0 - DeltaX, cgy + ground_height);
 	glVertex2f(cg + 100.0 + dx + 10.0 - DeltaX, cgy + ground_height);
+	glEnd();
 
 	glColor3d(0.0, 0.0, 0.0);
-	//glLineWidth(5);
+	glEnable(GL_LINE_SMOOTH);
+	glLineWidth(2);
+	glBegin(GL_LINES);
 	for (int i = 0; i < lines.size(); ++i) {
 		glVertex2d(lines[i].a.x + 100 + dx - DeltaX, lines[i].a.y + ground_height);
 		glVertex2d(lines[i].b.x + 100 + dx - DeltaX, lines[i].b.y + ground_height);
 	}
-	glColor3d(1.0, 1.0, 1.0);
-	//glLineWidth(1);
 	glEnd();
+	glDisable(GL_LINE_SMOOTH);
+	glLineWidth(1);
+
+	glEnable(GL_POINT_SMOOTH);
+	glPointSize(7);
+	glBegin(GL_POINTS);
+	for (int i = 0; i < lines.size(); ++i) {
+		glVertex2d(lines[i].a.x + 100 + dx - DeltaX, lines[i].a.y + ground_height);
+		glVertex2d(lines[i].b.x + 100 + dx - DeltaX, lines[i].b.y + ground_height);
+	}
+	glEnd();
+	glPointSize(1);
+	glColor3d(1.0, 1.0, 1.0);
+	
 }
 
 void Display() {
@@ -437,12 +456,12 @@ void DoNextStep() {
 	SetInputs(inputs);
 	int action = -1;
 	reward = 0.0;
-	reward = prev_dist - monster.GetCurDeltaDistance() /*- 10.0 / monster.GetCenterOfGravityY()*/;
+	reward = fabs(prev_dist - monster.GetCurDeltaDistance()) /*- 10.0 / monster.GetCenterOfGravityY()*/;
 	//reward = fabs(monster.GetCurDeltaDistance()) - monster.GetFalling()*10.0/* - 50.0/monster.GetCenterOfGravityY()*/;
 	prev_dist = monster.GetCurDeltaDistance();
 	//double reward = monster.GetTraveledDistance();
 	//prev_dist = reward;
-	cou++;
+	cur_tick++;
 
 	if (!firstStep) {
 
@@ -498,23 +517,28 @@ void DoNextStep() {
 	prevQ = Q;
 
 	//Вывод текущей информации
-	cout << cou << "Current Delta Distance:  " << monster.GetCurDeltaDistance() << endl;
+	cout << cur_tick << "  " << monster.GetCurDeltaDistance() << endl;
 	//cout << cou << "Current Delta Distance:  " << (monster.GetTraveledDistance()) << endl;
 
-	if (cou % 50 == 0) {
-		cout << "==================================================================================" << endl;
-		nnet.PrintWeightsAndBiases(false);
-		cout << "==================================================================================" << endl;
-		monster.PrintCreatureJoints();
-		cout << endl << endl;
+	if (cur_tick % 50 == 0) {
+		fout << "==================================================================================" << endl;
+		nnet.PrintWeightsAndBiases(fout, false);
+		fout << "==================================================================================" << endl;
+		//monster.PrintCreatureJoints();
+		fout << endl << endl;
 	}
+
+	fflush(stdout);
+	fout.flush();
 }
 
 void Timer(int val) // Таймер(промежуток времени, в котором будет производится все процессы) 
 {
 	Display();
 	DoNextStep();
-	glutTimerFunc(50, Timer, 0); // новый вызов таймера( 100 - промежуток времени(в милисекундах), через который он будет вызыватся, timer - вызываемый паблик) 
+
+	if (cur_tick < TICK_COUNT)
+		glutTimerFunc(50, Timer, 0); // новый вызов таймера( 100 - промежуток времени(в милисекундах), через который он будет вызыватся, timer - вызываемый паблик) 
 }
 
 //===============================================
@@ -545,7 +569,7 @@ void glWrite(float x, float y, int *font, string s) {
 
 //Для фона
 void LoadTexture() {
-	AUX_RGBImageRec *texture1 = auxDIBImageLoadA("3.bmp");
+	AUX_RGBImageRec *texture1 = auxDIBImageLoadA("4.bmp");
 	glGenTextures(1, &texture);
 	glBindTexture(GL_TEXTURE_2D, texture);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);

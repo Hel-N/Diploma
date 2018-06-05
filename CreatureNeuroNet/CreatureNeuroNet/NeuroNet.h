@@ -58,7 +58,7 @@ public:
 	double NeuroNet::RMSLearningOffline(vector<Test> & tests);
 	double NeuroNet::RMSLearningOffline(queue<Test> tests);
 
-	void PrintWeightsAndBiases(bool print_null);
+	void PrintWeightsAndBiases(ostream& fout, bool print_null);
 
 	Matrix2d GetOutput();
 	void CalcDeltaAndGrad(Test& test);
