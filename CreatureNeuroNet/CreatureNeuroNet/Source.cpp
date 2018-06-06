@@ -119,8 +119,8 @@ int main(int argc, char** ardv) {
 	}
 
 	//Установка весов и смещений---------------------------------------------------
-	nnet.SetWeights(weights);
-	nnet.SetBiases(biases);
+	//nnet.SetWeights(weights);
+	//nnet.SetBiases(biases);
 	//-------------------------------------------------------------------
 
 	int num_inp = 2 * monster.GetJoints().size();
@@ -398,14 +398,17 @@ void Draw() {
 	//else if (xx[xx.size() - 1] + 100 > WinWidth) {
 	//	dx = -xx[0];
 	//}
+	glEnd();
 
-	// center of gravity
+	glLineWidth(2);
 	glColor3d(1.0, 0.0, 0.0);
-	double cg = monster.GetCenterOfGravity();
-	glVertex2f(cg + 100.0 + dx - DeltaX, ground_height);
-	glVertex2f(cg + 100.0 + dx - DeltaX, 200.0 + ground_height);
-
+	glBegin(GL_LINES);
+	// center of gravity
 	double cgy = monster.GetCenterOfGravityY();
+	double cg = monster.GetCenterOfGravity();
+	glVertex2f(cg + 100.0 + dx - DeltaX, cgy + ground_height - 10);
+	glVertex2f(cg + 100.0 + dx - DeltaX, cgy + ground_height + 10);
+
 	glVertex2f(cg + 100.0 + dx - 10.0 - DeltaX, cgy + ground_height);
 	glVertex2f(cg + 100.0 + dx + 10.0 - DeltaX, cgy + ground_height);
 	glEnd();
@@ -456,7 +459,7 @@ void DoNextStep() {
 	SetInputs(inputs);
 	int action = -1;
 	reward = 0.0;
-	reward = fabs(prev_dist - monster.GetCurDeltaDistance()) /*- 10.0 / monster.GetCenterOfGravityY()*/;
+	reward = fabs(fabs(prev_dist) - fabs(monster.GetCurDeltaDistance())) /*- 10.0 / monster.GetCenterOfGravityY()*/;
 	//reward = fabs(monster.GetCurDeltaDistance()) - monster.GetFalling()*10.0/* - 50.0/monster.GetCenterOfGravityY()*/;
 	prev_dist = monster.GetCurDeltaDistance();
 	//double reward = monster.GetTraveledDistance();
@@ -484,8 +487,8 @@ void DoNextStep() {
 			//	break;
 			//if (nnet.RPropLearningOffline(tests) < TRAIN_EPS) //Добавить расчет ошибки 
 			//	break;
-			if (nnet.RMSLearningOffline(tests) < TRAIN_EPS) //Добавить расчет ошибки 
-				break;
+			//if (nnet.RMSLearningOffline(tests) < TRAIN_EPS) //Добавить расчет ошибки 
+			//	break;
 		}
 
 	}
@@ -538,7 +541,7 @@ void Timer(int val) // Таймер(промежуток времени, в котором будет производится в
 	DoNextStep();
 
 	if (cur_tick < TICK_COUNT)
-		glutTimerFunc(50, Timer, 0); // новый вызов таймера( 100 - промежуток времени(в милисекундах), через который он будет вызыватся, timer - вызываемый паблик) 
+		glutTimerFunc(100, Timer, 0); // новый вызов таймера( 100 - промежуток времени(в милисекундах), через который он будет вызыватся, timer - вызываемый паблик) 
 }
 
 //===============================================
