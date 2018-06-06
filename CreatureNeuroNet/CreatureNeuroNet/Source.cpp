@@ -119,8 +119,8 @@ int main(int argc, char** ardv) {
 	}
 
 	//Установка весов и смещений---------------------------------------------------
-	//nnet.SetWeights(weights);
-	//nnet.SetBiases(biases);
+	nnet.SetWeights(weights);
+	nnet.SetBiases(biases);
 	//-------------------------------------------------------------------
 
 	int num_inp = 2 * monster.GetJoints().size();
@@ -487,8 +487,8 @@ void DoNextStep() {
 			//	break;
 			//if (nnet.RPropLearningOffline(tests) < TRAIN_EPS) //Добавить расчет ошибки 
 			//	break;
-			//if (nnet.RMSLearningOffline(tests) < TRAIN_EPS) //Добавить расчет ошибки 
-			//	break;
+			if (nnet.RMSLearningOffline(tests) < TRAIN_EPS) //Добавить расчет ошибки 
+				break;
 		}
 
 	}
@@ -508,7 +508,7 @@ void DoNextStep() {
 	}
 
 	monster.UpdatePos(action);
-	if (fabs(prev_dist - /*monster.GetTraveledDistance()*/monster.GetCurDeltaDistance()) < 10.0) {
+	if (fabs(prev_dist - /*monster.GetTraveledDistance()*/monster.GetCurDeltaDistance()) < 7.0) {
 		do {
 			action = monster.GetNumActions()*rand() / RAND_MAX;
 			if (monster.CanDoAction(action))
@@ -523,7 +523,7 @@ void DoNextStep() {
 	cout << cur_tick << "  " << monster.GetCurDeltaDistance() << endl;
 	//cout << cou << "Current Delta Distance:  " << (monster.GetTraveledDistance()) << endl;
 
-	if (cur_tick % 50 == 0) {
+	if (cur_tick % 100 == 0) {
 		fout << "==================================================================================" << endl;
 		nnet.PrintWeightsAndBiases(fout, false);
 		fout << "==================================================================================" << endl;
@@ -541,7 +541,7 @@ void Timer(int val) // Таймер(промежуток времени, в котором будет производится в
 	DoNextStep();
 
 	if (cur_tick < TICK_COUNT)
-		glutTimerFunc(100, Timer, 0); // новый вызов таймера( 100 - промежуток времени(в милисекундах), через который он будет вызыватся, timer - вызываемый паблик) 
+		glutTimerFunc(50, Timer, 0); // новый вызов таймера( 100 - промежуток времени(в милисекундах), через который он будет вызыватся, timer - вызываемый паблик) 
 }
 
 //===============================================

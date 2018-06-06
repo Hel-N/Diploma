@@ -14,9 +14,10 @@ Source.cpp(431): warning C4018: '<': signed/unsigned mismatch
 Source.cpp(451): warning C4018: '<': signed/unsigned mismatch
 Source.cpp(569): warning C4018: '<': signed/unsigned mismatch
   Generating code
-  87 of 1642 functions ( 5.3%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    12 functions had inline decision re-evaluated but remain unchanged
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\layer.cpp(194): warning C4715: 'Layer::CalcDiffs': not all control paths return a value
+  251 of 1777 functions (14.1%) were compiled, the rest were copied from previous compilation.
+    21 functions were new in current compilation
+    49 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   CreatureNeuroNet.vcxproj -> C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\CreatureNeuroNet\Release\CreatureNeuroNet.exe
   CreatureNeuroNet.vcxproj -> C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\CreatureNeuroNet\Release\CreatureNeuroNet.pdb (Full PDB)
