@@ -109,15 +109,14 @@ double NeuroNet::RunningLearningOffline(vector<Test> & tests) {
 		_grad[i] = Matrix2d(layers[i].grad.GetNumRows(), layers[i].grad.GetNumCols());
 	}
 
-	random_shuffle(tests.begin(), tests.end());
-
 	for (int i = 0; i < min(CUR_TESTS_NUMBER, (int)tests.size()); ++i) {
-		Running(tests[i]);
-		CalcDeltaAndGrad(tests[i]);
+		int pos = (tests.size() - 1)*(double)rand() / RAND_MAX;
+		Running(tests[pos]);
+		CalcDeltaAndGrad(tests[pos]);
 
-		for (int i = 1; i < layers.size() - 1; ++i) {
-			_delta[i] += layers[i].delta;
-			_grad[i] += layers[i].grad;
+		for (int j = 1; j < layers.size() - 1; ++j) {
+			_delta[j] += layers[j].delta;
+			_grad[j] += layers[j].grad;
 		}
 	}
 
@@ -214,16 +213,15 @@ double NeuroNet::RPropLearningOffline(vector<Test> & tests) {
 		layers[i].delta_sum.InitValue(0.0);
 		layers[i].grad_sum.InitValue(0.0);
 	}
-
-	random_shuffle(tests.begin(), tests.end());
-
+	
 	for (int i = 0; i < min(CUR_TESTS_NUMBER, (int)tests.size()); ++i) {
-		Running(tests[i]);
-		CalcDeltaAndGrad(tests[i]);
+		int pos = (tests.size() - 1)*(double)rand() / RAND_MAX;
+		Running(tests[pos]);
+		CalcDeltaAndGrad(tests[pos]);
 
-		for (int i = 1; i < layers.size() - 1; ++i) {
-			layers[i].delta_sum += layers[i].delta;
-			layers[i].grad_sum += layers[i].grad;
+		for (int j = 1; j < layers.size() - 1; ++j) {
+			layers[j].delta_sum += layers[j].delta;
+			layers[j].grad_sum += layers[j].grad;
 		}
 	}
 
@@ -279,16 +277,15 @@ double NeuroNet::RMSLearningOffline(vector<Test> & tests)
 		layers[i].delta_sum.InitValue(0.0);
 	}
 
-	random_shuffle(tests.begin(), tests.end());
-
 	for (int i = 0; i < min(CUR_TESTS_NUMBER, (int)tests.size()); ++i)
 	{
-		Running(tests[i]);
-		CalcDeltaAndGrad(tests[i]);
+		int pos = (tests.size() - 1)*(double)rand() / RAND_MAX;
+		Running(tests[pos]);
+		CalcDeltaAndGrad(tests[pos]);
 
-		for (int i = 1; i < layers.size() - 1; ++i) {
-			layers[i].delta_sum += layers[i].delta;
-			layers[i].grad_sum += layers[i].grad;
+		for (int j = 1; j < layers.size() - 1; ++j) {
+			layers[j].delta_sum += layers[j].delta;
+			layers[j].grad_sum += layers[j].grad;
 		}
 	}
 
