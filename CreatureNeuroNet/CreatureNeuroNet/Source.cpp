@@ -27,6 +27,9 @@ GLuint texture;
 
 
 double reward = 0.0;
+double prev_pos = 0.0;
+int side = 0.0;
+int change_side_count = 0;
 
 int cur_tick = 0;
 const int WinWidth = 1200;
@@ -307,6 +310,8 @@ void CreatureInitializationFromFile() {
 		monster.SetFallUnitAngle(fall_unit_angle);
 		monster.SetTurnUnitAngle(turn_unit_angle);
 
+		prev_pos = monster.GetCenterOfGravity();
+
 		fin.close();
 	}
 	else {
@@ -466,8 +471,29 @@ void DoNextStep() {
 	//prev_dist = reward;
 	cur_tick++;
 
-	if (!firstStep) {
+	double delta_rew_side = 0.0;
+	double cg = monster.GetCenterOfGravity();
 
+	if (side == 1) {
+		if ((cg - prev_dist) < 0) { 
+			//delta_rew_side = 5.0; 
+			change_side_count++;
+		}
+	}
+	else if(side == -1){
+		if ((cg - prev_dist) > 0) { 
+			//delta_rew_side = 5.0; 
+			change_side_count++;
+		}
+	}
+
+	reward -= 1000.0*(change_side_count / cur_tick);
+
+	prev_pos = monster.GetCenterOfGravity();
+
+	bool fl = false;
+	if (!firstStep) {
+		fl = true;
 		nnet.Running(inputs);
 		Q = nnet.GetOutput();
 
@@ -518,6 +544,15 @@ void DoNextStep() {
 	}
 	prevAction = action;
 	prevQ = Q;
+
+	if (side == 0) {
+		if (cg - prev_dist > 0) {
+			side = 1;
+		}
+		else {
+			side = -1;
+		}
+	}
 
 	//Вывод текущей информации
 	cout << cur_tick << "  " << monster.GetCurDeltaDistance() << endl;

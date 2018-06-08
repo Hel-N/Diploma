@@ -6,7 +6,7 @@
 using namespace std;
 
 const int TOTAL_TESTS_NUMBER = 10000;
-const int CUR_TESTS_NUMBER = 20;
+const int CUR_TESTS_NUMBER = 10;
 
 struct Test {
 	Matrix2d inputs;
@@ -56,8 +56,8 @@ public:
 	double RPropLearningOffline(vector<Test> & tests);
 	double RPropLearningOffline(queue<Test> tests);
 	void RMSPropagation();
-	double NeuroNet::RMSLearningOffline(vector<Test> & tests);
-	double NeuroNet::RMSLearningOffline(queue<Test> tests);
+	double RMSLearningOffline(vector<Test> & tests);
+	double RMSLearningOffline(queue<Test> tests);
 
 	void PrintWeightsAndBiases(ostream& fout, bool print_null);
 
