@@ -997,6 +997,7 @@ namespace MonstersCreator {
 		TabChooseTurnIntervals->Enabled = false;
 		TabChooseInitialStates->Enabled = false;
 		TabChooseConnections->Enabled = false;
+		TabSave->Enabled = false;
 
 		prev_selected_tab = CreationProcess->SelectedIndex;
 

@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <iomanip>
-#include <queue>
+#include <deque>
 #include "Matrix2d.h"
 #include "Layer.h"
 #include "NeuroNet.h"
@@ -53,21 +53,21 @@ void NeuroNet::Init(int ninputs, int nlayers, vector<int> nlneurons, vector<ActF
 	layers.push_back(Layer());
 	layers.back().Init(noutputs, nprevneurons, LINE, _bm, _wm);
 }
-void NeuroNet::AddTest(queue<Test>& ts, vector<vector<double>> _in, vector<vector<double>> _out) {
+void NeuroNet::AddTest(deque<Test>& ts, vector<vector<double>> _in, vector<vector<double>> _out) {
 	Matrix2d test_in;
 	Matrix2d test_out;
 	test_in = _in;
 	test_out = _out;
 	if (ts.size() >= TOTAL_TESTS_NUMBER)
-		ts.pop();
+		ts.pop_front();
 	Test new_test(test_in, test_out);
-	ts.push(new_test);
+	ts.push_back(new_test);
 }
-void NeuroNet::AddTest(queue<Test>& ts, Matrix2d _in, Matrix2d _out) {
+void NeuroNet::AddTest(deque<Test>& ts, Matrix2d _in, Matrix2d _out) {
 	if (ts.size() >= TOTAL_TESTS_NUMBER)
-		ts.pop();
+		ts.pop_front();
 	Test new_test(_in, _out);
-	ts.push(new_test);
+	ts.push_back(new_test);
 }
 void NeuroNet::Running(Test& test) {
 	int n = layers[0].states.GetNumRows();
@@ -91,7 +91,7 @@ void NeuroNet::Running(vector<vector<double>>& inputs) {
 	Running(new_test);
 }
 
-double NeuroNet::RunningLearningOffline(vector<Test> & tests) {
+double NeuroNet::RunningLearningOffline(deque<Test> & tests, vector<int>& tests_pos) {
 	vector<Matrix2d> _delta(layers.size());
 	vector<Matrix2d> _grad(layers.size());
 
@@ -100,9 +100,9 @@ double NeuroNet::RunningLearningOffline(vector<Test> & tests) {
 		_grad[i] = Matrix2d(layers[i].grad.GetNumRows(), layers[i].grad.GetNumCols());
 	}
 
-	for (int i = 0; i < tests.size(); ++i) {
-		Running(tests[i]);
-		CalcDeltaAndGrad(tests[i]);
+	for (int i = 0; i < tests_pos.size(); ++i) {
+		Running(tests[tests_pos[i]]);
+		CalcDeltaAndGrad(tests[tests_pos[i]]);
 
 		for (int j = 1; j < layers.size() - 1; ++j) {
 			_delta[j] += layers[j].delta;
@@ -133,15 +133,15 @@ double NeuroNet::RunningLearningOffline(vector<Test> & tests) {
 
 	return norm;
 }
-double NeuroNet::RunningLearningOffline(queue<Test> tests) {
-	vector<Test> vtests;
-	queue<Test> qt = tests;
-	while (!qt.empty()) {
-		vtests.push_back(qt.front());
-		qt.pop();
-	}
-	return RunningLearningOffline(vtests);
-}
+//double NeuroNet::RunningLearningOffline(queue<Test> tests) {
+//	vector<Test> vtests;
+//	queue<Test> qt = tests;
+//	while (!qt.empty()) {
+//		vtests.push_back(qt.front());
+//		qt.pop();
+//	}
+//	return RunningLearningOffline(vtests);
+//}
 
 void NeuroNet::ResilientPropagation() {
 	double EttaPlus = 1.2;
@@ -198,15 +198,15 @@ void NeuroNet::ResilientPropagation() {
 		}
 	}
 }
-double NeuroNet::RPropLearningOffline(vector<Test> & tests) {
+double NeuroNet::RPropLearningOffline(deque<Test> & tests, vector<int>& tests_pos) {
 	for (int i = 0; i < layers.size(); ++i) {
 		layers[i].delta_sum.InitValue(0.0);
 		layers[i].grad_sum.InitValue(0.0);
 	}
 
-	for (int i = 0; i < tests.size(); ++i) {
-		Running(tests[i]);
-		CalcDeltaAndGrad(tests[i]);
+	for (int i = 0; i < tests_pos.size(); ++i) {
+		Running(tests[tests_pos[i]]);
+		CalcDeltaAndGrad(tests[tests_pos[i]]);
 
 		for (int j = 1; j < layers.size() - 1; ++j) {
 			layers[j].delta_sum += layers[j].delta;
@@ -240,15 +240,15 @@ double NeuroNet::RPropLearningOffline(vector<Test> & tests) {
 
 	return err;
 }
-double NeuroNet::RPropLearningOffline(queue<Test> tests) {
-	vector<Test> vtests;
-	queue<Test> qt = tests;
-	while (!qt.empty()) {
-		vtests.push_back(qt.front());
-		qt.pop();
-	}
-	return RPropLearningOffline(vtests);
-}
+//double NeuroNet::RPropLearningOffline(queue<Test> tests) {
+//	vector<Test> vtests;
+//	queue<Test> qt = tests;
+//	while (!qt.empty()) {
+//		vtests.push_back(qt.front());
+//		qt.pop();
+//	}
+//	return RPropLearningOffline(vtests);
+//}
 
 void NeuroNet::RMSPropagation()
 {
@@ -258,7 +258,7 @@ void NeuroNet::RMSPropagation()
 		layers[i].biases -= (RMS_LEARN_RATE / (layers[i].rms_biases - layers[i].rmsn_biases.MultElByEl(layers[i].rmsn_biases) + RMS_EPS).Sqrt()).MultElByEl(layers[i].delta_sum);
 	}
 }
-double NeuroNet::RMSLearningOffline(vector<Test> & tests)
+double NeuroNet::RMSLearningOffline(deque<Test> & tests, vector<int>& tests_pos)
 {
 	for (int i = 0; i < layers.size(); ++i)
 	{
@@ -266,11 +266,10 @@ double NeuroNet::RMSLearningOffline(vector<Test> & tests)
 		layers[i].delta_sum.InitValue(0.0);
 	}
 
-	for (int i = 0; i < tests.size(); ++i)
+	for (int i = 0; i < tests_pos.size(); ++i)
 	{
-		int pos = (tests.size() - 1)*(double)rand() / RAND_MAX;
-		Running(tests[pos]);
-		CalcDeltaAndGrad(tests[pos]);
+		Running(tests[tests_pos[i]]);
+		CalcDeltaAndGrad(tests[tests_pos[i]]);
 
 		for (int j = 1; j < layers.size() - 1; ++j) {
 			layers[j].delta_sum += layers[j].delta;
@@ -302,15 +301,15 @@ double NeuroNet::RMSLearningOffline(vector<Test> & tests)
 
 	return err;
 }
-double NeuroNet::RMSLearningOffline(queue<Test> tests) {
-	vector<Test> vtests;
-	queue<Test> qt = tests;
-	while (!qt.empty()) {
-		vtests.push_back(qt.front());
-		qt.pop();
-	}
-	return RMSLearningOffline(vtests);
-}
+//double NeuroNet::RMSLearningOffline(queue<Test> tests) {
+//	vector<Test> vtests;
+//	queue<Test> qt = tests;
+//	while (!qt.empty()) {
+//		vtests.push_back(qt.front());
+//		qt.pop();
+//	}
+//	return RMSLearningOffline(vtests);
+//}
 
 void NeuroNet::PrintWeightsAndBiases(ostream& fout, bool print_null) {
 	fout << "----------Weights------------" << endl;

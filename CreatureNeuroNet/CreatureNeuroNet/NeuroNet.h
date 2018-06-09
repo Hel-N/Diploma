@@ -45,19 +45,19 @@ public:
 
 	void Init(int ninputs, int nlayers, vector<int> nlneurons, vector<ActFuncTypes> _aft, int noutputs, vector<Matrix2d> _biases, vector<Matrix2d> _weights);
 
-	void AddTest(queue<Test>& ts, vector<vector<double>> _in, vector<vector<double>> _out);
-	void AddTest(queue<Test>& ts, Matrix2d _in, Matrix2d _out);
+	void AddTest(deque<Test>& ts, vector<vector<double>> _in, vector<vector<double>> _out);
+	void AddTest(deque<Test>& ts, Matrix2d _in, Matrix2d _out);
 
 	void Running(Test& test);
 	void Running(vector<vector<double>>& inps);
-	double RunningLearningOffline(vector<Test> & tests);
-	double RunningLearningOffline(queue<Test> tests);
+	double RunningLearningOffline(deque<Test> & tests, vector<int>& tests_pos);
+	//double RunningLearningOffline(queue<Test> tests);
 	void ResilientPropagation();
-	double RPropLearningOffline(vector<Test> & tests);
-	double RPropLearningOffline(queue<Test> tests);
+	double RPropLearningOffline(deque<Test> & tests, vector<int>& tests_pos);
+	//double RPropLearningOffline(queue<Test> tests);
 	void RMSPropagation();
-	double RMSLearningOffline(vector<Test> & tests);
-	double RMSLearningOffline(queue<Test> tests);
+	double RMSLearningOffline(deque<Test> & tests, vector<int>& tests_pos);
+	//double RMSLearningOffline(queue<Test> tests);
 
 	void PrintWeightsAndBiases(ostream& fout, bool print_null);
 

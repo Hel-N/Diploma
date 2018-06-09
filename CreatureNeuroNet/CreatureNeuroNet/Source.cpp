@@ -9,7 +9,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <queue>
+#include <deque>
 #include <cmath>
 #include <string>
 #include <ctime>
@@ -55,7 +55,7 @@ Matrix2d prev_inputs;
 Creature monster;
 NeuroNet nnet;
 
-queue<Test> tests;
+deque<Test> tests;
 vector<vector<double>> best_res(1, vector<double>(1, 0.0));
 
 void Timer(int val = 0);
@@ -440,7 +440,7 @@ void Draw() {
 	glEnd();
 	glPointSize(1);
 	glColor3d(1.0, 1.0, 1.0);
-	
+
 }
 
 void Display() {
@@ -464,7 +464,8 @@ void DoNextStep() {
 	SetInputs(inputs);
 	int action = -1;
 	reward = 0.0;
-	reward = fabs(fabs(prev_dist) - fabs(monster.GetCurDeltaDistance())) /*- 10.0 / monster.GetCenterOfGravityY()*/;
+	reward = fabs(prev_dist - monster.GetCurDeltaDistance());
+	//reward = fabs(fabs(prev_dist) - fabs(monster.GetCurDeltaDistance())) /*- 10.0 / monster.GetCenterOfGravityY()*/;
 	//reward = fabs(monster.GetCurDeltaDistance()) - monster.GetFalling()*10.0/* - 50.0/monster.GetCenterOfGravityY()*/;
 	prev_dist = monster.GetCurDeltaDistance();
 	//double reward = monster.GetTraveledDistance();
@@ -475,13 +476,13 @@ void DoNextStep() {
 	double cg = monster.GetCenterOfGravity();
 
 	if (side == 1) {
-		if ((cg - prev_dist) < 0) { 
+		if ((cg - prev_dist) < 0) {
 			//delta_rew_side = 5.0; 
 			change_side_count++;
 		}
 	}
-	else if(side == -1){
-		if ((cg - prev_dist) > 0) { 
+	else if (side == -1) {
+		if ((cg - prev_dist) > 0) {
 			//delta_rew_side = 5.0; 
 			change_side_count++;
 		}
@@ -508,12 +509,17 @@ void DoNextStep() {
 
 		nnet.AddTest(tests, prev_inputs, Q);
 		int epoch = EPOCH;
+		vector<int> tests_pos;
+		for (int i = 0; i < CUR_TESTS_NUMBER; ++i) {
+			int pos = tests.size()*(double)rand() / RAND_MAX;
+			tests_pos.push_back(pos);
+		}
 		while (epoch--) {
 			//if (nnet.RunningLearningOffline(tests) == 0.0)
 			//	break;
 			//if (nnet.RPropLearningOffline(tests) < TRAIN_EPS) //Добавить расчет ошибки 
 			//	break;
-			if (nnet.RMSLearningOffline(tests) < TRAIN_EPS) //Добавить расчет ошибки 
+			if (nnet.RMSLearningOffline(tests, tests_pos) < TRAIN_EPS) //Добавить расчет ошибки 
 				break;
 		}
 
