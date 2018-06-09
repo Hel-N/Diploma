@@ -283,8 +283,8 @@ void Creature::CorrectPos(int line, int tdir) {
 
 	double dy = fabs(joints[nos].second);
 	double dx = 0.0;
-	double x1 = joints[os].first - sqrt(lines_length[mvline] * lines_length[mvline] - joints[os].second*joints[os].second);
-	double x2 = joints[os].first + sqrt(lines_length[mvline] * lines_length[mvline] - joints[os].second*joints[os].second);
+	double x1 = joints[os].first - sqrt(fabs(lines_length[mvline] * lines_length[mvline] - joints[os].second*joints[os].second));
+	double x2 = joints[os].first + sqrt(fabs(lines_length[mvline] * lines_length[mvline] - joints[os].second*joints[os].second));
 
 	if (tdir == 1) {
 		dx = fabs(max(x1, x2) - joints[nos].first);
@@ -306,8 +306,8 @@ void Creature::CorrectPos(int line, int tdir, int point) {
 	double dy = fabs(joints[point].second);
 	double dx = 0.0;
 	double dd = GetDistance(joints[os].first, joints[os].second, joints[point].first, joints[point].second);
-	double x1 = joints[os].first - sqrt(dd * dd - joints[os].second*joints[os].second);
-	double x2 = joints[os].first + sqrt(dd * dd - joints[os].second*joints[os].second);
+	double x1 = joints[os].first - sqrt(fabs(dd * dd - joints[os].second*joints[os].second));
+	double x2 = joints[os].first + sqrt(fabs(dd * dd - joints[os].second*joints[os].second));
 
 	if (tdir == 1) {
 		dx = fabs(max(x1, x2) - joints[point].first);
@@ -346,4 +346,17 @@ void Creature::UpdatePos(int action_num) {
 
 	// Падение
 	Falling();
+}
+
+double Creature::GetCenterOfGravityY() {
+	double sum_momets = 0.0;
+	double sum_mass = 0.0;
+	double res = 0.0;
+
+	for (int i = 0; i < lines.size(); ++i) {
+		double cx = 1.0*(joints[lines[i].first].second + joints[lines[i].second].second) / 2;
+		sum_mass += lines_length[i]; // lines_length[i] - длина отрезка, и т.к. 1 ед. длины = 1 ед. массы, то используем длину
+		sum_momets += cx*lines_length[i]; // плечо на массу
+	}
+	return res = sum_momets / sum_mass;
 }

@@ -70,4 +70,7 @@ public:
 
 	}
 
+
+	double GetCenterOfGravityY();
+
 };

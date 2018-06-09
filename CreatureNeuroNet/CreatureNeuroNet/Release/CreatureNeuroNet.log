@@ -1,4 +1,22 @@
-﻿  NeuroNet.cpp
+﻿  Creature.cpp
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\Creature.h(66): warning C4018: '<': signed/unsigned mismatch
+Creature.cpp(15): warning C4018: '<': signed/unsigned mismatch
+Creature.cpp(27): warning C4018: '<': signed/unsigned mismatch
+Creature.cpp(37): warning C4018: '<': signed/unsigned mismatch
+Creature.cpp(50): warning C4018: '<': signed/unsigned mismatch
+Creature.cpp(65): warning C4018: '<': signed/unsigned mismatch
+Creature.cpp(123): warning C4018: '<': signed/unsigned mismatch
+Creature.cpp(144): warning C4018: '<': signed/unsigned mismatch
+Creature.cpp(153): warning C4018: '<': signed/unsigned mismatch
+Creature.cpp(159): warning C4018: '<': signed/unsigned mismatch
+Creature.cpp(163): warning C4018: '<': signed/unsigned mismatch
+Creature.cpp(191): warning C4018: '<': signed/unsigned mismatch
+Creature.cpp(209): warning C4018: '<': signed/unsigned mismatch
+Creature.cpp(218): warning C4018: '<': signed/unsigned mismatch
+Creature.cpp(253): warning C4018: '<': signed/unsigned mismatch
+Creature.cpp(296): warning C4018: '<': signed/unsigned mismatch
+Creature.cpp(319): warning C4018: '<': signed/unsigned mismatch
+  NeuroNet.cpp
 NeuroNet.cpp(83): warning C4018: '<': signed/unsigned mismatch
 NeuroNet.cpp(99): warning C4018: '<': signed/unsigned mismatch
 NeuroNet.cpp(104): warning C4018: '<': signed/unsigned mismatch
@@ -25,10 +43,9 @@ Source.cpp(247): warning C4018: '<': signed/unsigned mismatch
 Source.cpp(264): warning C4018: '<': signed/unsigned mismatch
 Source.cpp(373): warning C4018: '<': signed/unsigned mismatch
   Generating code
-c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\layer.cpp(175): warning C4715: 'Layer::CalcDiffs': not all control paths return a value
-  403 of 1647 functions (24.5%) were compiled, the rest were copied from previous compilation.
-    33 functions were new in current compilation
-    92 functions had inline decision re-evaluated but remain unchanged
+  5 of 1647 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   CreatureNeuroNet.vcxproj -> C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\CreatureNeuroNet\Release\CreatureNeuroNet.exe
   CreatureNeuroNet.vcxproj -> C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\CreatureNeuroNet\Release\CreatureNeuroNet.pdb (Full PDB)

@@ -16,9 +16,11 @@ int cou = 0;
 const int WinWidth = 840;
 const int WinHeight = 500;
 
+double reward = 0.0;
+
 double ground_height = 200.0;
 
-const int EPOCH = 1;
+const int EPOCH = 5;
 const double TRAIN_EPS = 0.01;
 const double QGAMMA = 0.9; // Коэффициент доверия
 Matrix2d Q;
@@ -273,8 +275,10 @@ void DoNextStep() {
 	int action = -1;
 	//double reward = monster.GetCurDeltaDistance();
 	//prev_dist = monster.GetCurDeltaDistance();
-	double reward = monster.GetTraveledDistance();
-	prev_dist = reward;
+	//double reward = fabs(prev_dist - monster.GetCenterOfGravity());
+	//prev_dist = monster.GetCenterOfGravity();
+	reward = fabs(fabs(prev_dist) - fabs(monster.GetCurDeltaDistance()));
+	prev_dist = monster.GetCurDeltaDistance();
 	cou++;
 
 	if (!firstStep) {
@@ -296,8 +300,10 @@ void DoNextStep() {
 		while (epoch--) {
 			//if (nnet.RunningLearningOffline(tests) == 0.0)
 			//	break;
-			if (nnet.RPropLearningOffline(tests) < TRAIN_EPS) //Добавить расчет ошибки 
-				break;
+			//if (nnet.RPropLearningOffline(tests) < TRAIN_EPS) //Добавить расчет ошибки 
+			//	break;
+			//if (nnet.RMSLearningOffline(tests) < TRAIN_EPS) //Добавить расчет ошибки 
+			//	break;
 		}
 
 	}
@@ -345,7 +351,7 @@ void Timer(int val) // Таймер(промежуток времени, в котором будет производится в
 {
 	Display();
 	DoNextStep();
-	glutTimerFunc(100, Timer, 0); // новый вызов таймера( 100 - промежуток времени(в милисекундах), через который он будет вызыватся, timer - вызываемый паблик) 
+	glutTimerFunc(50, Timer, 0); // новый вызов таймера( 100 - промежуток времени(в милисекундах), через который он будет вызыватся, timer - вызываемый паблик) 
 }
 
 //===============================================

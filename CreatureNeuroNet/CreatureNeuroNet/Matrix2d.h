@@ -60,4 +60,9 @@ public:
 
 	Matrix2d operator / (const double val);		// Деление элементов матрицы на число
 	Matrix2d& operator /= (const double val);		// Деление элементов матрицы на число
+
+	Matrix2d Sqrt();
+	void InitValue(double val);
+
+	friend Matrix2d operator / (const double val, const Matrix2d& _m);
 };

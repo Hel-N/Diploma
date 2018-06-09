@@ -5,7 +5,12 @@
 #include <queue>
 using namespace std;
 
-const int NUM_TESTS = 200;
+const int NUM_TESTS = 10;
+
+//For RMS
+const double RMS_GAMMA = 0.95;
+const double RMS_LEARN_RATE = 0.001;
+const double RMS_EPS = 1e-8;
 
 struct Test {
 	Matrix2d inputs;
@@ -62,4 +67,9 @@ public:
 	void SetBiases(vector<Matrix2d> _b);
 
 	friend ostream& operator << (ostream& out, NeuroNet& _nnet);
+
+	void RMSPropagation();
+	double RMSLearningOffline(vector<Test> & tests);
+	double RMSLearningOffline(queue<Test> tests);
+
 };

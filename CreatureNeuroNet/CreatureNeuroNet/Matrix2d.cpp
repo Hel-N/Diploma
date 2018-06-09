@@ -97,7 +97,7 @@ Matrix2d Matrix2d::Transpose() const {
 	Matrix2d res(n, m);
 	for (int i = 0; i < n; ++i) {
 		for (int j = 0; j < m; ++j) {
-			res.at(i, j) = at(i, j);
+			res.at(i, j) = at(j, i);
 		}
 	}
 	return move(res);
@@ -320,4 +320,37 @@ Matrix2d Matrix2d::operator / (const double val) {
 	Matrix2d res = *this;
 	res /= val;
 	return move(res);
+}
+
+
+Matrix2d Matrix2d::Sqrt() {
+	Matrix2d res(num_rows, num_cols);
+	for (int i = 0; i < num_rows; ++i) {
+		for (int j = 0; j < num_cols; ++j) {
+			res.at(i, j) = sqrt(fabs(at(i, j)));
+		}
+	}
+
+	return move(res);
+}
+
+Matrix2d operator / (const double val, const Matrix2d& _m) {
+	Matrix2d res(_m.num_rows, _m.num_cols);
+	for (int i = 0; i < _m.num_rows; ++i) {
+		for (int j = 0; j < _m.num_cols; ++j) {
+			res.at(i, j) = val / _m.at(i, j);
+			if (isinf(res.at(i, j)) || isnan(res.at(i, j)))
+				res.at(i, j) = DBL_MAX;
+		}
+	}
+
+	return move(res);
+}
+
+void Matrix2d::InitValue(double val) {
+	for (int i = 0; i < num_rows; ++i) {
+		for (int j = 0; j < num_cols; ++j) {
+			at(i, j) = val;
+		}
+	}
 }

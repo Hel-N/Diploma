@@ -118,12 +118,12 @@ double NeuroNet::RunningLearningOffline(vector<Test> & tests) {
 		norm += _grad[i].SumAllSqr();
 	}
 
-	if (norm == 0.0) {
+	if (fabs(norm) <= 1e-7) {
 		return 0.0;
 	}
 
 	// Нормировка градиентов
-	norm = sqrt(norm);
+	norm = sqrt(fabs(norm));
 
 	for (int i = 1; i < layers.size() - 1; ++i) {
 		_delta[i] /= norm;
@@ -316,4 +316,67 @@ ostream& operator << (ostream& out, NeuroNet& _nnet) {
 		out << fixed << setprecision(6) << _nnet.outputs.at(0, i) << " ";
 	}
 	return out;
+}
+
+
+void NeuroNet::RMSPropagation()
+{
+	for (int i = 1; i < layers.size() - 1; ++i)
+	{
+		layers[i].weights -= (RMS_LEARN_RATE / (layers[i].rms - layers[i].rmsn.MultElByEl(layers[i].rmsn) + RMS_EPS).Sqrt()).MultElByEl(layers[i].grad_sum);
+		layers[i].biases -= (RMS_LEARN_RATE / (layers[i].rms_biases - layers[i].rmsn_biases.MultElByEl(layers[i].rmsn_biases) + RMS_EPS).Sqrt()).MultElByEl(layers[i].delta_sum);
+	}
+}
+double NeuroNet::RMSLearningOffline(vector<Test> & tests)
+{
+	for (int i = 0; i < layers.size(); ++i)
+	{
+		layers[i].grad_sum.InitValue(0.0);
+		layers[i].delta_sum.InitValue(0.0);
+	}
+
+	for (int i = 0; i < tests.size(); ++i)
+	{
+		int pos = (tests.size() - 1)*(double)rand() / RAND_MAX;
+		Running(tests[pos]);
+		CalcDeltaAndGrad(tests[pos]);
+
+		for (int j = 1; j < layers.size() - 1; ++j) {
+			layers[j].delta_sum += layers[j].delta;
+			layers[j].grad_sum += layers[j].grad;
+		}
+	}
+
+	for (int i = 1; i < layers.size() - 1; ++i)
+	{
+		layers[i].rms = layers[i].rms * RMS_GAMMA + layers[i].grad_sum.MultElByEl(layers[i].grad_sum) * (1.0 - RMS_GAMMA);
+		layers[i].rms_biases = layers[i].rms_biases * RMS_GAMMA + layers[i].delta_sum.MultElByEl(layers[i].delta_sum) * (1.0 - RMS_GAMMA);
+		layers[i].rmsn = layers[i].rmsn * RMS_GAMMA + layers[i].grad_sum * (1.0 - RMS_GAMMA);
+		layers[i].rmsn_biases = layers[i].rmsn_biases * RMS_GAMMA + layers[i].delta_sum * (1.0 - RMS_GAMMA);
+	}
+
+	RMSPropagation();
+
+	for (int i = 0; i < layers.size(); ++i)
+	{
+		layers[i].prev_grad_sum = layers[i].grad_sum;
+		layers[i].prev_delta_sum = layers[i].delta_sum;
+	}
+
+	double err = 0.0;
+	for (int i = 0; i < tests.size(); ++i) {
+		Running(tests[i]);
+		err += CalcError(tests[i]);
+	}
+
+	return err;
+}
+double NeuroNet::RMSLearningOffline(queue<Test> tests) {
+	vector<Test> vtests;
+	queue<Test> qt = tests;
+	while (!qt.empty()) {
+		vtests.push_back(qt.front());
+		qt.pop();
+	}
+	return RMSLearningOffline(vtests);
 }
