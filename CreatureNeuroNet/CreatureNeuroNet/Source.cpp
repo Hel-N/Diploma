@@ -86,21 +86,21 @@ int main(int argc, char** ardv) {
 
 	vector<int> num_neurons = { NUM_HIDDEN_NEURONS, NUM_HIDDEN_NEURONS, monster.GetNumActions() };
 	vector<ActFuncTypes> aft = { TANH, TANH, LINE };
-	nnet = NeuroNet(monster.GetNumJoints(), NUM_HIDDEN_LAYERS, num_neurons, aft, monster.GetNumActions());
+	nnet = NeuroNet(2*monster.GetNumJoints(), NUM_HIDDEN_LAYERS, num_neurons, aft, monster.GetNumActions());
 
 	// —читывание весов и смещений
 	vector<Matrix2d> weights;
 	for (int i = 0; i < NUM_HIDDEN_LAYERS; ++i) {
 		Matrix2d _w;
 		if (i == 0)
-			_w = Matrix2d(monster.GetNumJoints(), num_neurons[i]);
+			_w = Matrix2d(2*monster.GetNumJoints(), num_neurons[i]);
 		else
 			_w = Matrix2d(num_neurons[i - 1], num_neurons[i]);
 		for (int j = 0; j < _w.GetNumRows(); ++j) {
 			for (int k = 0; k < _w.GetNumCols(); ++k) {
 				double tmp;
 				cin >> tmp;
-				_w(j, k) = tmp;
+				_w.at(j, k) = tmp;
 			}
 		}
 		weights.push_back(_w);
@@ -115,15 +115,15 @@ int main(int argc, char** ardv) {
 			for (int k = 0; k < _b.GetNumCols(); ++k) {
 				double tmp;
 				cin >> tmp;
-				_b(j, k) = tmp;
+				_b.at(j, k) = tmp;
 			}
 		}
 		biases.push_back(_b);
 	}
 
 	//”становка весов и смещений---------------------------------------------------
-	nnet.SetWeights(weights);
-	nnet.SetBiases(biases);
+	//nnet.SetWeights(weights);
+	//nnet.SetBiases(biases);
 	//-------------------------------------------------------------------
 
 	int num_inp = 2 * monster.GetJoints().size();
@@ -500,12 +500,12 @@ void DoNextStep() {
 
 		double tmpQ = -DBL_MAX;
 		for (int i = 0; i < Q.GetNumCols(); ++i) {
-			if (tmpQ < Q(0, i) && monster.CanDoAction(i)) {
-				tmpQ = Q(0, i);
+			if (tmpQ < Q.at(0, i) && monster.CanDoAction(i)) {
+				tmpQ = Q.at(0, i);
 				action = i;
 			}
 		}
-		Q(0, prevAction) = reward + QGAMMA*tmpQ;
+		Q.at(0, prevAction) = reward + QGAMMA*tmpQ;
 
 		nnet.AddTest(tests, prev_inputs, Q);
 		int epoch = EPOCH;
@@ -530,8 +530,8 @@ void DoNextStep() {
 
 		double tmpQ = -DBL_MAX;
 		for (int i = 0; i < Q.GetNumCols(); ++i) {
-			if ((tmpQ < Q(0, i)) && monster.CanDoAction(i)) {
-				tmpQ = Q(0, i);
+			if ((tmpQ < Q.at(0, i)) && monster.CanDoAction(i)) {
+				tmpQ = Q.at(0, i);
 				action = i;
 			}
 		}

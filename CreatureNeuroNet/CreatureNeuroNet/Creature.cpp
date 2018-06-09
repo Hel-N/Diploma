@@ -303,8 +303,8 @@ void Creature::CorrectPos(int line, int tdir) {
 
 	double dy = fabs(joints[nos].second);
 	double dx = 0.0;
-	double x1 = joints[os].first - sqrt(lines_length[mvline] * lines_length[mvline] - joints[os].second*joints[os].second);
-	double x2 = joints[os].first + sqrt(lines_length[mvline] * lines_length[mvline] - joints[os].second*joints[os].second);
+	double x1 = joints[os].first - sqrt(fabs(lines_length[mvline] * lines_length[mvline] - joints[os].second*joints[os].second));
+	double x2 = joints[os].first + sqrt(fabs(lines_length[mvline] * lines_length[mvline] - joints[os].second*joints[os].second));
 
 	if (tdir == 1) {
 		dx = fabs(max(x1, x2) - joints[nos].first);
@@ -326,8 +326,8 @@ void Creature::CorrectPos(int line, int tdir, int point) {
 	double dy = fabs(joints[point].second);
 	double dx = 0.0;
 	double dd = GetDistance(joints[os].first, joints[os].second, joints[point].first, joints[point].second);
-	double x1 = joints[os].first - sqrt(dd * dd - joints[os].second*joints[os].second);
-	double x2 = joints[os].first + sqrt(dd * dd - joints[os].second*joints[os].second);
+	double x1 = joints[os].first - sqrt(fabs(dd * dd - joints[os].second*joints[os].second));
+	double x2 = joints[os].first + sqrt(fabs(dd * dd - joints[os].second*joints[os].second));
 
 	if (tdir == 1) {
 		dx = fabs(max(x1, x2) - joints[point].first);

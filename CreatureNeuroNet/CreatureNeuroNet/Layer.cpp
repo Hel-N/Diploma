@@ -11,10 +11,10 @@ Matrix2d Layer::sgmd_func(Matrix2d& _states) {
 	Matrix2d res(n, m);
 	for (int i = 0; i < n; ++i) {
 		for (int j = 0; j < m; ++j) {
-			if (_states(i, j) < (-1.0 * 35))
-				res(i, j) = 1e-12;
+			if (_states.at(i, j) < (-1.0 * 35))
+				res.at(i, j) = 1e-12;
 			else
-				res(i, j) = 1.0 / (1.0 + exp(-_states(i, j)));
+				res.at(i, j) = 1.0 / (1.0 + exp(-_states.at(i, j)));
 		}
 	}
 	return res;
@@ -26,7 +26,7 @@ Matrix2d Layer::tanh_func(Matrix2d& _states) {
 	Matrix2d res(n, m);
 	for (int i = 0; i < n; ++i) {
 		for (int j = 0; j < m; ++j) {
-			res(i, j) = tanh(_states(i, j));
+			res.at(i, j) = tanh(_states.at(i, j));
 		}
 	}
 	return res;
@@ -37,7 +37,7 @@ Matrix2d Layer::diff_sgmd_func(Matrix2d& _axons) {
 	Matrix2d res(n, m);
 	for (int i = 0; i < n; ++i) {
 		for (int j = 0; j < m; ++j) {
-			res(i, j) = (1.0 - _axons(i, j)) * _axons(i, j);
+			res.at(i, j) = (1.0 - _axons.at(i, j)) * _axons.at(i, j);
 		}
 	}
 	return res;
@@ -48,7 +48,7 @@ Matrix2d Layer::diff_tanh_func(Matrix2d& _axons) {
 	Matrix2d res(n, m);
 	for (int i = 0; i < n; ++i) {
 		for (int j = 0; j < m; ++j) {
-			res(i, j) = (1.0 - _axons(i, j) * _axons(i, j));
+			res.at(i, j) = (1.0 - _axons.at(i, j) * _axons.at(i, j));
 		}
 	}
 	return res;
