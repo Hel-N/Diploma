@@ -13,13 +13,48 @@
 #include <cmath>
 #include <string>
 #include <ctime>
+#include <direct.h>
 
-#define FILENAME "Creature.txt"
+std::string res_dir_str = "Res\\";
+std::string wb_finame_end = "_weights_and_biases.txt";
+std::string curcr_finame_end = "_cur_creature.txt";
+std::string dist_finame_end = "_dist.txt";
 
-ofstream fout("weights_and_biases.txt");
-ofstream cfout("cur_creature.txt");
+std::string nnets_dir_str = "NNets\\";
+std::string creatures_dir_str = "Creatures\\";
+std::string nnet_finame_end = "_nnet.txt";
+std::string creature_finame_end = "_creature.txt";
+
+//#define FILENAME "Creature.txt"
+
+ofstream fout;//("weights_and_biases.txt");
+ofstream cfout;//("cur_creature.txt");
+ofstream logout("log.txt");
 
 using namespace std;
+
+//NNet Config------------------------------------------------------
+string nnet_name = "";
+string creature_name = "";
+int NUM_HIDDEN_LAYERS = 3;
+int NUM_HIDDEN_NEURONS = 100;
+ActFuncTypes ACT_FUNC = TANH;
+int TOTAL_TESTS_NUMBER = 10000;
+int CUR_TESTS_NUMBER = 20;
+int EPOCH = 10;
+TrainingTypes TRAINING_TYPE = RMS;
+
+//For RMS
+double RMS_GAMMA = 0.95;
+double RMS_LEARN_RATE = 0.001;
+double RMS_EPS = 1e-8;
+
+double QGAMMA = 0.9; // Коэффициент доверия
+double TICK_COUNT = 10000;
+double TRAIN_EPS = 0.001;
+
+double LearningRate = 0.01;
+//-----------------------------------------------------------------
 
 //Для отрисовки фона-------
 double DeltaX = 0.0;
@@ -37,11 +72,6 @@ const int WinWidth = 1200;
 const int WinHeight = 450;
 
 double ground_height = 40.0;
-
-const int EPOCH = 10;
-const double TRAIN_EPS = 0.001;
-const double QGAMMA = 0.9; // Коэффициент доверия
-const double TICK_COUNT = 10000;
 
 Matrix2d Q;
 Matrix2d prevQ;
@@ -64,7 +94,8 @@ void Draw();
 void Display();
 void DoNextStep();
 void CreatureInitialization();
-void CreatureInitializationFromFile();
+void CreatureInitializationFromFile(string filename);
+void NNetInitializationFromFile(string filename);
 
 //=====================
 void glEnter2D(void);
@@ -77,22 +108,38 @@ void DrawBackground();
 //=====================
 
 int main(int argc, char** ardv) {
-	freopen("input.txt", "r", stdin);
-	freopen("output.txt", "w", stdout);
+	//freopen("input.txt", "r", stdin);
+	//freopen("output.txt", "w", stdout);
 
 	ios::sync_with_stdio(false);
-
 	srand(time(NULL));
+
+	for (int i = 0; i < argc; ++i) {
+		logout << ardv[i] << endl;
+	}
+
+	nnet_name = ardv[1];
+	string nnfilename = nnets_dir_str + nnet_name + nnet_finame_end;
+	NNetInitializationFromFile(nnfilename);
+
 	//Инициализация существа
-	CreatureInitializationFromFile();
+	string crfilename = creatures_dir_str + creature_name + creature_finame_end;
+	CreatureInitializationFromFile(crfilename);
 	//CreatureInitialization();
 
+	string dirname = res_dir_str + nnet_name;
+	_mkdir(dirname.c_str());
+	fout.open(dirname + "\\" + nnet_name + wb_finame_end);
+	cfout.open(dirname + "\\" + nnet_name + curcr_finame_end);
+	string resdistfname = dirname + "\\" + nnet_name + dist_finame_end;
+	freopen(resdistfname.c_str(), "w", stdout);
+
 	vector<int> num_neurons = { NUM_HIDDEN_NEURONS, NUM_HIDDEN_NEURONS, monster.GetNumActions() };
-	vector<ActFuncTypes> aft = { TANH, TANH, LINE };
-	nnet = NeuroNet(2*monster.GetNumJoints(), NUM_HIDDEN_LAYERS, num_neurons, aft, monster.GetNumActions());
+	vector<ActFuncTypes> aft = { ACT_FUNC, ACT_FUNC, LINE };
+	nnet = NeuroNet(2 * monster.GetNumJoints(), NUM_HIDDEN_LAYERS + 1, num_neurons, aft, monster.GetNumActions());
 
 	// Считывание весов и смещений
-	vector<Matrix2d> weights;
+	/*vector<Matrix2d> weights;
 	for (int i = 0; i < NUM_HIDDEN_LAYERS; ++i) {
 		Matrix2d _w;
 		if (i == 0)
@@ -122,7 +169,7 @@ int main(int argc, char** ardv) {
 			}
 		}
 		biases.push_back(_b);
-	}
+	}*/
 
 	//Установка весов и смещений---------------------------------------------------
 	//nnet.SetWeights(weights);
@@ -138,7 +185,7 @@ int main(int argc, char** ardv) {
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 	glutInitWindowSize(WinWidth, WinHeight);
 	glutInitWindowPosition(20, 20);
-	glutCreateWindow("Test_1");
+	glutCreateWindow(nnet_name.c_str());
 	glClearColor(0, 0, 0, 1.0); // цвет очистки экрана RGBAlpha
 
 	glMatrixMode(GL_PROJECTION);//????
@@ -234,8 +281,8 @@ void CreatureInitialization() {
 	monster.SetTurnUnitAngle(M_PI / 18.0);
 }
 
-void CreatureInitializationFromFile() {
-	ifstream fin(FILENAME);
+void CreatureInitializationFromFile(string filename) {
+	ifstream fin(filename);
 	if (fin.is_open()) {
 		vector<pair<double, double>> joints;
 		string s;
@@ -320,6 +367,96 @@ void CreatureInitializationFromFile() {
 		fin.close();
 	}
 	else {
+		logout << "CreatureInitializationFromFile" << endl;
+		exit(0);
+	}
+}
+
+void NNetInitializationFromFile(string filename) {
+	ifstream fin(filename);
+	if (fin.is_open()) {
+		while (!fin.eof()) {
+			std::string s;
+			std::getline(fin, s);
+			if (s == "") continue;
+			if (s[0] == '/') continue;
+
+			std::vector<std::string> info;
+			std::string stmp = "";
+			for (int i = 0; i < s.length(); ++i) {
+				if (s[i] == ';') { // конец строки
+					if (stmp != "") {
+						info.push_back(stmp);
+						stmp = "";
+						break;
+					}
+				}
+				if (s[i] == ' ' || s[i] == '=') {
+					if (stmp != "") {
+						info.push_back(stmp);
+						stmp = "";
+					}
+					continue;
+				}
+
+				stmp += s[i];
+			}
+
+			if (info.size() == 2) {
+				if (info[0] == "CREATURE_NAME") {
+					creature_name = info[1];
+				}
+				if (info[0] == "HIDDEN_LAYERS_NUM") {
+					NUM_HIDDEN_LAYERS = std::atoi(info[1].c_str());
+				}
+				if (info[0] == "HIDDEN_LAYER_NEURONS_NUM") {
+					NUM_HIDDEN_NEURONS = std::atoi(info[1].c_str());
+				}
+				if (info[0] == "ACTIVATION_FUNC") {
+					if (info[1] == "TANH") ACT_FUNC = TANH;
+					if (info[1] == "SGMD") ACT_FUNC = SGMD;
+					if (info[1] == "LINE") ACT_FUNC = LINE;
+				}
+				if (info[0] == "TEST_TOTAL_NUMBER") {
+					TOTAL_TESTS_NUMBER = std::atoi(info[1].c_str());
+				}
+				if (info[0] == "EPOCH_TESTS_NUM") {
+					CUR_TESTS_NUMBER = std::atoi(info[1].c_str());
+				}
+				if (info[0] == "EPOCH_NUM") {
+					EPOCH = std::atoi(info[1].c_str());
+				}
+				if (info[0] == "TRAINING_TYPE") {
+					if (info[1] == "RMS") TRAINING_TYPE = RMS;
+				}
+				if (info[0] == "RMS_GAMMA") {
+					RMS_GAMMA = std::stod(info[1]);
+				}
+				if (info[0] == "RMS_LEARN_RATE") {
+					RMS_LEARN_RATE = std::stod(info[1]);
+				}
+				if (info[0] == "RMS_ACCURACY") {
+					RMS_EPS = std::stod(info[1]);
+				}
+				if (info[0] == "QLEARN_RATE") {
+					QGAMMA = std::stod(info[1]);
+				}
+				if (info[0] == "TRAINING_PERIOD") {
+					TICK_COUNT = std::atoi(info[1].c_str());
+				}
+				if (info[0] == "TRAINING_ACCURACY") {
+					TRAIN_EPS = std::stod(info[1]);
+				}
+			}
+			else {
+				logout << "NNetInitializationFromFile Data Errors" << endl;
+				exit(0);
+			}
+		}
+		fin.close();
+	}
+	else {
+		logout << "NNetInitializationFromFile" << endl;
 		exit(0);
 	}
 }

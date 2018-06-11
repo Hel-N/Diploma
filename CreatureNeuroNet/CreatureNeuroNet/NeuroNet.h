@@ -5,8 +5,12 @@
 #include <queue>
 using namespace std;
 
-const int TOTAL_TESTS_NUMBER = 10000;
-const int CUR_TESTS_NUMBER = 20;
+extern int TOTAL_TESTS_NUMBER;
+extern int CUR_TESTS_NUMBER;
+
+enum TrainingTypes { RMS };
+
+extern TrainingTypes TRAINING_TYPE;
 
 struct Test {
 	Matrix2d inputs;
@@ -22,15 +26,17 @@ struct Test {
 	}
 };
 
-const double LearningRate = 0.01;
+extern double LearningRate;
 
-const int NUM_HIDDEN_NEURONS = 100;
-const int NUM_HIDDEN_LAYERS = 3;
+extern int NUM_HIDDEN_NEURONS;
+extern int NUM_HIDDEN_LAYERS;
+extern ActFuncTypes ACT_FUNC;
 
 //For RMS
-const double RMS_GAMMA = 0.95;
-const double RMS_LEARN_RATE = 0.001;
-const double RMS_EPS = 1e-8;
+extern double RMS_GAMMA;
+extern double RMS_LEARN_RATE;
+extern double RMS_EPS;
+
 
 class NeuroNet {
 protected:
