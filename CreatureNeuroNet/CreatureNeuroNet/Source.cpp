@@ -17,6 +17,7 @@
 #define FILENAME "Creature.txt"
 
 ofstream fout("weights_and_biases.txt");
+ofstream cfout("cur_creature.txt");
 
 using namespace std;
 
@@ -79,6 +80,8 @@ int main(int argc, char** ardv) {
 	freopen("input.txt", "r", stdin);
 	freopen("output.txt", "w", stdout);
 
+	ios::sync_with_stdio(false);
+
 	srand(time(NULL));
 	//Инициализация существа
 	CreatureInitializationFromFile();
@@ -125,6 +128,8 @@ int main(int argc, char** ardv) {
 	//nnet.SetWeights(weights);
 	//nnet.SetBiases(biases);
 	//-------------------------------------------------------------------
+
+	//nnet.PrintWeightsAndBiases(fout, false);
 
 	int num_inp = 2 * monster.GetJoints().size();
 	inputs.resize(1, vector<double>(num_inp));
@@ -465,6 +470,7 @@ void DoNextStep() {
 	int action = -1;
 	reward = 0.0;
 	reward = fabs(prev_dist - monster.GetCurDeltaDistance());
+	//reward = monster.GetCurDeltaDistance() - prev_dist;
 	//reward = fabs(fabs(prev_dist) - fabs(monster.GetCurDeltaDistance())) /*- 10.0 / monster.GetCenterOfGravityY()*/;
 	//reward = fabs(monster.GetCurDeltaDistance()) - monster.GetFalling()*10.0/* - 50.0/monster.GetCenterOfGravityY()*/;
 	prev_dist = monster.GetCurDeltaDistance();
@@ -511,7 +517,7 @@ void DoNextStep() {
 		int epoch = EPOCH;
 		vector<int> tests_pos;
 		for (int i = 0; i < CUR_TESTS_NUMBER; ++i) {
-			int pos = tests.size()*(double)rand() / RAND_MAX;
+			int pos = max(0, (tests.size() - 1))*(double)rand() / RAND_MAX;
 			tests_pos.push_back(pos);
 		}
 		while (epoch--) {
@@ -568,8 +574,11 @@ void DoNextStep() {
 		fout << "==================================================================================" << endl;
 		nnet.PrintWeightsAndBiases(fout, false);
 		fout << "==================================================================================" << endl;
-		//monster.PrintCreatureJoints();
 		fout << endl << endl;
+		cfout << "==================================================================================" << endl;
+		monster.PrintCreatureJoints(cfout);
+		cfout << "==================================================================================" << endl;
+		cfout << endl << endl;
 	}
 
 	fflush(stdout);

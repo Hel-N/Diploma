@@ -68,12 +68,16 @@ public:
 	void Falling();
 	void UpdatePos(int action_num); // номер действия
 
-	void PrintCreatureJoints() {
-		cout << "--------------------------Creature Joints----------------------------" << endl;
+	void PrintCreatureJoints(ostream& fout) {
+		fout << "--------------------------Creature Joints----------------------------" << endl;
 		for (int i = 0; i < joints.size(); ++i) {
-			cout <<  fixed <<setprecision(8) << joints[i].first << " " << fixed << setprecision(8) << joints[i].second << endl;
+			fout <<  fixed <<setprecision(8) << joints[i].first << " " << fixed << setprecision(8) << joints[i].second << endl;
 		}
-		cout << "---------------------------------------------------------------------" << endl;
+		fout << "--------------------------Creature States----------------------------" << endl;
+		for (int i = 0; i < states_mvlines.size(); ++i) {
+			fout << states_mvlines[i].first << " ";
+		}
+		fout << endl << "---------------------------------------------------------------------" << endl;
 
 	}
 

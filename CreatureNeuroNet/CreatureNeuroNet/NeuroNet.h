@@ -6,7 +6,7 @@
 using namespace std;
 
 const int TOTAL_TESTS_NUMBER = 10000;
-const int CUR_TESTS_NUMBER = 10;
+const int CUR_TESTS_NUMBER = 20;
 
 struct Test {
 	Matrix2d inputs;

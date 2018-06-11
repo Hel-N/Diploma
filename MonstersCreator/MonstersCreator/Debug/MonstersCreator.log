@@ -1,3 +1,98 @@
-﻿  Creator.obj : /DEBUG:FASTLINK is not supported when managed code is present; restarting link with /DEBUG:FULL
+﻿  Creator.cpp
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(47): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1029): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1042): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1054): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1063): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1074): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1088): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1104): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1154): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1174): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1186): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1204): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1209): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1210): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1213): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1217): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1218): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1219): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1223): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1239): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1278): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1311): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1314): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1322): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1327): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1331): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1343): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1367): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1372): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1375): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1379): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1380): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1384): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1397): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1453): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1464): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1465): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1471): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1475): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1476): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1477): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1479): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1484): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1485): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1528): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1540): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1541): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1548): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1553): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1554): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1555): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1558): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1561): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1566): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1567): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1604): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1615): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1616): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1657): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1661): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1668): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1671): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1674): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1675): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1678): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1680): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1683): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1684): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1712): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1721): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1738): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1746): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1769): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1773): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1775): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1778): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1779): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1793): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1806): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1816): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1844): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1849): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1852): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1853): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1885): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1893): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1900): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1906): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1918): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1928): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1934): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\Creator.h(1936): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\monsterscreator\monsterscreator\creator.h(93): warning C4715: 'MonstersCreator::get_angle': not all control paths return a value
+  .NETFramework,Version=v4.5.2.AssemblyAttributes.cpp
+  Creator.obj : /DEBUG:FASTLINK is not supported when managed code is present; restarting link with /DEBUG:FULL
   MonstersCreator.vcxproj -> C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\MonstersCreator\Debug\MonstersCreator.exe
   MonstersCreator.vcxproj -> C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\MonstersCreator\Debug\MonstersCreator.pdb (Partial PDB)

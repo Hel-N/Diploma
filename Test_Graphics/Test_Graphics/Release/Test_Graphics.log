@@ -1,0 +1,6 @@
+﻿  Generating code
+c:\users\елена\documents\visual studio 2015\projects\diploma\test_graphics\test_graphics\source.cpp(78): warning C4715: 'getAngle': not all control paths return a value
+  All 323 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  Test_Graphics.vcxproj -> C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\Test_Graphics\Release\Test_Graphics.exe
+  Test_Graphics.vcxproj -> C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\Test_Graphics\Release\Test_Graphics.pdb (Full PDB)

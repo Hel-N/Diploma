@@ -1,8 +1,12 @@
-#pragma comment(lib, "glut32.lib")
+//#pragma comment(lib, "glut32.lib")
 #pragma comment(lib, "glaux.lib")
+//#pragma comment(lib, "openglut.lib")
+#pragma comment(lib, "freeglut.lib")
 #define _USE_MATH_DEFINES
-#include "glut.h"
+//#include "glut.h"
 #include "glaux.h"
+//#include "openglut.h"
+#include "freeglut.h"
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -302,14 +306,15 @@ int main(int argc, char** ardv) {
 	glMatrixMode(GL_PROJECTION);//????
 	glLoadIdentity(); //????
 	gluOrtho2D(0, win_width, 0, win_height); // ќртогональна€ система координат (3D декартова система координат)
-	//glMatrixMode(GL_MODELVIEW);
+	glMatrixMode(GL_MODELVIEW);
 
 
 	glutDisplayFunc(Display);
 	glutTimerFunc(50, timer, 0);
 
 	LoadTexture();
-
+	//glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, 1);
 	glutMainLoop(); // «апуск основного цикла OpenGL
+	cout << "Hello!";
 	return 0;
 }
