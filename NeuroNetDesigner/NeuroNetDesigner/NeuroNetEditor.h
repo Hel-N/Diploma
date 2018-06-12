@@ -916,9 +916,11 @@ namespace NeuroNetDesigner {
 			if (edit_nnet_pos == -1) {
 				nnets.push_back(new_nnet);
 				nnets_names[new_nnet.name] = nnets.size() - 1;
+				nnets.back().can_continue_training_or_run = false;
 			}
 			else {
 				nnets[edit_nnet_pos] = new_nnet;
+				nnets[edit_nnet_pos].can_continue_training_or_run = false;
 			}
 
 			std::string messtr = "Data is saved to a file \"" + nnfilename + "\"";

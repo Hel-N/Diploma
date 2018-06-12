@@ -10,6 +10,10 @@
 #include <windows.h>
 #include <msclr\marshal_cppstd.h>
 
+#define INIT_TRAIN		1
+#define CONTINUE_TRAIN	2
+#define RUN				3
+
 enum ActFuncTypes { LINE, TANH, SGMD };
 enum TrainingTypes { RMS };
 
@@ -32,6 +36,7 @@ struct NNet {
 	int training_period;
 	double training_accuracy;
 	bool deleted = false;
+	bool can_continue_training_or_run = true;
 };
 
 struct Creature {

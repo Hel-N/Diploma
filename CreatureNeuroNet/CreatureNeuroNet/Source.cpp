@@ -15,27 +15,27 @@
 #include <ctime>
 #include <direct.h>
 
-std::string res_dir_str = "Res\\";
-std::string wb_finame_end = "_weights_and_biases.txt";
-std::string curcr_finame_end = "_cur_creature.txt";
-std::string dist_finame_end = "_dist.txt";
-
-std::string nnets_dir_str = "NNets\\";
-std::string creatures_dir_str = "Creatures\\";
-std::string nnet_finame_end = "_nnet.txt";
-std::string creature_finame_end = "_creature.txt";
-
-//#define FILENAME "Creature.txt"
-
-ofstream fout;//("weights_and_biases.txt");
-ofstream cfout;//("cur_creature.txt");
-ofstream logout("log.txt");
 
 using namespace std;
+
+//ofstream fout;
+//ofstream cfout;
+ofstream logout("log.txt");
+
+string res_dir_str = "Res\\";
+string wb_finame_end = "_weights_and_biases.txt";
+string curcr_finame_end = "_cur_creature.txt";
+string dist_finame_end = "_dist.txt";
+
+string nnets_dir_str = "NNets\\";
+string creatures_dir_str = "Creatures\\";
+string nnet_finame_end = "_nnet.txt";
+string creature_finame_end = "_creature.txt";
 
 //NNet Config------------------------------------------------------
 string nnet_name = "";
 string creature_name = "";
+int run_type = 1; //1 - InitTrain, 2 - ContinueTrain, 3 - Run
 int NUM_HIDDEN_LAYERS = 3;
 int NUM_HIDDEN_NEURONS = 100;
 ActFuncTypes ACT_FUNC = TANH;
@@ -53,32 +53,31 @@ double QGAMMA = 0.9; // Коэффициент доверия
 double TICK_COUNT = 10000;
 double TRAIN_EPS = 0.001;
 
-double LearningRate = 0.01;
+double LearningRate = 0.01; // Для алгоритма обратного распространения
 //-----------------------------------------------------------------
 
-//Для отрисовки фона-------
+//Для отрисовки окна и фона-----------------------------------------------
+const int WinWidth = 1200;
+const int WinHeight = 450;
+double ground_height = 40.0;
+
+//Фон
 double DeltaX = 0.0;
 GLuint texture;
-//-------------------------
-
+//-----------------------------------------------------------------
 
 double reward = 0.0;
+double prev_dist = 0.0;
+int cur_tick = 0;
+
 double prev_pos = 0.0;
 int side = 0.0;
 int change_side_count = 0;
-
-int cur_tick = 0;
-const int WinWidth = 1200;
-const int WinHeight = 450;
-
-double ground_height = 40.0;
 
 Matrix2d Q;
 Matrix2d prevQ;
 int prevAction;
 bool firstStep = true;
-
-double prev_dist = 0.0;
 
 vector<vector<double>> inputs;
 Matrix2d prev_inputs;
@@ -87,7 +86,6 @@ Creature monster;
 NeuroNet nnet;
 
 deque<Test> tests;
-vector<vector<double>> best_res(1, vector<double>(1, 0.0));
 
 void Timer(int val = 0);
 void Draw();
@@ -96,28 +94,42 @@ void DoNextStep();
 void CreatureInitialization();
 void CreatureInitializationFromFile(string filename);
 void NNetInitializationFromFile(string filename);
+void SetWeigntsAndBiases(string filename, vector<int> num_neurons);
+void SetJointsAndStates(string filename);
 
 //=====================
+//Текст
 void glEnter2D(void);
 void glLeave2D(void);
 void glWrite(float x, float y, int *font, string s);
 
+//Фон
 void LoadTexture();
 void DrawBackground();
 
 //=====================
 
 int main(int argc, char** ardv) {
-	//freopen("input.txt", "r", stdin);
-	//freopen("output.txt", "w", stdout);
-
 	ios::sync_with_stdio(false);
 	srand(time(NULL));
 
-	for (int i = 0; i < argc; ++i) {
-		logout << ardv[i] << endl;
+	time_t seconds = time(NULL);
+	tm* timeinfo = localtime(&seconds);
+	if (argc < 3) {
+		logout << asctime(timeinfo) << " Недостаточно входных параметров" << endl;
+		exit(0);
 	}
 
+	seconds = time(NULL);
+	timeinfo = localtime(&seconds);
+	logout << asctime(timeinfo) << " Arguments: ";
+	for (int i = 0; i < argc; ++i) {
+
+		logout << ardv[i] << " ";
+	}
+	logout << endl;
+
+	// Чтение сети
 	nnet_name = ardv[1];
 	string nnfilename = nnets_dir_str + nnet_name + nnet_finame_end;
 	NNetInitializationFromFile(nnfilename);
@@ -127,10 +139,12 @@ int main(int argc, char** ardv) {
 	CreatureInitializationFromFile(crfilename);
 	//CreatureInitialization();
 
+	//Создание папки Res
+	_mkdir(res_dir_str.c_str());
+
+	//Создание папки для результтов существа
 	string dirname = res_dir_str + nnet_name;
 	_mkdir(dirname.c_str());
-	fout.open(dirname + "\\" + nnet_name + wb_finame_end);
-	cfout.open(dirname + "\\" + nnet_name + curcr_finame_end);
 	string resdistfname = dirname + "\\" + nnet_name + dist_finame_end;
 	freopen(resdistfname.c_str(), "w", stdout);
 
@@ -138,45 +152,21 @@ int main(int argc, char** ardv) {
 	vector<ActFuncTypes> aft = { ACT_FUNC, ACT_FUNC, LINE };
 	nnet = NeuroNet(2 * monster.GetNumJoints(), NUM_HIDDEN_LAYERS + 1, num_neurons, aft, monster.GetNumActions());
 
-	// Считывание весов и смещений
-	/*vector<Matrix2d> weights;
-	for (int i = 0; i < NUM_HIDDEN_LAYERS; ++i) {
-		Matrix2d _w;
-		if (i == 0)
-			_w = Matrix2d(2*monster.GetNumJoints(), num_neurons[i]);
-		else
-			_w = Matrix2d(num_neurons[i - 1], num_neurons[i]);
-		for (int j = 0; j < _w.GetNumRows(); ++j) {
-			for (int k = 0; k < _w.GetNumCols(); ++k) {
-				double tmp;
-				cin >> tmp;
-				_w.at(j, k) = tmp;
-			}
-		}
-		weights.push_back(_w);
+	run_type = atoi(ardv[2]);
+	if (run_type == 2 || run_type == 3)
+		SetWeigntsAndBiases(dirname + "\\" + nnet_name + wb_finame_end, num_neurons);
+
+	if (run_type == 2) {
+		SetJointsAndStates(dirname + "\\" + nnet_name + curcr_finame_end);
 	}
 
-	vector<Matrix2d> biases;
-	for (int i = 0; i < NUM_HIDDEN_LAYERS; ++i) {
-		Matrix2d _b;
-
-		_b = Matrix2d(1, num_neurons[i]);
-		for (int j = 0; j < _b.GetNumRows(); ++j) {
-			for (int k = 0; k < _b.GetNumCols(); ++k) {
-				double tmp;
-				cin >> tmp;
-				_b.at(j, k) = tmp;
-			}
-		}
-		biases.push_back(_b);
-	}*/
-
-	//Установка весов и смещений---------------------------------------------------
-	//nnet.SetWeights(weights);
-	//nnet.SetBiases(biases);
-	//-------------------------------------------------------------------
-
-	//nnet.PrintWeightsAndBiases(fout, false);
+	//Вывод начального состояния
+	ofstream wbfout(dirname + "\\" + nnet_name + wb_finame_end);
+	nnet.PrintWeightsAndBiases(wbfout, false);
+	wbfout.close();
+	ofstream crfout(dirname + "\\" + nnet_name + curcr_finame_end);
+	monster.PrintCreatureJoints(crfout);
+	crfout.close();
 
 	int num_inp = 2 * monster.GetJoints().size();
 	inputs.resize(1, vector<double>(num_inp));
@@ -188,9 +178,9 @@ int main(int argc, char** ardv) {
 	glutCreateWindow(nnet_name.c_str());
 	glClearColor(0, 0, 0, 1.0); // цвет очистки экрана RGBAlpha
 
-	glMatrixMode(GL_PROJECTION);//????
-	glLoadIdentity(); //????
-	gluOrtho2D(0, WinWidth, 0, WinHeight); // Ортогональная система координат (3D декартова система координат)
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluOrtho2D(0, WinWidth, 0, WinHeight); // Ортогональная система координат
 
 	glutDisplayFunc(Display);
 	glutTimerFunc(70, Timer, 0);
@@ -461,6 +451,81 @@ void NNetInitializationFromFile(string filename) {
 	}
 }
 
+void SetWeigntsAndBiases(string filename, vector<int> num_neurons) {
+	ifstream fin(filename);
+	if (fin.is_open()) {
+		string s;
+		getline(fin, s);
+		if (s == "") return;
+
+		// Считывание весов и смещений
+		vector<Matrix2d> weights;
+		for (int i = 0; i < NUM_HIDDEN_LAYERS + 1; ++i) {
+			Matrix2d _w;
+			if (i == 0)
+				_w = Matrix2d(2 * monster.GetNumJoints(), num_neurons[i]);
+			else
+				_w = Matrix2d(num_neurons[i - 1], num_neurons[i]);
+			for (int j = 0; j < _w.GetNumRows(); ++j) {
+				for (int k = 0; k < _w.GetNumCols(); ++k) {
+					double tmp;
+					fin >> tmp;
+					_w.at(j, k) = tmp;
+				}
+			}
+			weights.push_back(_w);
+		}
+
+		getline(fin, s);
+		getline(fin, s);
+		vector<Matrix2d> biases;
+		for (int i = 0; i < NUM_HIDDEN_LAYERS + 1; ++i) {
+			Matrix2d _b;
+
+			_b = Matrix2d(1, num_neurons[i]);
+			for (int j = 0; j < _b.GetNumRows(); ++j) {
+				for (int k = 0; k < _b.GetNumCols(); ++k) {
+					double tmp;
+					fin >> tmp;
+					_b.at(j, k) = tmp;
+				}
+			}
+			biases.push_back(_b);
+		}
+
+		nnet.SetWeights(weights);
+		nnet.SetBiases(biases);
+
+		fin.close();
+	}
+}
+
+void SetJointsAndStates(string filename) {
+	ifstream fin(filename);
+	if (fin.is_open()) {
+		string s;
+		getline(fin, s);
+		if (s == "") return;
+
+		vector<pair<double, double>> cur_joints(monster.GetNumJoints());
+		for (int i = 0; i < cur_joints.size(); ++i) {
+			fin >> cur_joints[i].first >> cur_joints[i].second;
+		}
+		getline(fin, s);
+		getline(fin, s);
+
+		vector<int> cur_states(monster.GetCurLinesStates().size());
+		for (int i = 0; i < cur_states.size(); ++i) {
+			fin >> cur_states[i];
+		}
+
+		monster.SetJoints(cur_joints);
+		monster.SetStates(cur_states);
+
+		fin.close();
+	}
+}
+
 void DrawBackground() {
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, texture);
@@ -506,21 +571,13 @@ void Draw() {
 	// Вывофд информации
 	glColor3d(0.0, 0.0, 0.0);
 	glEnter2D();
-	string tmps = to_string(cur_tick) + "  dist: " + to_string(monster.GetCurDeltaDistance());
+	string tmps = "Tick: " + to_string(cur_tick) + "  Dist: " + to_string(fabs(monster.GetCurDeltaDistance()));
 	glWrite(20, WinHeight - 80, (int*)GLUT_BITMAP_8_BY_13, tmps);
 	string spos = "XPos: " + to_string(monster.GetCenterOfGravity()) + " YPos: " + to_string(monster.GetCenterOfGravityY());
 	glWrite(20, WinHeight - 60, (int*)GLUT_BITMAP_8_BY_13, spos);
 
-
-	vector<pair<int, int>> line_states = monster.GetCurLinesStates();
-	string sstates = "";
-	for (int i = 0; i < line_states.size(); ++i) {
-		sstates += to_string(line_states[i].first) + "/" + to_string(line_states[i].second - 1) + " ";
-	}
-	glWrite(20, WinHeight - 40, (int*)GLUT_BITMAP_8_BY_13, sstates);
-
 	string rewstr = "Rew: " + to_string(reward);
-	glWrite(20, WinHeight - 20, (int*)GLUT_BITMAP_8_BY_13, rewstr);
+	glWrite(20, WinHeight - 40, (int*)GLUT_BITMAP_8_BY_13, rewstr);
 
 	glBegin(GL_LINES);
 	// ground
@@ -658,14 +715,15 @@ void DoNextStep() {
 			tests_pos.push_back(pos);
 		}
 		while (epoch--) {
-			//if (nnet.RunningLearningOffline(tests) == 0.0)
-			//	break;
-			//if (nnet.RPropLearningOffline(tests) < TRAIN_EPS) //Добавить расчет ошибки 
-			//	break;
-			if (nnet.RMSLearningOffline(tests, tests_pos) < TRAIN_EPS) //Добавить расчет ошибки 
-				break;
+			if (run_type != 3) {
+				//if (nnet.RunningLearningOffline(tests) == 0.0)
+				//	break;
+				//if (nnet.RPropLearningOffline(tests) < TRAIN_EPS) //Добавить расчет ошибки 
+				//	break;
+				if (nnet.RMSLearningOffline(tests, tests_pos) < TRAIN_EPS) //Добавить расчет ошибки 
+					break;
+			}
 		}
-
 	}
 	else {
 		nnet.Running(inputs);
@@ -705,21 +763,25 @@ void DoNextStep() {
 
 	//Вывод текущей информации
 	cout << cur_tick << "  " << monster.GetCurDeltaDistance() << endl;
-	//cout << cou << "Current Delta Distance:  " << (monster.GetTraveledDistance()) << endl;
 
 	if (cur_tick % 100 == 0) {
-		fout << "==================================================================================" << endl;
-		nnet.PrintWeightsAndBiases(fout, false);
-		fout << "==================================================================================" << endl;
-		fout << endl << endl;
-		cfout << "==================================================================================" << endl;
-		monster.PrintCreatureJoints(cfout);
-		cfout << "==================================================================================" << endl;
-		cfout << endl << endl;
+		string dirname = res_dir_str + nnet_name;
+		ofstream wbfout(dirname + "\\" + nnet_name + wb_finame_end);
+		//fout << "==================================================================================" << endl;
+		nnet.PrintWeightsAndBiases(wbfout, false);
+		//fout << "==================================================================================" << endl;
+		//fout << endl << endl;
+		wbfout.close();
+
+		ofstream crfout(dirname + "\\" + nnet_name + curcr_finame_end);
+		//cfout << "==================================================================================" << endl;
+		monster.PrintCreatureJoints(crfout);
+		//cfout << "==================================================================================" << endl;
+		//cfout << endl << endl;
+		crfout.close();
 	}
 
 	fflush(stdout);
-	fout.flush();
 }
 
 void Timer(int val) // Таймер(промежуток времени, в котором будет производится все процессы) 
@@ -727,8 +789,12 @@ void Timer(int val) // Таймер(промежуток времени, в котором будет производится в
 	Display();
 	DoNextStep();
 
-	if (cur_tick < TICK_COUNT)
-		glutTimerFunc(50, Timer, 0); // новый вызов таймера( 100 - промежуток времени(в милисекундах), через который он будет вызыватся, timer - вызываемый паблик) 
+	if (cur_tick < TICK_COUNT) {
+		if (run_type != 3)
+			glutTimerFunc(50, Timer, 0); // новый вызов таймера( 100 - промежуток времени(в милисекундах), через который он будет вызыватся, timer - вызываемый паблик) 
+		else
+			glutTimerFunc(120, Timer, 0);
+	}
 }
 
 //===============================================

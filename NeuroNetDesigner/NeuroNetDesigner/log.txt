@@ -1,3 +1,2 @@
-C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\NeuroNetDesigner\NeuroNetDesigner\CreatureNeuroNet.exe
-qweeee
-1
+Wed Jun 13 01:30:02 2018
+ Arguments: C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\NeuroNetDesigner\NeuroNetDesigner\CreatureNeuroNet.exe first 1 

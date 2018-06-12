@@ -58,6 +58,8 @@ public:
 	void SetFallUnitAngle(double val) { fall_unit_angle = val; }
 	void SetTurnUnitAngle(double val) { turn_unit_angle = val; }
 
+	void SetJoints(vector<pair<double, double>> new_joints);
+	void SetStates(vector<int> new_states);
 
 	pair<int, int> GetAction(int action_num);
 	bool CanDoAction(int action);

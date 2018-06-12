@@ -290,8 +290,9 @@ namespace NeuroNetDesigner {
 	private: System::Windows::Forms::GroupBox^  GrBoxSelectedNN;
 	private: System::Windows::Forms::PictureBox^  PBoxNNCreature;
 	private: System::Windows::Forms::Button^  BtnRunNNet;
+	private: System::Windows::Forms::Button^  BtnInitTrainNNet;
 
-	private: System::Windows::Forms::Button^  BtnTrainNNet;
+
 
 
 	private: System::Windows::Forms::Button^  BtnEditNNet;
@@ -360,6 +361,7 @@ namespace NeuroNetDesigner {
 
 	private: System::Windows::Forms::TextBox^  TBoxOutputs;
 	private: System::Windows::Forms::Label^  LOutputs;
+	private: System::Windows::Forms::Button^  BtnContinueTrainNNet;
 
 
 
@@ -388,6 +390,7 @@ namespace NeuroNetDesigner {
 			this->aboutProgramToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->PanelMain = (gcnew System::Windows::Forms::Panel());
 			this->GrBoxSelectedNN = (gcnew System::Windows::Forms::GroupBox());
+			this->BtnContinueTrainNNet = (gcnew System::Windows::Forms::Button());
 			this->GrBoxNNetSettings = (gcnew System::Windows::Forms::GroupBox());
 			this->TBoxOutputs = (gcnew System::Windows::Forms::TextBox());
 			this->LOutputs = (gcnew System::Windows::Forms::Label());
@@ -420,7 +423,7 @@ namespace NeuroNetDesigner {
 			this->LHLayers = (gcnew System::Windows::Forms::Label());
 			this->LInputs = (gcnew System::Windows::Forms::Label());
 			this->BtnRunNNet = (gcnew System::Windows::Forms::Button());
-			this->BtnTrainNNet = (gcnew System::Windows::Forms::Button());
+			this->BtnInitTrainNNet = (gcnew System::Windows::Forms::Button());
 			this->BtnEditNNet = (gcnew System::Windows::Forms::Button());
 			this->PBoxNNCreature = (gcnew System::Windows::Forms::PictureBox());
 			this->BtnDeleteNNet = (gcnew System::Windows::Forms::Button());
@@ -465,7 +468,7 @@ namespace NeuroNetDesigner {
 					this->creatureModelToolStripMenuItem
 			});
 			this->âûõîäToolStripMenuItem->Name = L"âûõîäToolStripMenuItem";
-			this->âûõîäToolStripMenuItem->Size = System::Drawing::Size(114, 26);
+			this->âûõîäToolStripMenuItem->Size = System::Drawing::Size(181, 26);
 			this->âûõîäToolStripMenuItem->Text = L"New";
 			// 
 			// neuralNetToolStripMenuItem
@@ -473,18 +476,21 @@ namespace NeuroNetDesigner {
 			this->neuralNetToolStripMenuItem->Name = L"neuralNetToolStripMenuItem";
 			this->neuralNetToolStripMenuItem->Size = System::Drawing::Size(187, 26);
 			this->neuralNetToolStripMenuItem->Text = L"Neural Net";
+			this->neuralNetToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::neuralNetToolStripMenuItem_Click);
 			// 
 			// creatureModelToolStripMenuItem
 			// 
 			this->creatureModelToolStripMenuItem->Name = L"creatureModelToolStripMenuItem";
 			this->creatureModelToolStripMenuItem->Size = System::Drawing::Size(187, 26);
 			this->creatureModelToolStripMenuItem->Text = L"Creature Model";
+			this->creatureModelToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::creatureModelToolStripMenuItem_Click);
 			// 
 			// exitToolStripMenuItem
 			// 
 			this->exitToolStripMenuItem->Name = L"exitToolStripMenuItem";
-			this->exitToolStripMenuItem->Size = System::Drawing::Size(114, 26);
+			this->exitToolStripMenuItem->Size = System::Drawing::Size(181, 26);
 			this->exitToolStripMenuItem->Text = L"Exit";
+			this->exitToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::exitToolStripMenuItem_Click);
 			// 
 			// helpToolStripMenuItem
 			// 
@@ -512,9 +518,10 @@ namespace NeuroNetDesigner {
 			// 
 			// GrBoxSelectedNN
 			// 
+			this->GrBoxSelectedNN->Controls->Add(this->BtnContinueTrainNNet);
 			this->GrBoxSelectedNN->Controls->Add(this->GrBoxNNetSettings);
 			this->GrBoxSelectedNN->Controls->Add(this->BtnRunNNet);
-			this->GrBoxSelectedNN->Controls->Add(this->BtnTrainNNet);
+			this->GrBoxSelectedNN->Controls->Add(this->BtnInitTrainNNet);
 			this->GrBoxSelectedNN->Controls->Add(this->BtnEditNNet);
 			this->GrBoxSelectedNN->Controls->Add(this->PBoxNNCreature);
 			this->GrBoxSelectedNN->Controls->Add(this->BtnDeleteNNet);
@@ -524,6 +531,16 @@ namespace NeuroNetDesigner {
 			this->GrBoxSelectedNN->TabIndex = 1;
 			this->GrBoxSelectedNN->TabStop = false;
 			this->GrBoxSelectedNN->Text = L"Selected NeuroNet";
+			// 
+			// BtnContinueTrainNNet
+			// 
+			this->BtnContinueTrainNNet->Location = System::Drawing::Point(489, 220);
+			this->BtnContinueTrainNNet->Name = L"BtnContinueTrainNNet";
+			this->BtnContinueTrainNNet->Size = System::Drawing::Size(152, 46);
+			this->BtnContinueTrainNNet->TabIndex = 7;
+			this->BtnContinueTrainNNet->Text = L"Continue Train";
+			this->BtnContinueTrainNNet->UseVisualStyleBackColor = true;
+			this->BtnContinueTrainNNet->Click += gcnew System::EventHandler(this, &MainForm::BtnContinueTrainNNet_Click);
 			// 
 			// GrBoxNNetSettings
 			// 
@@ -829,15 +846,15 @@ namespace NeuroNetDesigner {
 			this->BtnRunNNet->UseVisualStyleBackColor = true;
 			this->BtnRunNNet->Click += gcnew System::EventHandler(this, &MainForm::BtnRunNNet_Click);
 			// 
-			// BtnTrainNNet
+			// BtnInitTrainNNet
 			// 
-			this->BtnTrainNNet->Location = System::Drawing::Point(489, 216);
-			this->BtnTrainNNet->Name = L"BtnTrainNNet";
-			this->BtnTrainNNet->Size = System::Drawing::Size(152, 40);
-			this->BtnTrainNNet->TabIndex = 4;
-			this->BtnTrainNNet->Text = L"Train";
-			this->BtnTrainNNet->UseVisualStyleBackColor = true;
-			this->BtnTrainNNet->Click += gcnew System::EventHandler(this, &MainForm::BtnTrainNNet_Click);
+			this->BtnInitTrainNNet->Location = System::Drawing::Point(489, 174);
+			this->BtnInitTrainNNet->Name = L"BtnInitTrainNNet";
+			this->BtnInitTrainNNet->Size = System::Drawing::Size(152, 40);
+			this->BtnInitTrainNNet->TabIndex = 4;
+			this->BtnInitTrainNNet->Text = L"Init Train";
+			this->BtnInitTrainNNet->UseVisualStyleBackColor = true;
+			this->BtnInitTrainNNet->Click += gcnew System::EventHandler(this, &MainForm::BtnInitTrainNNet_Click);
 			// 
 			// BtnEditNNet
 			// 
@@ -1000,7 +1017,8 @@ namespace NeuroNetDesigner {
 		BtnEditNNet->Enabled = false;
 		BtnDeleteNNet->Enabled = false;
 		BtnRunNNet->Enabled = false;
-		BtnTrainNNet->Enabled = false;
+		BtnInitTrainNNet->Enabled = false;
+		BtnContinueTrainNNet->Enabled = false;
 	}
 
 	private: System::Void BtnNewNN_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -1020,27 +1038,46 @@ namespace NeuroNetDesigner {
 		}
 	}
 
-	private: System::Void BtnTrainNNet_Click(System::Object^  sender, System::EventArgs^  e) {
+	private: System::Void BtnInitTrainNNet_Click(System::Object^  sender, System::EventArgs^  e) {
 		//WinExec("Test_Graphics.exe", SW_SHOW);
-		std::string nnname = msclr::interop::marshal_as<std::string>(ListBoxNN->SelectedItem->ToString());
-		nnname += " 1";
-		std::wstring wstr(nnname.begin(), nnname.end());
-		LPCWSTR paramstr = wstr.c_str();
-		ShellExecute(0, L"open", L"CreatureNeuroNet.exe", paramstr, 0, SW_SHOW);
-	}
 
-	private: System::Void MainForm_FormClosing(System::Object^  sender, System::Windows::Forms::FormClosingEventArgs^  e) {
-		if (MessageBox::Show(this, "Çàêðûòü ïðîãðàììó?", "Form Closing", MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes)
-		{
-			//HWND hWnd = FindWindow(NULL, L"Test_1");
-			//if (IsWindow(hWnd)) SendMessage(hWnd, WM_SYSCOMMAND, SC_CLOSE, 0);
+		std::string nnname = msclr::interop::marshal_as<std::string>(ListBoxNN->SelectedItem->ToString());
+		std::wstring wnnetname(nnname.begin(), nnname.end());
+		HWND hWnd = FindWindow(NULL, wnnetname.c_str());
+		if (!IsWindow(hWnd)) {
+			nnets[nnets_names[nnname]].can_continue_training_or_run = true;
+			nnname += " " + std::to_string(INIT_TRAIN);
+			std::wstring wstr(nnname.begin(), nnname.end());
+			LPCWSTR paramstr = wstr.c_str();
+			ShellExecute(0, L"open", L"CreatureNeuroNet.exe", paramstr, 0, SW_SHOW);
+			BtnContinueTrainNNet->Enabled = true;
+			BtnRunNNet->Enabled = true;
 		}
 		else {
-			e->Cancel = true;
+			std::string mes = "NeuroNet \"" + nnname + "\" is already running";
+			String^ smess = gcnew String(mes.c_str());
+			MessageBox::Show(smess);
+			delete smess;
 		}
 	}
-	private: System::Void BtnRunNNet_Click(System::Object^  sender, System::EventArgs^  e) {
 
+	private: System::Void BtnContinueTrainNNet_Click(System::Object^  sender, System::EventArgs^  e) {
+		std::string nnname = msclr::interop::marshal_as<std::string>(ListBoxNN->SelectedItem->ToString());
+		std::wstring wnnetname(nnname.begin(), nnname.end());
+		HWND hWnd = FindWindow(NULL, wnnetname.c_str());
+
+		if (!IsWindow(hWnd)) {
+			nnname += " " + std::to_string(CONTINUE_TRAIN);
+			std::wstring wstr(nnname.begin(), nnname.end());
+			LPCWSTR paramstr = wstr.c_str();
+			ShellExecute(0, L"open", L"CreatureNeuroNet.exe", paramstr, 0, SW_SHOW);
+		}
+		else {
+			std::string mes = "NeuroNet \"" + nnname + "\" is already running";
+			String^ smess = gcnew String(mes.c_str());
+			MessageBox::Show(smess);
+			delete smess;
+		}
 	}
 
 	private: System::Void ListBoxNN_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
@@ -1090,8 +1127,11 @@ namespace NeuroNetDesigner {
 
 			BtnEditNNet->Enabled = true;
 			BtnDeleteNNet->Enabled = true;
-			BtnRunNNet->Enabled = true;
-			BtnTrainNNet->Enabled = true;
+			if (nnets[nnpos].can_continue_training_or_run)
+				BtnRunNNet->Enabled = true;
+			BtnInitTrainNNet->Enabled = true;
+			if(nnets[nnpos].can_continue_training_or_run) 
+				BtnContinueTrainNNet->Enabled = true;
 		}
 		else {
 			Image^ tmping = PBoxNNCreature->BackgroundImage;
@@ -1116,7 +1156,8 @@ namespace NeuroNetDesigner {
 			BtnEditNNet->Enabled = false;
 			BtnDeleteNNet->Enabled = false;
 			BtnRunNNet->Enabled = false;
-			BtnTrainNNet->Enabled = false;
+			BtnInitTrainNNet->Enabled = false;
+			BtnContinueTrainNNet->Enabled = false;
 		}
 	}
 
@@ -1130,6 +1171,7 @@ namespace NeuroNetDesigner {
 		ListBoxNN->SelectedIndex = tmppos;
 		delete nnet_editor_form;
 	}
+
 	private: System::Void BtnDeleteNNet_Click(System::Object^  sender, System::EventArgs^  e) {
 		std::string nnname = msclr::interop::marshal_as<std::string>(ListBoxNN->SelectedItem->ToString());
 		int nnpos = nnets_names[nnname];
@@ -1151,5 +1193,64 @@ namespace NeuroNetDesigner {
 		}
 	}
 
+	private: System::Void BtnRunNNet_Click(System::Object^  sender, System::EventArgs^  e) {
+		std::string nnname = msclr::interop::marshal_as<std::string>(ListBoxNN->SelectedItem->ToString());
+		std::wstring wnnetname(nnname.begin(), nnname.end());
+		HWND hWnd = FindWindow(NULL, wnnetname.c_str());
+
+		if (!IsWindow(hWnd)) {
+			nnname += " " + std::to_string(RUN);
+			std::wstring wstr(nnname.begin(), nnname.end());
+			LPCWSTR paramstr = wstr.c_str();
+			ShellExecute(0, L"open", L"CreatureNeuroNet.exe", paramstr, 0, SW_SHOW);
+		}
+		else {
+			std::string mes = "NeuroNet \"" + nnname + "\" is already running";
+			String^ smess = gcnew String(mes.c_str());
+			MessageBox::Show(smess);
+			delete smess;
+		}
+	}
+
+	private: System::Void MainForm_FormClosing(System::Object^  sender, System::Windows::Forms::FormClosingEventArgs^  e) {
+		if (MessageBox::Show(this, "Çàêðûòü ïðîãðàììó?", "Form Closing", MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes)
+		{
+			for (int i = 0; i < nnets.size(); ++i) {
+				std::wstring wnnetname(nnets[i].name.begin(), nnets[i].name.end());
+				HWND hWnd = FindWindow(NULL, wnnetname.c_str());
+				if (IsWindow(hWnd)) SendMessage(hWnd, WM_SYSCOMMAND, SC_CLOSE, 0);
+			}
+		}
+		else {
+			e->Cancel = true;
+		}
+	}
+
+	private: System::Void neuralNetToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+		NeuroNetEditor^ nnet_editor_form = gcnew NeuroNetEditor();
+		edit_nnet_pos = -1;
+		nnet_editor_form->ShowDialog();
+		delete nnet_editor_form;
+
+		ListBoxNN->SelectedIndex = -1;
+		ListBoxNN->Items->Clear();
+		for (int i = 0; i < nnets.size(); ++i) {
+			if (!nnets[i].deleted) {
+				String^ s = gcnew String(nnets[i].name.c_str());
+				ListBoxNN->Items->Add(s);
+				delete s;
+			}
+		}
+	}
+
+	private: System::Void creatureModelToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+		Creator^ creator_form = gcnew Creator();
+		creator_form->ShowDialog();
+		delete creator_form;
+	}
+
+	private: System::Void exitToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+		this->Close();
+	}
 	};
 }

@@ -31,6 +31,30 @@ void Creature::InitCreature(vector<pair<double, double>> _joints, vector<pair<in
 	}
 }
 
+void Creature::SetJoints(vector<pair<double, double>> new_joints) {
+	for (int i = 0; i < joints.size();++i){
+		joints[i] = new_joints[i];
+	}
+}
+
+void Creature::SetStates(vector<int> new_states) {
+	for (int i = 0; i < states_mvlines.size(); ++i) {
+		if (new_states[i] > states_mvlines[i].second - 1) return;
+		if (new_states[i] == -1) {
+			for (int j = 0; j < movable_lines.size(); ++j) {
+				if (i == movable_lines[j].first)
+					return;
+			}
+			continue;
+		}
+		if (new_states[i] < 0)
+			return;
+	}
+	for (int i = 0; i < states_mvlines.size(); ++i) {
+			states_mvlines[i].first = new_states[i];
+	}
+}
+
 vector<Line> Creature::GetLines() {
 	vector<Line> res;
 
@@ -99,9 +123,9 @@ bool Creature::CanDoAction(int action) {
 	pair<int, int> line_and_dir = GetAction(action);
 
 	//≈сли отрезок находитс€ в одном из крайних состо€ний
-	if (states_mvlines[movable_lines[line_and_dir.first].first].first == 0 && line_and_dir.second == 1)
+	if (states_mvlines[movable_lines[line_and_dir.first].first].first <= 0 && line_and_dir.second == 1)
 		return false;
-	if (states_mvlines[movable_lines[line_and_dir.first].first].first == (states_mvlines[movable_lines[line_and_dir.first].first].second - 1)
+	if (states_mvlines[movable_lines[line_and_dir.first].first].first >= (states_mvlines[movable_lines[line_and_dir.first].first].second - 1)
 		&& line_and_dir.second == -1)
 		return false;
 

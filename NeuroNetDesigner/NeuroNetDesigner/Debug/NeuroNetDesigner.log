@@ -94,7 +94,7 @@ c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesign
 c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1970): warning C4018: '<': signed/unsigned mismatch
 c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\NeuroNetEditor.h(665): warning C4018: '<': signed/unsigned mismatch
 c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\NeuroNetEditor.h(743): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\NeuroNetEditor.h(951): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\NeuroNetEditor.h(953): warning C4018: '<': signed/unsigned mismatch
 c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(76): warning C4018: '<': signed/unsigned mismatch
 c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(172): warning C4018: '<': signed/unsigned mismatch
 c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(181): warning C4018: '<': signed/unsigned mismatch
@@ -103,10 +103,12 @@ c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesign
 c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(215): warning C4018: '<': signed/unsigned mismatch
 c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(224): warning C4018: '<': signed/unsigned mismatch
 c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(228): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(953): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(979): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(994): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(1014): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(970): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(996): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(1011): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(1032): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(1218): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(1237): warning C4018: '<': signed/unsigned mismatch
 c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\creator.h(983): warning C4715: 'NeuroNetDesigner::Creator::get_angle': not all control paths return a value
   Creator.obj : /DEBUG:FASTLINK is not supported when managed code is present; restarting link with /DEBUG:FULL
   NeuroNetDesigner.vcxproj -> C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\NeuroNetDesigner\Debug\NeuroNetDesigner.exe
