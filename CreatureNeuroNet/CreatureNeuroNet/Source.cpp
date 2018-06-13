@@ -15,6 +15,9 @@
 #include <ctime>
 #include <direct.h>
 
+#define INIT_TRAIN		1
+#define CONTINUE_TRAIN	2
+#define RUN				3
 
 using namespace std;
 
@@ -26,6 +29,7 @@ string res_dir_str = "Res\\";
 string wb_finame_end = "_weights_and_biases.txt";
 string curcr_finame_end = "_cur_creature.txt";
 string dist_finame_end = "_dist.txt";
+string run_dist_finame_end = "_run_dist.txt";
 
 string nnets_dir_str = "NNets\\";
 string creatures_dir_str = "Creatures\\";
@@ -35,7 +39,7 @@ string creature_finame_end = "_creature.txt";
 //NNet Config------------------------------------------------------
 string nnet_name = "";
 string creature_name = "";
-int run_type = 1; //1 - InitTrain, 2 - ContinueTrain, 3 - Run
+int run_type = INIT_TRAIN; //1 - InitTrain, 2 - ContinueTrain, 3 - Run
 int NUM_HIDDEN_LAYERS = 3;
 int NUM_HIDDEN_NEURONS = 100;
 ActFuncTypes ACT_FUNC = TANH;
@@ -54,6 +58,8 @@ double TICK_COUNT = 10000;
 double TRAIN_EPS = 0.001;
 
 double LearningRate = 0.01; // Для алгоритма обратного распространения
+
+int T = 100; //Период печати весов
 //-----------------------------------------------------------------
 
 //Для отрисовки окна и фона-----------------------------------------------
@@ -96,6 +102,7 @@ void CreatureInitializationFromFile(string filename);
 void NNetInitializationFromFile(string filename);
 void SetWeigntsAndBiases(string filename, vector<int> num_neurons);
 void SetJointsAndStates(string filename);
+void SetCurTick(string filename);
 
 //=====================
 //Текст
@@ -145,19 +152,30 @@ int main(int argc, char** ardv) {
 	//Создание папки для результтов существа
 	string dirname = res_dir_str + nnet_name;
 	_mkdir(dirname.c_str());
-	string resdistfname = dirname + "\\" + nnet_name + dist_finame_end;
-	freopen(resdistfname.c_str(), "w", stdout);
 
 	vector<int> num_neurons = { NUM_HIDDEN_NEURONS, NUM_HIDDEN_NEURONS, monster.GetNumActions() };
 	vector<ActFuncTypes> aft = { ACT_FUNC, ACT_FUNC, LINE };
 	nnet = NeuroNet(2 * monster.GetNumJoints(), NUM_HIDDEN_LAYERS + 1, num_neurons, aft, monster.GetNumActions());
 
 	run_type = atoi(ardv[2]);
-	if (run_type == 2 || run_type == 3)
+	if (run_type == CONTINUE_TRAIN || run_type == RUN) {
 		SetWeigntsAndBiases(dirname + "\\" + nnet_name + wb_finame_end, num_neurons);
+	}
 
-	if (run_type == 2) {
+	if (run_type == CONTINUE_TRAIN) {
 		SetJointsAndStates(dirname + "\\" + nnet_name + curcr_finame_end);
+		SetCurTick(dirname + "\\" + nnet_name + dist_finame_end);
+	}
+
+	string resdistfname = dirname + "\\" + nnet_name + dist_finame_end;
+	string resrundistfname = dirname + "\\" + nnet_name + run_dist_finame_end;
+	if (run_type == INIT_TRAIN) {
+		freopen(resdistfname.c_str(), "w", stdout);
+	}else if (run_type == CONTINUE_TRAIN) {
+		freopen(resdistfname.c_str(), "a", stdout);
+	}
+	else if (run_type == RUN) {
+		freopen(resrundistfname.c_str(), "w", stdout);
 	}
 
 	//Вывод начального состояния
@@ -352,7 +370,7 @@ void CreatureInitializationFromFile(string filename) {
 		monster.SetFallUnitAngle(fall_unit_angle);
 		monster.SetTurnUnitAngle(turn_unit_angle);
 
-		prev_pos = monster.GetCenterOfGravity();
+		prev_pos = monster.GetCenterOfGravityX();
 
 		fin.close();
 	}
@@ -526,6 +544,24 @@ void SetJointsAndStates(string filename) {
 	}
 }
 
+void SetCurTick(string filename) {
+	ifstream fin(filename);
+	if (fin.is_open()) {
+		string s;
+		int tick = 0;
+		double dist = 0.0;
+
+		while (!fin.eof())
+		{
+			fin >> tick >> dist;
+		}
+
+		cur_tick = tick / T*T;
+
+		fin.close();
+	}
+}
+
 void DrawBackground() {
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, texture);
@@ -562,8 +598,8 @@ void DrawBackground() {
 }
 
 void Draw() {
-	int tmp = monster.GetCenterOfGravity() / WinWidth;
-	DeltaX = monster.GetCenterOfGravity() - tmp*WinWidth;
+	int tmp = monster.GetCenterOfGravityX() / WinWidth;
+	DeltaX = monster.GetCenterOfGravityX() - tmp*WinWidth;
 	DrawBackground();
 
 	DeltaX = monster.GetCurDeltaDistance();
@@ -573,7 +609,7 @@ void Draw() {
 	glEnter2D();
 	string tmps = "Tick: " + to_string(cur_tick) + "  Dist: " + to_string(fabs(monster.GetCurDeltaDistance()));
 	glWrite(20, WinHeight - 80, (int*)GLUT_BITMAP_8_BY_13, tmps);
-	string spos = "XPos: " + to_string(monster.GetCenterOfGravity()) + " YPos: " + to_string(monster.GetCenterOfGravityY());
+	string spos = "XPos: " + to_string(monster.GetCenterOfGravityX()) + " YPos: " + to_string(monster.GetCenterOfGravityY());
 	glWrite(20, WinHeight - 60, (int*)GLUT_BITMAP_8_BY_13, spos);
 
 	string rewstr = "Rew: " + to_string(reward);
@@ -609,12 +645,12 @@ void Draw() {
 	glBegin(GL_LINES);
 	// center of gravity
 	double cgy = monster.GetCenterOfGravityY();
-	double cg = monster.GetCenterOfGravity();
-	glVertex2f(cg + 100.0 + dx - DeltaX, cgy + ground_height - 10);
-	glVertex2f(cg + 100.0 + dx - DeltaX, cgy + ground_height + 10);
+	double cgx = monster.GetCenterOfGravityX();
+	glVertex2f(cgx + 100.0 + dx - DeltaX, cgy + ground_height - 10);
+	glVertex2f(cgx + 100.0 + dx - DeltaX, cgy + ground_height + 10);
 
-	glVertex2f(cg + 100.0 + dx - 10.0 - DeltaX, cgy + ground_height);
-	glVertex2f(cg + 100.0 + dx + 10.0 - DeltaX, cgy + ground_height);
+	glVertex2f(cgx + 100.0 + dx - 10.0 - DeltaX, cgy + ground_height);
+	glVertex2f(cgx + 100.0 + dx + 10.0 - DeltaX, cgy + ground_height);
 	glEnd();
 
 	glColor3d(0.0, 0.0, 0.0);
@@ -673,7 +709,7 @@ void DoNextStep() {
 	cur_tick++;
 
 	double delta_rew_side = 0.0;
-	double cg = monster.GetCenterOfGravity();
+	double cg = monster.GetCenterOfGravityX();
 
 	if (side == 1) {
 		if ((cg - prev_dist) < 0) {
@@ -690,7 +726,7 @@ void DoNextStep() {
 
 	reward -= 1000.0*(change_side_count / cur_tick);
 
-	prev_pos = monster.GetCenterOfGravity();
+	prev_pos = monster.GetCenterOfGravityX();
 
 	bool fl = false;
 	if (!firstStep) {
@@ -715,7 +751,7 @@ void DoNextStep() {
 			tests_pos.push_back(pos);
 		}
 		while (epoch--) {
-			if (run_type != 3) {
+			if (run_type != RUN) {
 				//if (nnet.RunningLearningOffline(tests) == 0.0)
 				//	break;
 				//if (nnet.RPropLearningOffline(tests) < TRAIN_EPS) //Добавить расчет ошибки 
@@ -743,7 +779,7 @@ void DoNextStep() {
 	monster.UpdatePos(action);
 	if (fabs(prev_dist - /*monster.GetTraveledDistance()*/monster.GetCurDeltaDistance()) < 7.0) {
 		do {
-			action = monster.GetNumActions()*rand() / RAND_MAX;
+			action = (monster.GetNumActions() - 1)*rand() / RAND_MAX;
 			if (monster.CanDoAction(action))
 				break;
 		} while (true);
@@ -764,7 +800,7 @@ void DoNextStep() {
 	//Вывод текущей информации
 	cout << cur_tick << "  " << monster.GetCurDeltaDistance() << endl;
 
-	if (cur_tick % 100 == 0) {
+	if (cur_tick % T == 0) {
 		string dirname = res_dir_str + nnet_name;
 		ofstream wbfout(dirname + "\\" + nnet_name + wb_finame_end);
 		//fout << "==================================================================================" << endl;
@@ -790,7 +826,7 @@ void Timer(int val) // Таймер(промежуток времени, в котором будет производится в
 	DoNextStep();
 
 	if (cur_tick < TICK_COUNT) {
-		if (run_type != 3)
+		if (run_type != RUN)
 			glutTimerFunc(50, Timer, 0); // новый вызов таймера( 100 - промежуток времени(в милисекундах), через который он будет вызыватся, timer - вызываемый паблик) 
 		else
 			glutTimerFunc(120, Timer, 0);

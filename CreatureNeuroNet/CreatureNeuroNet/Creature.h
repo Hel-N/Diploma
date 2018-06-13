@@ -48,7 +48,7 @@ public:
 
 
 	vector<Line> GetLines();
-	double GetCenterOfGravity();
+	double GetCenterOfGravityX();
 	double GetCenterOfGravityY();
 	double GetCurDeltaDistance();
 	double GetTraveledDistance();

@@ -1625,7 +1625,7 @@ private: System::ComponentModel::IContainer^  components;
 
 				// Просчет количества состояний
 				for (int i = 0;i < mvstates.size(); ++i) {
-					mvstates[i].second = (turn_ints[i].second - turn_ints[i].first) / unit_fall_angle + 1; //не учитывается интервал%единичный_угол!!!!!
+					mvstates[i].second = (turn_ints[i].second - turn_ints[i].first) / unit_turn_angle + 1; //не учитывается интервал%единичный_угол!!!!!
 				}
 
 				ComBoxLineInSt->SelectedIndex = 0;
@@ -1684,7 +1684,7 @@ private: System::ComponentModel::IContainer^  components;
 			//Номер состояния
 			brush->Color = Color::White;
 			gInSt->DrawString(Convert::ToString(i + 1), font, brush, RectangleF(xx - 1.5*point_r + 2, yy - 1.5*point_r + 2, 6 * point_r, 3 * point_r));
-			curang += unit_fall_angle;
+			curang += unit_turn_angle;
 		}
 		brush->Color = Color::Blue;
 		gInSt->FillEllipse(brush, RectangleF(x1 - 2 * point_r, y1 - 2 * point_r, 4 * point_r, 4 * point_r));

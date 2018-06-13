@@ -1,2 +1,2 @@
-Wed Jun 13 01:27:47 2018
+Wed Jun 13 20:47:14 2018
  Arguments: C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\CreatureNeuroNet\Release\CreatureNeuroNet.exe qweeee 2 

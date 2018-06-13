@@ -260,7 +260,7 @@ namespace NeuroNetDesigner {
 			// NumUpDownTrAccuracy
 			// 
 			this->NumUpDownTrAccuracy->DecimalPlaces = 10;
-			this->NumUpDownTrAccuracy->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 655360 });
+			this->NumUpDownTrAccuracy->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 196608 });
 			this->NumUpDownTrAccuracy->Location = System::Drawing::Point(162, 288);
 			this->NumUpDownTrAccuracy->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 10, 0, 0, 0 });
 			this->NumUpDownTrAccuracy->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 655360 });
@@ -517,8 +517,8 @@ namespace NeuroNetDesigner {
 			// 
 			// NumUpDownRMSAccuracy
 			// 
-			this->NumUpDownRMSAccuracy->DecimalPlaces = 3;
-			this->NumUpDownRMSAccuracy->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 196608 });
+			this->NumUpDownRMSAccuracy->DecimalPlaces = 10;
+			this->NumUpDownRMSAccuracy->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 524288 });
 			this->NumUpDownRMSAccuracy->Location = System::Drawing::Point(162, 115);
 			this->NumUpDownRMSAccuracy->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 10, 0, 0, 0 });
 			this->NumUpDownRMSAccuracy->Name = L"NumUpDownRMSAccuracy";

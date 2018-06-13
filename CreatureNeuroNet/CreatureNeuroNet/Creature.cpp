@@ -22,7 +22,7 @@ void Creature::InitCreature(vector<pair<double, double>> _joints, vector<pair<in
 	states_mvlines = states;
 	refs = _refs;
 
-	start_pos = GetCenterOfGravity();
+	start_pos = GetCenterOfGravityX();
 	start_max_x = -DBL_MAX;
 	for (int i = 0; i < joints.size(); ++i) {
 		if (joints[i].first > start_max_x) {
@@ -66,7 +66,7 @@ vector<Line> Creature::GetLines() {
 	return res;
 }
 
-double Creature::GetCenterOfGravity() {
+double Creature::GetCenterOfGravityX() {
 	double sum_momets = 0.0;
 	double sum_mass = 0.0;
 	double res = 0.0;
@@ -93,7 +93,7 @@ double Creature::GetCenterOfGravityY() {
 }
 
 double Creature::GetCurDeltaDistance() {
-	double cx = GetCenterOfGravity();
+	double cx = GetCenterOfGravityX();
 	return cx - start_pos;
 }
 
@@ -176,7 +176,7 @@ bool Creature::CanDoFullAction(int action) {
 }
 
 void Creature::Falling() {
-	double cg = GetCenterOfGravity();
+	double cg = GetCenterOfGravityX();
 	vector<pair<pair<double, double>, int>> sup_points; // точки опоры
 	double err_y = 0.0; // допустимое расстояние от земли, при котором касание еще существует
 
