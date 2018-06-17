@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Creature">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQQEBAAA0ABAgABAAAcEEAIiEAuIKCgAABCAAIggiAA=</HashCode>
+      <FileName>Creature.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Layer">
+    <Position X="6.75" Y="0.5" Width="1.5" />
+    <AssociationLine Name="activation_func" Type="ActFuncTypes">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.413" Y="0.862" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="axons" Type="Matrix2d">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.054" Y="0.071" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AEAgAAAAwIJCAQEEAQQCAAAAAAAEQECMABQigEQAQIA=</HashCode>
+      <FileName>Layer.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="activation_func" />
+      <Field Name="axons" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Matrix2d">
+    <Position X="9" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACCA4QAAAAAQAAAAAAgTAAJAQAAAABgAAgAAgAAAA=</HashCode>
+      <FileName>Matrix2d.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NeuroNet">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAEAAEAQIAwBAAAACAAAHIAAAAAoAAACJAwEAAA=</HashCode>
+      <FileName>NeuroNet.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="outputs" />
+    </ShowAsAssociation>
+  </Class>
+  <Struct Name="Point">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAAAA=</HashCode>
+      <FileName>Common.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Line">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAgAQAAAAAAAAA=</HashCode>
+      <FileName>Common.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="a" />
+    </ShowAsAssociation>
+  </Struct>
+  <Struct Name="Test">
+    <Position X="2.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAACAQAAAA=</HashCode>
+      <FileName>NeuroNet.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="inputs" />
+    </ShowAsAssociation>
+  </Struct>
+  <Enum Name="ActFuncTypes">
+    <Position X="4.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAIAAAAAAAAAAAAAAAAAAAEAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Layer.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TrainingTypes">
+    <Position X="4.5" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>NeuroNet.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

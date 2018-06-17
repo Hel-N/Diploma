@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <vector>
 #include <string>
 #include <iomanip>
@@ -518,7 +519,7 @@ namespace NeuroNetDesigner {
 			// NumUpDownRMSAccuracy
 			// 
 			this->NumUpDownRMSAccuracy->DecimalPlaces = 10;
-			this->NumUpDownRMSAccuracy->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 524288 });
+			this->NumUpDownRMSAccuracy->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 655360 });
 			this->NumUpDownRMSAccuracy->Location = System::Drawing::Point(162, 115);
 			this->NumUpDownRMSAccuracy->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 10, 0, 0, 0 });
 			this->NumUpDownRMSAccuracy->Name = L"NumUpDownRMSAccuracy";
@@ -697,7 +698,15 @@ namespace NeuroNetDesigner {
 			ComBoxTrType->SelectedIndex = nnets[edit_nnet_pos].training_type;
 			NumUpDownRMSGamma->Text = Convert::ToString(nnets[edit_nnet_pos].rms_gamma);
 			NumUpDownRMSLearnRate->Text = Convert::ToString(nnets[edit_nnet_pos].rms_learning_rate);
-			NumUpDownRMSAccuracy->Text = Convert::ToString(nnets[edit_nnet_pos].rms_accuracy);
+			std::ostringstream strs;
+			strs << std::fixed << std::setprecision(10) << nnets[edit_nnet_pos].rms_accuracy;
+			std::string str = strs.str();
+			for (int i = 0; i < str.size(); ++i) {
+				if (str[i] == '.') str[i] = ',';
+			}
+			String^ s = gcnew String(str.c_str());
+			NumUpDownRMSAccuracy->Text = s;
+			delete s;
 			NumUpDownQLearnRate->Text = Convert::ToString(nnets[edit_nnet_pos].qlearn_rate);
 		}
 	}
@@ -905,7 +914,7 @@ namespace NeuroNetDesigner {
 
 			fout << "RMS_GAMMA = " << std::fixed << std::setprecision(6) << new_nnet.rms_gamma << ";" << std::endl;
 			fout << "RMS_LEARN_RATE = " << std::fixed << std::setprecision(6) << new_nnet.rms_learning_rate << ";" << std::endl;
-			fout << "RMS_ACCURACY = " << std::fixed << std::setprecision(6) << new_nnet.rms_accuracy << ";" << std::endl << std::endl;
+			fout << "RMS_ACCURACY = " << std::fixed << std::setprecision(10) << new_nnet.rms_accuracy << ";" << std::endl << std::endl;
 
 			fout << "QLEARN_RATE = " << std::fixed << std::setprecision(6) << new_nnet.qlearn_rate << ";" << std::endl << std::endl;
 

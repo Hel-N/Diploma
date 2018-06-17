@@ -333,7 +333,7 @@ Matrix2d NeuroNet::GetOutput() {
 }
 void NeuroNet::CalcDeltaAndGrad(Test& test) {
 	layers[layers.size() - 1].delta = (layers[layers.size() - 1].axons - test.outputs).MultElByEl(layers[layers.size() - 1].CalcDiffs());
-	for (int i = layers.size() - 3; i > 0; --i) {
+	for (int i = layers.size() - 2; i > 0; --i) {
 		layers[i].delta = (layers[i + 1].delta*layers[i + 1].weights).MultElByEl(layers[i].CalcDiffs());
 	}
 
