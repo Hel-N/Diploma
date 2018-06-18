@@ -1,2 +1,2 @@
-Mon Jun 18 23:29:05 2018
- Arguments: C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\NeuroNetDesigner\NeuroNetDesigner\CreatureNeuroNet.exe example 2 
+Tue Jun 19 00:31:44 2018
+ Arguments: C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\NeuroNetDesigner\NeuroNetDesigner\CreatureNeuroNet.exe human_gamma 3 

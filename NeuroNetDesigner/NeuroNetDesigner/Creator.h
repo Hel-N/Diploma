@@ -135,11 +135,13 @@ namespace NeuroNetDesigner {
 
 	private: System::Windows::Forms::Button^  BtnClose;
 	private: System::Windows::Forms::PictureBox^  CanvasSave;
-private: System::Windows::Forms::TextBox^  TBoxCreatureName;
+	private: System::Windows::Forms::TextBox^  TBoxCreatureName;
 
 
-private: System::Windows::Forms::ContextMenuStrip^  contextMenuStrip1;
-private: System::ComponentModel::IContainer^  components;
+	private: System::Windows::Forms::ContextMenuStrip^  contextMenuStrip1;
+	private: System::Windows::Forms::TrackBar^  TrackBarMaxAng;
+	private: System::Windows::Forms::TrackBar^  TrackBarMinAng;
+	private: System::ComponentModel::IContainer^  components;
 
 
 
@@ -182,6 +184,8 @@ private: System::ComponentModel::IContainer^  components;
 			this->LbDegFAng = (gcnew System::Windows::Forms::Label());
 			this->TBoxFallAngle = (gcnew System::Windows::Forms::TextBox());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->TrackBarMaxAng = (gcnew System::Windows::Forms::TrackBar());
+			this->TrackBarMinAng = (gcnew System::Windows::Forms::TrackBar());
 			this->LbDegMaxAng = (gcnew System::Windows::Forms::Label());
 			this->LbDegMinAng = (gcnew System::Windows::Forms::Label());
 			this->TBoxMaxAngle = (gcnew System::Windows::Forms::TextBox());
@@ -231,6 +235,8 @@ private: System::ComponentModel::IContainer^  components;
 			this->TabChooseTurnIntervals->SuspendLayout();
 			this->GrBoxTInt->SuspendLayout();
 			this->panel1->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TrackBarMaxAng))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TrackBarMinAng))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CanvasTInt))->BeginInit();
 			this->TabChooseMovableLines->SuspendLayout();
 			this->GrBoxMvLines->SuspendLayout();
@@ -361,10 +367,10 @@ private: System::ComponentModel::IContainer^  components;
 			// 
 			this->richTextBox1->BackColor = System::Drawing::SystemColors::GradientInactiveCaption;
 			this->richTextBox1->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			this->richTextBox1->Location = System::Drawing::Point(608, 418);
+			this->richTextBox1->Location = System::Drawing::Point(608, 447);
 			this->richTextBox1->Name = L"richTextBox1";
 			this->richTextBox1->ReadOnly = true;
-			this->richTextBox1->Size = System::Drawing::Size(283, 82);
+			this->richTextBox1->Size = System::Drawing::Size(283, 60);
 			this->richTextBox1->TabIndex = 5;
 			this->richTextBox1->Text = L"Angle values ​​must be positive. \nThe angle is counted from zero \ncounterclockwis"
 				L"e along the unit circle.";
@@ -380,7 +386,7 @@ private: System::ComponentModel::IContainer^  components;
 			this->GrBoxTInt->Controls->Add(this->LbUnitAngle);
 			this->GrBoxTInt->Location = System::Drawing::Point(608, 9);
 			this->GrBoxTInt->Name = L"GrBoxTInt";
-			this->GrBoxTInt->Size = System::Drawing::Size(285, 398);
+			this->GrBoxTInt->Size = System::Drawing::Size(285, 498);
 			this->GrBoxTInt->TabIndex = 4;
 			this->GrBoxTInt->TabStop = false;
 			this->GrBoxTInt->Text = L"Enter Turn Intervals";
@@ -413,6 +419,8 @@ private: System::ComponentModel::IContainer^  components;
 			// panel1
 			// 
 			this->panel1->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->panel1->Controls->Add(this->TrackBarMaxAng);
+			this->panel1->Controls->Add(this->TrackBarMinAng);
 			this->panel1->Controls->Add(this->LbDegMaxAng);
 			this->panel1->Controls->Add(this->LbDegMinAng);
 			this->panel1->Controls->Add(this->TBoxMaxAngle);
@@ -424,13 +432,31 @@ private: System::ComponentModel::IContainer^  components;
 			this->panel1->Controls->Add(this->LbLine);
 			this->panel1->Location = System::Drawing::Point(6, 117);
 			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(273, 271);
+			this->panel1->Size = System::Drawing::Size(273, 321);
 			this->panel1->TabIndex = 3;
+			// 
+			// TrackBarMaxAng
+			// 
+			this->TrackBarMaxAng->Location = System::Drawing::Point(2, 199);
+			this->TrackBarMaxAng->Maximum = 720;
+			this->TrackBarMaxAng->Name = L"TrackBarMaxAng";
+			this->TrackBarMaxAng->Size = System::Drawing::Size(264, 56);
+			this->TrackBarMaxAng->TabIndex = 10;
+			this->TrackBarMaxAng->ValueChanged += gcnew System::EventHandler(this, &Creator::TrackBarMaxAng_ValueChanged);
+			// 
+			// TrackBarMinAng
+			// 
+			this->TrackBarMinAng->Location = System::Drawing::Point(4, 103);
+			this->TrackBarMinAng->Maximum = 720;
+			this->TrackBarMinAng->Name = L"TrackBarMinAng";
+			this->TrackBarMinAng->Size = System::Drawing::Size(264, 56);
+			this->TrackBarMinAng->TabIndex = 9;
+			this->TrackBarMinAng->ValueChanged += gcnew System::EventHandler(this, &Creator::TrackBarMinAng_ValueChanged);
 			// 
 			// LbDegMaxAng
 			// 
 			this->LbDegMaxAng->AutoSize = true;
-			this->LbDegMaxAng->Location = System::Drawing::Point(235, 134);
+			this->LbDegMaxAng->Location = System::Drawing::Point(235, 172);
 			this->LbDegMaxAng->Name = L"LbDegMaxAng";
 			this->LbDegMaxAng->Size = System::Drawing::Size(32, 18);
 			this->LbDegMaxAng->TabIndex = 8;
@@ -439,7 +465,7 @@ private: System::ComponentModel::IContainer^  components;
 			// LbDegMinAng
 			// 
 			this->LbDegMinAng->AutoSize = true;
-			this->LbDegMinAng->Location = System::Drawing::Point(235, 89);
+			this->LbDegMinAng->Location = System::Drawing::Point(235, 76);
 			this->LbDegMinAng->Name = L"LbDegMinAng";
 			this->LbDegMinAng->Size = System::Drawing::Size(32, 18);
 			this->LbDegMinAng->TabIndex = 7;
@@ -447,21 +473,23 @@ private: System::ComponentModel::IContainer^  components;
 			// 
 			// TBoxMaxAngle
 			// 
-			this->TBoxMaxAngle->Location = System::Drawing::Point(100, 131);
+			this->TBoxMaxAngle->Location = System::Drawing::Point(85, 169);
 			this->TBoxMaxAngle->Name = L"TBoxMaxAngle";
 			this->TBoxMaxAngle->Size = System::Drawing::Size(129, 24);
 			this->TBoxMaxAngle->TabIndex = 6;
+			this->TBoxMaxAngle->TextChanged += gcnew System::EventHandler(this, &Creator::TBoxMaxAngle_TextChanged);
 			// 
 			// TBoxMinAngle
 			// 
-			this->TBoxMinAngle->Location = System::Drawing::Point(100, 89);
+			this->TBoxMinAngle->Location = System::Drawing::Point(85, 73);
 			this->TBoxMinAngle->Name = L"TBoxMinAngle";
 			this->TBoxMinAngle->Size = System::Drawing::Size(129, 24);
 			this->TBoxMinAngle->TabIndex = 5;
+			this->TBoxMinAngle->TextChanged += gcnew System::EventHandler(this, &Creator::TBoxMinAngle_TextChanged);
 			// 
 			// BtnShowTInt
 			// 
-			this->BtnShowTInt->Location = System::Drawing::Point(27, 211);
+			this->BtnShowTInt->Location = System::Drawing::Point(32, 274);
 			this->BtnShowTInt->Name = L"BtnShowTInt";
 			this->BtnShowTInt->Size = System::Drawing::Size(224, 40);
 			this->BtnShowTInt->TabIndex = 4;
@@ -472,7 +500,7 @@ private: System::ComponentModel::IContainer^  components;
 			// LbMaxAngle
 			// 
 			this->LbMaxAngle->AutoSize = true;
-			this->LbMaxAngle->Location = System::Drawing::Point(3, 134);
+			this->LbMaxAngle->Location = System::Drawing::Point(0, 172);
 			this->LbMaxAngle->Name = L"LbMaxAngle";
 			this->LbMaxAngle->Size = System::Drawing::Size(79, 18);
 			this->LbMaxAngle->TabIndex = 3;
@@ -481,7 +509,7 @@ private: System::ComponentModel::IContainer^  components;
 			// LbMinAngle
 			// 
 			this->LbMinAngle->AutoSize = true;
-			this->LbMinAngle->Location = System::Drawing::Point(3, 89);
+			this->LbMinAngle->Location = System::Drawing::Point(0, 76);
 			this->LbMinAngle->Name = L"LbMinAngle";
 			this->LbMinAngle->Size = System::Drawing::Size(75, 18);
 			this->LbMinAngle->TabIndex = 2;
@@ -889,6 +917,8 @@ private: System::ComponentModel::IContainer^  components;
 			this->GrBoxTInt->PerformLayout();
 			this->panel1->ResumeLayout(false);
 			this->panel1->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TrackBarMaxAng))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TrackBarMinAng))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CanvasTInt))->EndInit();
 			this->TabChooseMovableLines->ResumeLayout(false);
 			this->GrBoxMvLines->ResumeLayout(false);
@@ -983,7 +1013,7 @@ private: System::ComponentModel::IContainer^  components;
 
 			double res = 0.0;
 			res = acos((x2 - x1) / get_dist(x1, y1, x2, y2));
-			return 2*M_PI - res;
+			return 2 * M_PI - res;
 		}
 
 
@@ -1422,8 +1452,14 @@ private: System::ComponentModel::IContainer^  components;
 
 			ComBoxLineTInt->SelectedIndex = 0;
 
-			TBoxUnitAngle->Clear();
-			TBoxFallAngle->Clear();
+			TBoxUnitAngle->Text = L"1";
+			TBoxFallAngle->Text = L"1";
+
+			TBoxMinAngle->Text = L"0";
+			TBoxMaxAngle->Text = L"0";
+
+			TrackBarMinAng->Value = 0;
+			TrackBarMaxAng->Value = 0;
 
 			TabChooseTurnIntervals->Enabled = true;
 			CreationProcess->SelectedTab = TabChooseTurnIntervals;
@@ -1904,7 +1940,7 @@ private: System::ComponentModel::IContainer^  components;
 		}
 
 		std::ofstream fout(crfilename);
-		
+
 		if (fl_filename && fout.is_open()) {
 			double max_y = -DBL_MAX;
 			for (int i = 0; i < new_joints.size(); ++i) {
@@ -1919,7 +1955,7 @@ private: System::ComponentModel::IContainer^  components;
 			for (int i = 0; i < new_joints.size(); ++i) {
 				double new_y = fabs(new_joints[i].second - max_y); // Изменение направления оси Oy (направление ее вверх) 
 				fout << new_joints[i].first << " " << new_y << std::endl;
-				
+
 				new_creature.joints[i].first = new_joints[i].first;
 				new_creature.joints[i].second = new_y;
 			}
@@ -1955,11 +1991,11 @@ private: System::ComponentModel::IContainer^  components;
 				min_ang = deg_to_rad(min_ang);
 				max_ang = deg_to_rad(max_ang);
 				fout << min_ang << " " << max_ang << std::endl;
-				
+
 				new_creature.turn_intervals[i].first = min_ang;
 				new_creature.turn_intervals[i].second = max_ang;
 			}
-			
+
 			fout << "------------------Initial states (state_num state_count)-------------------" << std::endl;
 			fout << mvstates.size() << std::endl;
 			for (int i = 0; i < mvstates.size(); ++i) {
@@ -2016,5 +2052,43 @@ private: System::ComponentModel::IContainer^  components;
 			}
 		}
 	}
-};
+	private: System::Void TrackBarMinAng_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+		TBoxMinAngle->Text = Convert::ToString(TrackBarMinAng->Value);
+	}
+	private: System::Void TrackBarMaxAng_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+		TBoxMaxAngle->Text = Convert::ToString(TrackBarMaxAng->Value);
+	}
+	private: System::Void TBoxMinAngle_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+		try {
+			double min_angle = Convert::ToDouble(TBoxMinAngle->Text);
+			int min_angle_int = min_angle;
+			if (min_angle_int < 0)
+				min_angle_int = 0;
+			else if (min_angle_int > 720)
+				min_angle_int = 720;
+
+			TrackBarMinAng->Value = min_angle_int;
+
+		}
+		catch (...) {
+			TrackBarMinAng->Value = 0;
+		}
+	}
+	private: System::Void TBoxMaxAngle_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+		try {
+			double max_angle = Convert::ToDouble(TBoxMaxAngle->Text);
+			int max_angle_int = max_angle;
+			if (max_angle_int < 0)
+				max_angle_int = 0;
+			else if (max_angle_int > 720)
+				max_angle_int = 720;
+
+			TrackBarMaxAng->Value = max_angle_int;
+
+		}
+		catch (...) {
+			TrackBarMaxAng->Value = 0;
+		}
+	}
+	};
 }
