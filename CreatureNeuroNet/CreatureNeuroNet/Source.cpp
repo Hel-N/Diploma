@@ -153,8 +153,15 @@ int main(int argc, char** ardv) {
 	string dirname = res_dir_str + nnet_name;
 	_mkdir(dirname.c_str());
 
-	vector<int> num_neurons = { NUM_HIDDEN_NEURONS, NUM_HIDDEN_NEURONS, monster.GetNumActions() };
-	vector<ActFuncTypes> aft = { ACT_FUNC, ACT_FUNC, LINE };
+	vector<int> num_neurons;
+	vector<ActFuncTypes> aft;
+	for (int i = 0; i < NUM_HIDDEN_LAYERS; ++i) {
+		num_neurons.push_back(NUM_HIDDEN_NEURONS);
+		aft.push_back(ACT_FUNC);
+	}
+	num_neurons.push_back(monster.GetNumActions());
+	aft.push_back(LINE);
+
 	nnet = NeuroNet(2 * monster.GetNumJoints(), NUM_HIDDEN_LAYERS + 1, num_neurons, aft, monster.GetNumActions());
 
 	run_type = atoi(ardv[2]);

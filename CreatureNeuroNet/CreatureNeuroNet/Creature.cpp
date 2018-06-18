@@ -178,10 +178,10 @@ bool Creature::CanDoFullAction(int action) {
 void Creature::Falling() {
 	double cg = GetCenterOfGravityX();
 	vector<pair<pair<double, double>, int>> sup_points; // точки опоры
-	double err_y = 0.0; // допустимое расстояние от земли, при котором касание еще существует
+	double err_y = 0.00000001; // допустимое расстояние от земли, при котором касание еще существует
 
 	for (int i = 0; i < joints.size(); ++i) {
-		if (joints[i].second <= err_y /*&& joints[i].second >= 0.0*/) {
+		if (joints[i].second <= err_y) {
 			sup_points.push_back(make_pair(joints[i], i));
 		}
 	}
@@ -189,7 +189,7 @@ void Creature::Falling() {
 	// Если после поворота некоторго отрезка, существо оказалось в воздухе
 	if (sup_points.size() == 0) {
 		double ymn = 1.0*1e9;
-		for (int i = 0;i < joints.size(); ++i) {
+		for (int i = 0; i < joints.size(); ++i) {
 			if (joints[i].second < ymn) {
 				ymn = joints[i].second;
 			}
@@ -200,7 +200,7 @@ void Creature::Falling() {
 		}
 
 		for (int i = 0; i < joints.size(); ++i) {
-			if (joints[i].second <= err_y /*&& joints[i].second >= 0*/) {
+			if (joints[i].second <= err_y) {
 				sup_points.push_back(make_pair(joints[i], i));
 			}
 		}

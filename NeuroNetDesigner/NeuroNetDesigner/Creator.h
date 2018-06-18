@@ -952,34 +952,38 @@ private: System::ComponentModel::IContainer^  components;
 		}
 
 		double get_angle(double x1, double y1, double x2, double y2) {  //         / x2,y2
-			double res = 0.0;								            //        /
-			y2 *= -1.0; //из-за направления оси							// x1,y1 /______ 
+			//double res = 0.0;								            //        /
+			//y2 *= -1.0; //из-за направления оси	(Плохо, так нельзя!!!!!!!!!!!)						// x1,y1 /______ 
 
-			if (x1 == x2) {
-				if (y1 == y2)
-					return res;
-				if (y2 > y1)
-					return res = 1.0 * M_PI / 2;
-				else
-					return res = 3.0 * M_PI / 2;
-			}
+			//if (x1 == x2) {
+			//	if (y1 == y2)
+			//		return res;
+			//	if (y2 > y1)
+			//		return res = 1.0 * M_PI / 2;
+			//	else
+			//		return res = 3.0 * M_PI / 2;
+			//}
 
-			if (y1 == y2) {
-				if (x2 > x1)
-					return res = 0.0;
-				else
-					return res = 1.0*M_PI;
-			}
+			//if (y1 == y2) {
+			//	if (x2 > x1)
+			//		return res = 0.0;
+			//	else
+			//		return res = 1.0*M_PI;
+			//}
 
-			res = atan((1.0*abs(y2 - y1)) / (1.0*abs(x2 - x1)));
-			if (x2 > x1 && y2 > y1)
-				return res;
-			if (x2 < x1 && y2 > y1)
-				return res = M_PI - res;
-			if (x2 < x1 && y2 < y1)
-				return res = M_PI + res;
-			if (x2 > x1 && y2 < y1)
-				return res = 2 * M_PI - res;
+			//res = atan((1.0*abs(y2 - y1)) / (1.0*abs(x2 - x1)));
+			//if (x2 > x1 && y2 > y1)
+			//	return res;
+			//if (x2 < x1 && y2 > y1)
+			//	return res = M_PI - res;
+			//if (x2 < x1 && y2 < y1)
+			//	return res = M_PI + res;
+			//if (x2 > x1 && y2 < y1)
+			//	return res = 2 * M_PI - res;
+
+			double res = 0.0;
+			res = acos((x2 - x1) / get_dist(x1, y1, x2, y2));
+			return 2*M_PI - res;
 		}
 
 
@@ -1831,7 +1835,7 @@ private: System::ComponentModel::IContainer^  components;
 			}
 
 			//rad
-			double curang = get_angle(joints[osp].first, joints[osp].second, joints[nosp].first, joints[nosp].second);
+			double curang = get_angle(new_joints[osp].first, new_joints[osp].second, new_joints[nosp].first, new_joints[nosp].second);
 			//deg
 			double needang = (turn_ints[mvline].first != -1.0) ? turn_ints[mvline].first : 0.0;
 			needang += unit_turn_angle*mvstates[mvline].first;
@@ -1839,8 +1843,8 @@ private: System::ComponentModel::IContainer^  components;
 			double deltaang = needang - curang;
 
 			for (auto it = rpoints.begin(); it != rpoints.end(); ++it) {
-				double dist = get_dist(joints[osp].first, joints[osp].second, joints[*it].first, joints[*it].second);
-				double ang = get_angle(joints[osp].first, joints[osp].second, joints[*it].first, joints[*it].second);
+				double dist = get_dist(new_joints[osp].first, new_joints[osp].second, new_joints[*it].first, new_joints[*it].second);
+				double ang = get_angle(new_joints[osp].first, new_joints[osp].second, new_joints[*it].first, new_joints[*it].second);
 				ang += deltaang;
 				new_joints[*it].first = new_joints[osp].first + dist*cos(ang);
 				new_joints[*it].second = new_joints[osp].second - dist*sin(ang);
