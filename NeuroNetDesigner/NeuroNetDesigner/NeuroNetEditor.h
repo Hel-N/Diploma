@@ -137,6 +137,21 @@ namespace NeuroNetDesigner {
 	private: System::Windows::Forms::NumericUpDown^  NumUpDownRMSLearnRate;
 	private: System::Windows::Forms::NumericUpDown^  NumUpDownRMSAccuracy;
 	private: System::Windows::Forms::NumericUpDown^  NumUpDownQLearnRate;
+private: System::Windows::Forms::GroupBox^  GrBoxQLearning;
+private: System::Windows::Forms::NumericUpDown^  NumUpDownCenterOfGravityK;
+
+private: System::Windows::Forms::Label^  LReward;
+private: System::Windows::Forms::CheckedListBox^  CheckListBoxReward;
+private: System::Windows::Forms::Label^  LCenterOfGravityYK;
+private: System::Windows::Forms::NumericUpDown^  NumUpDownHeadYK;
+
+private: System::Windows::Forms::NumericUpDown^  NumUpDownFallingK;
+
+private: System::Windows::Forms::Label^  LHeadYK;
+
+private: System::Windows::Forms::Label^  LFallingK;
+
+
 
 
 
@@ -196,6 +211,15 @@ namespace NeuroNetDesigner {
 			this->LRMSType = (gcnew System::Windows::Forms::Label());
 			this->BtnSaveNNetParam = (gcnew System::Windows::Forms::Button());
 			this->BtnCancel = (gcnew System::Windows::Forms::Button());
+			this->GrBoxQLearning = (gcnew System::Windows::Forms::GroupBox());
+			this->CheckListBoxReward = (gcnew System::Windows::Forms::CheckedListBox());
+			this->LReward = (gcnew System::Windows::Forms::Label());
+			this->NumUpDownCenterOfGravityK = (gcnew System::Windows::Forms::NumericUpDown());
+			this->LCenterOfGravityYK = (gcnew System::Windows::Forms::Label());
+			this->LFallingK = (gcnew System::Windows::Forms::Label());
+			this->LHeadYK = (gcnew System::Windows::Forms::Label());
+			this->NumUpDownFallingK = (gcnew System::Windows::Forms::NumericUpDown());
+			this->NumUpDownHeadYK = (gcnew System::Windows::Forms::NumericUpDown());
 			this->GrBoxNNetParam->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownTrAccuracy))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownTrPeriod))->BeginInit();
@@ -211,6 +235,10 @@ namespace NeuroNetDesigner {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownRMSAccuracy))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownRMSLearnRate))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownRMSGamma))->BeginInit();
+			this->GrBoxQLearning->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownCenterOfGravityK))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownFallingK))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownHeadYK))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// LNNetName
@@ -489,12 +517,10 @@ namespace NeuroNetDesigner {
 			// 
 			// GrBoxLearnAlgParam
 			// 
-			this->GrBoxLearnAlgParam->Controls->Add(this->NumUpDownQLearnRate);
 			this->GrBoxLearnAlgParam->Controls->Add(this->NumUpDownRMSAccuracy);
 			this->GrBoxLearnAlgParam->Controls->Add(this->NumUpDownRMSLearnRate);
 			this->GrBoxLearnAlgParam->Controls->Add(this->NumUpDownRMSGamma);
 			this->GrBoxLearnAlgParam->Controls->Add(this->ComBoxTrType);
-			this->GrBoxLearnAlgParam->Controls->Add(this->LLearnRate);
 			this->GrBoxLearnAlgParam->Controls->Add(this->LRMSAccuracy);
 			this->GrBoxLearnAlgParam->Controls->Add(this->LRMSLearnRate);
 			this->GrBoxLearnAlgParam->Controls->Add(this->LRMSGamma);
@@ -510,7 +536,7 @@ namespace NeuroNetDesigner {
 			// 
 			this->NumUpDownQLearnRate->DecimalPlaces = 3;
 			this->NumUpDownQLearnRate->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 196608 });
-			this->NumUpDownQLearnRate->Location = System::Drawing::Point(162, 155);
+			this->NumUpDownQLearnRate->Location = System::Drawing::Point(125, 38);
 			this->NumUpDownQLearnRate->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			this->NumUpDownQLearnRate->Name = L"NumUpDownQLearnRate";
 			this->NumUpDownQLearnRate->Size = System::Drawing::Size(214, 22);
@@ -558,7 +584,7 @@ namespace NeuroNetDesigner {
 			// LLearnRate
 			// 
 			this->LLearnRate->AutoSize = true;
-			this->LLearnRate->Location = System::Drawing::Point(6, 157);
+			this->LLearnRate->Location = System::Drawing::Point(6, 38);
 			this->LLearnRate->Name = L"LLearnRate";
 			this->LLearnRate->Size = System::Drawing::Size(113, 17);
 			this->LLearnRate->TabIndex = 18;
@@ -602,7 +628,7 @@ namespace NeuroNetDesigner {
 			// 
 			// BtnSaveNNetParam
 			// 
-			this->BtnSaveNNetParam->Location = System::Drawing::Point(363, 629);
+			this->BtnSaveNNetParam->Location = System::Drawing::Point(473, 629);
 			this->BtnSaveNNetParam->Name = L"BtnSaveNNetParam";
 			this->BtnSaveNNetParam->Size = System::Drawing::Size(132, 48);
 			this->BtnSaveNNetParam->TabIndex = 5;
@@ -612,7 +638,7 @@ namespace NeuroNetDesigner {
 			// 
 			// BtnCancel
 			// 
-			this->BtnCancel->Location = System::Drawing::Point(537, 629);
+			this->BtnCancel->Location = System::Drawing::Point(819, 629);
 			this->BtnCancel->Name = L"BtnCancel";
 			this->BtnCancel->Size = System::Drawing::Size(132, 48);
 			this->BtnCancel->TabIndex = 6;
@@ -620,11 +646,96 @@ namespace NeuroNetDesigner {
 			this->BtnCancel->UseVisualStyleBackColor = true;
 			this->BtnCancel->Click += gcnew System::EventHandler(this, &NeuroNetEditor::BtnCancel_Click);
 			// 
+			// GrBoxQLearning
+			// 
+			this->GrBoxQLearning->Controls->Add(this->NumUpDownHeadYK);
+			this->GrBoxQLearning->Controls->Add(this->NumUpDownFallingK);
+			this->GrBoxQLearning->Controls->Add(this->LHeadYK);
+			this->GrBoxQLearning->Controls->Add(this->LFallingK);
+			this->GrBoxQLearning->Controls->Add(this->LCenterOfGravityYK);
+			this->GrBoxQLearning->Controls->Add(this->NumUpDownCenterOfGravityK);
+			this->GrBoxQLearning->Controls->Add(this->LReward);
+			this->GrBoxQLearning->Controls->Add(this->CheckListBoxReward);
+			this->GrBoxQLearning->Controls->Add(this->NumUpDownQLearnRate);
+			this->GrBoxQLearning->Controls->Add(this->LLearnRate);
+			this->GrBoxQLearning->Location = System::Drawing::Point(720, 79);
+			this->GrBoxQLearning->Name = L"GrBoxQLearning";
+			this->GrBoxQLearning->Size = System::Drawing::Size(350, 523);
+			this->GrBoxQLearning->TabIndex = 7;
+			this->GrBoxQLearning->TabStop = false;
+			this->GrBoxQLearning->Text = L"QLearning";
+			// 
+			// CheckListBoxReward
+			// 
+			this->CheckListBoxReward->FormattingEnabled = true;
+			this->CheckListBoxReward->Location = System::Drawing::Point(9, 102);
+			this->CheckListBoxReward->Name = L"CheckListBoxReward";
+			this->CheckListBoxReward->Size = System::Drawing::Size(330, 208);
+			this->CheckListBoxReward->TabIndex = 29;
+			// 
+			// LReward
+			// 
+			this->LReward->AutoSize = true;
+			this->LReward->Location = System::Drawing::Point(9, 79);
+			this->LReward->Name = L"LReward";
+			this->LReward->Size = System::Drawing::Size(136, 17);
+			this->LReward->TabIndex = 30;
+			this->LReward->Text = L"Reward parameters:";
+			// 
+			// NumUpDownCenterOfGravityK
+			// 
+			this->NumUpDownCenterOfGravityK->Location = System::Drawing::Point(149, 332);
+			this->NumUpDownCenterOfGravityK->Name = L"NumUpDownCenterOfGravityK";
+			this->NumUpDownCenterOfGravityK->Size = System::Drawing::Size(190, 22);
+			this->NumUpDownCenterOfGravityK->TabIndex = 31;
+			// 
+			// LCenterOfGravityYK
+			// 
+			this->LCenterOfGravityYK->AutoSize = true;
+			this->LCenterOfGravityYK->Location = System::Drawing::Point(9, 334);
+			this->LCenterOfGravityYK->Name = L"LCenterOfGravityYK";
+			this->LCenterOfGravityYK->Size = System::Drawing::Size(134, 17);
+			this->LCenterOfGravityYK->TabIndex = 32;
+			this->LCenterOfGravityYK->Text = L"CenterOfGravityY k:";
+			// 
+			// LFallingK
+			// 
+			this->LFallingK->AutoSize = true;
+			this->LFallingK->Location = System::Drawing::Point(11, 366);
+			this->LFallingK->Name = L"LFallingK";
+			this->LFallingK->Size = System::Drawing::Size(64, 17);
+			this->LFallingK->TabIndex = 33;
+			this->LFallingK->Text = L"Falling k:";
+			// 
+			// LHeadYK
+			// 
+			this->LHeadYK->AutoSize = true;
+			this->LHeadYK->Location = System::Drawing::Point(11, 396);
+			this->LHeadYK->Name = L"LHeadYK";
+			this->LHeadYK->Size = System::Drawing::Size(66, 17);
+			this->LHeadYK->TabIndex = 34;
+			this->LHeadYK->Text = L"HeadY k:";
+			// 
+			// NumUpDownFallingK
+			// 
+			this->NumUpDownFallingK->Location = System::Drawing::Point(149, 366);
+			this->NumUpDownFallingK->Name = L"NumUpDownFallingK";
+			this->NumUpDownFallingK->Size = System::Drawing::Size(190, 22);
+			this->NumUpDownFallingK->TabIndex = 35;
+			// 
+			// NumUpDownHeadYK
+			// 
+			this->NumUpDownHeadYK->Location = System::Drawing::Point(149, 396);
+			this->NumUpDownHeadYK->Name = L"NumUpDownHeadYK";
+			this->NumUpDownHeadYK->Size = System::Drawing::Size(190, 22);
+			this->NumUpDownHeadYK->TabIndex = 36;
+			// 
 			// NeuroNetEditor
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(713, 689);
+			this->ClientSize = System::Drawing::Size(1109, 689);
+			this->Controls->Add(this->GrBoxQLearning);
 			this->Controls->Add(this->BtnCancel);
 			this->Controls->Add(this->BtnSaveNNetParam);
 			this->Controls->Add(this->GrBoxLearnAlgParam);
@@ -633,7 +744,6 @@ namespace NeuroNetDesigner {
 			this->Controls->Add(this->TBoxNNetName);
 			this->Controls->Add(this->LNNetName);
 			this->MaximizeBox = false;
-			this->MaximumSize = System::Drawing::Size(731, 736);
 			this->MinimumSize = System::Drawing::Size(731, 736);
 			this->Name = L"NeuroNetEditor";
 			this->Text = L"NeuroNet Editor";
@@ -656,6 +766,11 @@ namespace NeuroNetDesigner {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownRMSAccuracy))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownRMSLearnRate))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownRMSGamma))->EndInit();
+			this->GrBoxQLearning->ResumeLayout(false);
+			this->GrBoxQLearning->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownCenterOfGravityK))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownFallingK))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownHeadYK))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 

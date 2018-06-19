@@ -24,6 +24,7 @@ using namespace std;
 //ofstream fout;
 //ofstream cfout;
 ofstream logout("log.txt");
+ofstream testout("test.txt");
 
 string res_dir_str = "Res\\";
 string wb_finame_end = "_weights_and_biases.txt";
@@ -773,39 +774,14 @@ void DoNextStep() {
 	SetInputs(inputs);
 	int action = -1;
 	reward = 0.0;
-	//reward = fabs(prev_dist - monster.GetCurDeltaDistance());
 	reward = GetReward(reward_type);
-	//reward = monster.GetCurDeltaDistance() - prev_dist;
-	//reward = fabs(fabs(prev_dist) - fabs(monster.GetCurDeltaDistance())) /*- 10.0 / monster.GetCenterOfGravityY()*/;
-	//reward = fabs(monster.GetCurDeltaDistance()) - monster.GetFalling()*10.0/* - 50.0/monster.GetCenterOfGravityY()*/;
 	prev_dist = monster.GetCurDeltaDistance();
-	//double reward = monster.GetTraveledDistance();
-	//prev_dist = reward;
 	cur_tick++;
 
 	double delta_rew_side = 0.0;
 	double cg = monster.GetCenterOfGravityX();
 
-	if (side == 1) {
-		if ((cg - prev_dist) < 0) {
-			//delta_rew_side = 5.0; 
-			change_side_count++;
-		}
-	}
-	else if (side == -1) {
-		if ((cg - prev_dist) > 0) {
-			//delta_rew_side = 5.0; 
-			change_side_count++;
-		}
-	}
-
-	reward -= 1000.0*(change_side_count / cur_tick);
-
-	prev_pos = monster.GetCenterOfGravityX();
-
-	bool fl = false;
 	if (!firstStep) {
-		fl = true;
 		nnet.Running(inputs);
 		Q = nnet.GetOutput();
 
@@ -821,10 +797,11 @@ void DoNextStep() {
 		nnet.AddTest(tests, prev_inputs, Q);
 		int epoch = EPOCH;
 		vector<int> tests_pos;
-		for (int i = 0; i < CUR_TESTS_NUMBER; ++i) {
+		for (int i = 0; i < min(CUR_TESTS_NUMBER, tests.size()); ++i) {
 			int pos = max(0, (tests.size() - 1))*(double)rand() / RAND_MAX;
 			tests_pos.push_back(pos);
 		}
+		
 		while (epoch--) {
 			if (run_type != RUN) {
 				//if (nnet.RunningLearningOffline(tests) == 0.0)
@@ -852,53 +829,49 @@ void DoNextStep() {
 	}
 
 	monster.UpdatePos(action);
-	if (fabs(prev_dist - /*monster.GetTraveledDistance()*/monster.GetCurDeltaDistance()) < 7.0) {
-		do {
-			action = (monster.GetNumActions() - 1)*rand() / RAND_MAX;
-			if (monster.CanDoAction(action))
-				break;
-		} while (true);
-		monster.UpdatePos(action);
+	if (run_type != RUN) {
+		if (fabs(prev_dist - monster.GetCurDeltaDistance()) < 7.0) {
+			do {
+				action = (monster.GetNumActions() - 1)*rand() / RAND_MAX;
+				if (monster.CanDoAction(action))
+					break;
+			} while (true);
+			monster.UpdatePos(action);
+		}
 	}
 	prevAction = action;
 	prevQ = Q;
 
-	if (side == 0) {
-		if (cg - prev_dist > 0) {
-			side = 1;
-		}
-		else {
-			side = -1;
-		}
-	}
-
 	//Вывод текущей информации
-	cout << cur_tick << "  " << monster.GetCurDeltaDistance() << endl;
+	//cout << cur_tick << "  " << monster.GetCurDeltaDistance() << endl;
+	//
+	//if (cur_tick % T == 0) {
+	//	string dirname = res_dir_str + nnet_name;
+	//	ofstream wbfout(dirname + "\\" + nnet_name + wb_finame_end);
+	//	//fout << "==================================================================================" << endl;
+	//	nnet.PrintWeightsAndBiases(wbfout, false);
+	//	//fout << "==================================================================================" << endl;
+	//	//fout << endl << endl;
+	//	wbfout.close();
+	//
+	//	ofstream crfout(dirname + "\\" + nnet_name + curcr_finame_end);
+	//	//cfout << "==================================================================================" << endl;
+	//	monster.PrintCreatureJoints(crfout);
+	//	//cfout << "==================================================================================" << endl;
+	//	//cfout << endl << endl;
+	//	crfout.close();
+	//}
 
-	if (cur_tick % T == 0) {
-		string dirname = res_dir_str + nnet_name;
-		ofstream wbfout(dirname + "\\" + nnet_name + wb_finame_end);
-		//fout << "==================================================================================" << endl;
-		nnet.PrintWeightsAndBiases(wbfout, false);
-		//fout << "==================================================================================" << endl;
-		//fout << endl << endl;
-		wbfout.close();
-
-		ofstream crfout(dirname + "\\" + nnet_name + curcr_finame_end);
-		//cfout << "==================================================================================" << endl;
-		monster.PrintCreatureJoints(crfout);
-		//cfout << "==================================================================================" << endl;
-		//cfout << endl << endl;
-		crfout.close();
-	}
-
-	fflush(stdout);
+	//fflush(stdout);
 }
 
 void Timer(int val) // Таймер(промежуток времени, в котором будет производится все процессы) 
 {
+	double fTimeStart = clock() / (float)CLOCKS_PER_SEC;
 	Display();
 	DoNextStep();
+	double fTimeStop = clock() / (float)CLOCKS_PER_SEC;
+	testout << endl << cur_tick << " " << fTimeStop - fTimeStart;
 
 	if (cur_tick < TICK_COUNT) {
 		if (run_type != RUN)
