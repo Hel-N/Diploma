@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <iomanip>
+#include <set>
 using namespace std;
 
 class Creature {
@@ -27,6 +28,7 @@ private:
 	vector<pair<double, double>> turn_intervals; // левая и правая границы интервалов поворота отрезков 
 	vector<pair<int, int>> states_mvlines; // текущие состояния подвижных отрезков, количество состояний отрезка
 	vector<vector<int>> refs; //какие отрезки повернутся, если повернуть текущий
+	vector<int> head_points;
 	
     //vector<vector<pair<int, double>>> graph; // {(точка из joints, c которой соединена текущая точка), (Длина отрезка)}
 public:
@@ -36,7 +38,8 @@ public:
 					vector<pair<int, int>> _mvlines, 
 					vector<pair<double, double>> _turnint, 
 					vector<pair<int, int>> states,
-					vector<vector<int>> _refs);
+					vector<vector<int>> _refs,
+					vector<int> _head_points);
 
 	//void SetGroundHeight(double y) { ground_height = y; };
 
@@ -54,6 +57,7 @@ public:
 	double GetTraveledDistance();
 
 	double GetFalling() { return falling; }
+	double GetHeadY();
 
 	void SetFallUnitAngle(double val) { fall_unit_angle = val; }
 	void SetTurnUnitAngle(double val) { turn_unit_angle = val; }

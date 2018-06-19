@@ -1,314 +1,117 @@
-﻿  Creator.cpp
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(967): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1075): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1088): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1100): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1109): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1120): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1134): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1150): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1200): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1220): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1232): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1250): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1255): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1256): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1259): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1263): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1264): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1265): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1269): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1285): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1324): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1357): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1360): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1368): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1373): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1377): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1389): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1413): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1418): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1421): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1425): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1426): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1430): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1443): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1505): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1516): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1517): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1523): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1527): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1528): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1529): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1531): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1536): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1537): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1580): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+﻿  MainForm.cpp
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1039): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1151): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1164): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1176): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1185): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1196): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1210): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1226): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1276): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1296): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1308): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1326): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1331): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1332): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1335): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1339): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1340): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1341): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1345): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1361): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1400): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1433): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1436): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1444): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1449): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1453): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1465): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1489): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1494): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1497): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1501): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1502): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1506): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1519): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1581): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
 c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1592): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
 c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1593): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1600): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1599): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1603): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1604): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1605): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1606): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1607): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1610): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1612): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1613): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1618): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1619): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1656): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1667): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1668): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1709): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1713): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1720): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1723): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1726): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1727): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1730): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1732): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1735): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1736): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1764): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1773): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1790): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1798): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1821): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1825): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1827): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1830): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1831): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1845): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1858): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1868): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1896): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1901): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1904): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1905): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1929): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1946): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1955): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1965): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1972): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1988): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1656): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1668): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1669): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1676): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1681): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1682): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1683): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1686): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1689): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1694): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1695): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1732): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1743): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1744): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1785): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1789): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1796): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1799): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1802): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1803): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1806): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1808): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1811): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1812): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1840): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1849): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1866): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1874): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1897): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1901): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1903): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1906): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1907): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1921): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1934): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1944): warning C4018: '<': signed/unsigned mismatch
 c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2001): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2008): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2010): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2064): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2080): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-  MainForm.cpp
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(967): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1075): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1088): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1100): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1109): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1120): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1134): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1150): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1200): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1220): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1232): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1250): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1255): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1256): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1259): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1263): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1264): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1265): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1269): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1285): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1324): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1357): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1360): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1368): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1373): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1377): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1389): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1413): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1418): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1421): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1425): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1426): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1430): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1443): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1505): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1516): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1517): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1523): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1527): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1528): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1529): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1531): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1536): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1537): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1580): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1592): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1593): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1600): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1605): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1606): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1607): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1610): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1613): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1618): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1619): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1656): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1667): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1668): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1709): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1713): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1720): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1723): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1726): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1727): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1730): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1732): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1735): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1736): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1764): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1773): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1790): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1798): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1821): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1825): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1827): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1830): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1831): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1845): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1858): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1868): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1896): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1901): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1904): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1905): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1929): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1946): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1955): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1965): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1972): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1988): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2001): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2008): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2010): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2064): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2080): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2022): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2039): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2048): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2058): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2065): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2081): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2094): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2101): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2103): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2165): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2181): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2207): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2212): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2215): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2216): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\NeuroNetEditor.h(666): warning C4018: '<': signed/unsigned mismatch
 c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\NeuroNetEditor.h(704): warning C4018: '<': signed/unsigned mismatch
 c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\NeuroNetEditor.h(752): warning C4018: '<': signed/unsigned mismatch
 c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\NeuroNetEditor.h(962): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(76): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(172): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(181): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(190): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(206): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(215): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(224): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(228): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(970): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(996): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(1011): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(1032): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(1218): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(1237): warning C4018: '<': signed/unsigned mismatch
-  NeuroNetEditor.cpp
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(967): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1075): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1088): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1100): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1109): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1120): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1134): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1150): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1200): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1220): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1232): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1250): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1255): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1256): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1259): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1263): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1264): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1265): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1269): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1285): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1324): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1357): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1360): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1368): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1373): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1377): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1389): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1413): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1418): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1421): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1425): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1426): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1430): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1443): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1505): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1516): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1517): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1523): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1527): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1528): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1529): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1531): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1536): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1537): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1580): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1592): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1593): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1600): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1605): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1606): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1607): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1610): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1613): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1618): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1619): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1656): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1667): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1668): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1709): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1713): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1720): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1723): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1726): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1727): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1730): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1732): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1735): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1736): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1764): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1773): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1790): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1798): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1821): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1825): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1827): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1830): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1831): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1845): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1858): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1868): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1896): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1901): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1904): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1905): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1929): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1946): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1955): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1965): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1972): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(1988): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2001): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2008): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2010): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2064): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\Creator.h(2080): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\NeuroNetEditor.h(666): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\NeuroNetEditor.h(704): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\NeuroNetEditor.h(752): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\NeuroNetEditor.h(962): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
-  .NETFramework,Version=v4.5.2.AssemblyAttributes.cpp
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(78): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(174): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(183): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(192): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(208): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(217): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(226): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(230): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(983): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(1009): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(1024): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(1045): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(1231): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\neuronetdesigner\neuronetdesigner\MainForm.h(1250): warning C4018: '<': signed/unsigned mismatch
   NeuroNetDesigner.vcxproj -> C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\NeuroNetDesigner\Release\NeuroNetDesigner.exe
   NeuroNetDesigner.vcxproj -> C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\NeuroNetDesigner\Release\NeuroNetDesigner.pdb (Full PDB)

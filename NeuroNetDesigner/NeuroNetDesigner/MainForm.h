@@ -7,6 +7,7 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <set>
 #include <algorithm>
 #include <math.h>
 #include <stdio.h>
@@ -38,6 +39,7 @@ std::vector<std::pair<int, int>> movable_lines; // номер отрезка, сустав поворот
 std::vector<std::pair<double, double>> turn_ints; // границы углов поворота
 std::vector<std::pair<int, int>> mvstates; // начальные состояниe, количество состояний
 std::vector<std::vector<int>> refs; // зависимости отрезков
+std::set<int> head_points; // точки головы
 
 double unit_turn_angle = 0.0;
 double unit_fall_angle = 0.0;
@@ -228,6 +230,17 @@ namespace NeuroNetDesigner {
 				for (int j = 0; j < res.refs[i].size(); ++j) {
 					fin >> res.refs[i][j];
 				}
+			}
+
+			getline(fin, s);
+			if (s == "" || (s.size()!=0 && s[0]!= '-')) getline(fin, s);
+			int head_points_count;
+			fin >> head_points_count;
+			res.head_points.clear();
+			for (int i = 0; i < head_points_count; ++i) {
+				int hpoint;
+				fin >> hpoint;
+				res.head_points.insert(hpoint);
 			}
 
 			fin.close();

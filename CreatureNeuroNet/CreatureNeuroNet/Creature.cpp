@@ -8,7 +8,7 @@
 using namespace std;
 
 void Creature::InitCreature(vector<pair<double, double>> _joints, vector<pair<int, int>> _lines, vector<pair<int, int>> _mvlines,
-	vector<pair<double, double>> _turnint, vector<pair<int, int>> states, vector<vector<int>> _refs) {
+	vector<pair<double, double>> _turnint, vector<pair<int, int>> states, vector<vector<int>> _refs, vector<int> _head_points) {
 	joints = _joints;
 	lines = _lines;
 
@@ -21,6 +21,7 @@ void Creature::InitCreature(vector<pair<double, double>> _joints, vector<pair<in
 	turn_intervals = _turnint;
 	states_mvlines = states;
 	refs = _refs;
+	head_points = _head_points;
 
 	start_pos = GetCenterOfGravityX();
 	start_max_x = -DBL_MAX;
@@ -105,6 +106,16 @@ double Creature::GetTraveledDistance() {
 		}
 	}
 	return tmp - start_max_x;
+}
+
+double Creature::GetHeadY()
+{
+	double minY = DBL_MAX;
+	for (int i = 0; i < head_points.size(); ++i) {
+		minY = min(minY, joints[head_points[i]].second);
+	}
+
+	return minY;
 }
 
 pair<int, int> Creature::GetAction(int action_num) {
@@ -221,7 +232,8 @@ void Creature::Falling() {
 	}
 
 	if (fall_flag != 0) {
-		falling = 10.0;
+
+		falling = 0.0;
 
 		double angle_sign = 0.0;
 		if (fall_flag == 1) angle_sign = -1.0;
@@ -266,7 +278,7 @@ void Creature::Falling() {
 		}
 	}
 	else {
-		falling = 0.0;
+		falling = min(fabs(cg - sup_points[0].first.first), fabs(cg - sup_points.back().first.first));
 	}
 
 }

@@ -49,6 +49,7 @@ struct Creature {
 	std::vector<std::pair<double, double>> turn_intervals; // левая и правая границы интервалов поворота отрезков 
 	std::vector<std::pair<int, int>> states_mvlines; // текущие состояния подвижных отрезков, количество состояний отрезка
 	std::vector<std::vector<int>> refs; //какие отрезки повернутся, если повернуть текущий
+	std::set<int> head_points; // точки головы
 };
 
 extern std::vector<NNet> nnets;
@@ -75,6 +76,7 @@ extern std::vector<std::pair<int, int>> movable_lines; // номер отрезка, сустав 
 extern std::vector<std::pair<double, double>> turn_ints; // границы углов поворота
 extern std::vector<std::pair<int, int>> mvstates; // начальные состояниe, количество состояний
 extern std::vector<std::vector<int>> refs; // зависимости отрезков
+extern std::set<int> head_points; // точки головы
 
 extern double unit_turn_angle;
 extern double unit_fall_angle;

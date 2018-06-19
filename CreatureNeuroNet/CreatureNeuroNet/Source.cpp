@@ -72,7 +72,13 @@ double DeltaX = 0.0;
 GLuint texture;
 //-----------------------------------------------------------------
 
+//Для модели------------------------------------------------
+vector<pair<double, double>> start_joints;
+vector<int> start_states;
+//----------------------------------------------------------------
+
 double reward = 0.0;
+int reward_type = 11;
 double prev_dist = 0.0;
 int cur_tick = 0;
 
@@ -103,6 +109,7 @@ void NNetInitializationFromFile(string filename);
 void SetWeigntsAndBiases(string filename, vector<int> num_neurons);
 void SetJointsAndStates(string filename);
 void SetCurTick(string filename);
+double GetReward(int reward_type);
 
 //=====================
 //Текст
@@ -170,8 +177,8 @@ int main(int argc, char** ardv) {
 	}
 
 	if (run_type == CONTINUE_TRAIN) {
-		SetJointsAndStates(dirname + "\\" + nnet_name + curcr_finame_end);
-		SetCurTick(dirname + "\\" + nnet_name + dist_finame_end);
+		//SetJointsAndStates(dirname + "\\" + nnet_name + curcr_finame_end);
+		//SetCurTick(dirname + "\\" + nnet_name + dist_finame_end);
 	}
 
 	string resdistfname = dirname + "\\" + nnet_name + dist_finame_end;
@@ -291,7 +298,7 @@ void CreatureInitialization() {
 	refs[10].push_back(12);
 	refs[11].push_back(13);
 
-	monster.InitCreature(joints, lines, mvlines, turnint, mvstates, refs);
+	//monster.InitCreature(joints, lines, mvlines, turnint, mvstates, refs);
 	monster.SetFallUnitAngle(M_PI / 18.0);
 	monster.SetTurnUnitAngle(M_PI / 18.0);
 }
@@ -308,6 +315,7 @@ void CreatureInitializationFromFile(string filename) {
 		for (int i = 0; i < joints.size(); ++i) {
 			fin >> joints[i].first >> joints[i].second;
 		}
+		start_joints = joints;
 
 		vector<pair<int, int>> lines;
 		getline(fin, s);
@@ -354,8 +362,10 @@ void CreatureInitializationFromFile(string filename) {
 		int mvstate_count;
 		fin >> mvstate_count;
 		mvstates.resize(mvstate_count);
+		start_states.resize(mvstate_count);
 		for (int i = 0; i < mvstates.size(); ++i) {
 			fin >> mvstates[i].first >> mvstates[i].second;
+			start_states[i] = mvstates[i].first;
 		}
 
 		vector<vector<int>> refs;
@@ -373,7 +383,17 @@ void CreatureInitializationFromFile(string filename) {
 			}
 		}
 
-		monster.InitCreature(joints, lines, mvlines, turnints, mvstates, refs);
+		vector<int> head_points;
+		getline(fin, s);
+		if (s == "" || (s.size() != 0 && s[0] != '-')) getline(fin, s);
+		int head_points_count;
+		fin >> head_points_count;
+		head_points.resize(head_points_count);
+		for (int i = 0; i < head_points.size(); ++i) {
+			fin >> head_points[i];
+		}
+
+		monster.InitCreature(joints, lines, mvlines, turnints, mvstates, refs, head_points);
 		monster.SetFallUnitAngle(fall_unit_angle);
 		monster.SetTurnUnitAngle(turn_unit_angle);
 
@@ -701,12 +721,60 @@ void SetInputs(vector<vector<double>>& _in) {
 	}
 }
 
+double GetReward(int reward_type) {
+	switch (reward_type)
+	{
+	case 1: 
+		return fabs(monster.GetCurDeltaDistance());
+		break;
+	case 2:
+		return fabs(monster.GetCurDeltaDistance()) - 10.0 / max(1.0, monster.GetCenterOfGravityY());
+		break;
+	case 3:
+		return fabs(monster.GetCurDeltaDistance()) - monster.GetFalling()*10.0;
+		break;
+	case 4:
+		return fabs(monster.GetCurDeltaDistance()) - 10.0 / max(1.0, monster.GetCenterOfGravityY()) - 100.0 / max(1.0, monster.GetFalling());
+		break;
+	case 5:
+		return fabs(prev_dist - monster.GetCurDeltaDistance());
+		break;
+	case 6:
+		return fabs(prev_dist - monster.GetCurDeltaDistance()) - 10.0 / max(1.0, monster.GetCenterOfGravityY());
+		break;
+	case 7:
+		return fabs(prev_dist - monster.GetCurDeltaDistance()) - monster.GetFalling()*10.0;
+		break;
+	case 8:
+		return fabs(prev_dist - monster.GetCurDeltaDistance()) - 10.0 / max(1.0, monster.GetCenterOfGravityY()) - 100.0 / max(1.0, monster.GetFalling());
+		break;
+	case 9:
+		return fabs(monster.GetCurDeltaDistance()) - 100.0 / max(1.0, monster.GetHeadY());
+		break;
+	case 10:
+		return fabs(prev_dist - monster.GetCurDeltaDistance()) - 10000.0 / max(1.0, monster.GetHeadY());
+		break;
+	case 11:
+		return fabs(prev_dist - monster.GetCurDeltaDistance()) - 1000.0 / max(1.0, monster.GetHeadY()) - 1000.0 / max(1.0, monster.GetFalling());
+	default:
+		return 0.0;
+		break;
+	}
+}
+
 void DoNextStep() {
+
+	if (monster.GetHeadY() <= monster.GetCenterOfGravityY()) {
+		monster.SetJoints(start_joints);
+		monster.SetStates(start_states);
+	}
+
 	prev_inputs = inputs;
 	SetInputs(inputs);
 	int action = -1;
 	reward = 0.0;
-	reward = fabs(prev_dist - monster.GetCurDeltaDistance());
+	//reward = fabs(prev_dist - monster.GetCurDeltaDistance());
+	reward = GetReward(reward_type);
 	//reward = monster.GetCurDeltaDistance() - prev_dist;
 	//reward = fabs(fabs(prev_dist) - fabs(monster.GetCurDeltaDistance())) /*- 10.0 / monster.GetCenterOfGravityY()*/;
 	//reward = fabs(monster.GetCurDeltaDistance()) - monster.GetFalling()*10.0/* - 50.0/monster.GetCenterOfGravityY()*/;

@@ -1,2 +1,2 @@
-Mon Jun 18 23:40:15 2018
- Arguments: C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\CreatureNeuroNet\Release\CreatureNeuroNet.exe human_gamma 1 
+Tue Jun 19 17:31:47 2018
+ Arguments: C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\CreatureNeuroNet\Release\CreatureNeuroNet.exe human_gamma 2 

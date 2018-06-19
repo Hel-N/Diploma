@@ -141,6 +141,12 @@ namespace NeuroNetDesigner {
 	private: System::Windows::Forms::ContextMenuStrip^  contextMenuStrip1;
 	private: System::Windows::Forms::TrackBar^  TrackBarMaxAng;
 	private: System::Windows::Forms::TrackBar^  TrackBarMinAng;
+private: System::Windows::Forms::TabPage^  TabHead;
+private: System::Windows::Forms::GroupBox^  GrHead;
+private: System::Windows::Forms::CheckedListBox^  CheckListBoxHead;
+private: System::Windows::Forms::Button^  button2;
+private: System::Windows::Forms::PictureBox^  CanvasHead;
+
 	private: System::ComponentModel::IContainer^  components;
 
 
@@ -221,6 +227,11 @@ namespace NeuroNetDesigner {
 			this->BtnSaveConnections = (gcnew System::Windows::Forms::Button());
 			this->BtnNextCon = (gcnew System::Windows::Forms::Button());
 			this->CanvasCon = (gcnew System::Windows::Forms::PictureBox());
+			this->TabHead = (gcnew System::Windows::Forms::TabPage());
+			this->GrHead = (gcnew System::Windows::Forms::GroupBox());
+			this->CheckListBoxHead = (gcnew System::Windows::Forms::CheckedListBox());
+			this->button2 = (gcnew System::Windows::Forms::Button());
+			this->CanvasHead = (gcnew System::Windows::Forms::PictureBox());
 			this->TabSave = (gcnew System::Windows::Forms::TabPage());
 			this->GrBoxSave = (gcnew System::Windows::Forms::GroupBox());
 			this->TBoxCreatureName = (gcnew System::Windows::Forms::TextBox());
@@ -248,6 +259,9 @@ namespace NeuroNetDesigner {
 			this->TabChooseConnections->SuspendLayout();
 			this->GrBoxCon->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CanvasCon))->BeginInit();
+			this->TabHead->SuspendLayout();
+			this->GrHead->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CanvasHead))->BeginInit();
 			this->TabSave->SuspendLayout();
 			this->GrBoxSave->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CanvasSave))->BeginInit();
@@ -722,6 +736,7 @@ namespace NeuroNetDesigner {
 			this->CreationProcess->Controls->Add(this->TabChooseTurnIntervals);
 			this->CreationProcess->Controls->Add(this->TabChooseInitialStates);
 			this->CreationProcess->Controls->Add(this->TabChooseConnections);
+			this->CreationProcess->Controls->Add(this->TabHead);
 			this->CreationProcess->Controls->Add(this->TabSave);
 			this->CreationProcess->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->CreationProcess->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
@@ -817,6 +832,57 @@ namespace NeuroNetDesigner {
 			this->CanvasCon->Size = System::Drawing::Size(589, 562);
 			this->CanvasCon->TabIndex = 2;
 			this->CanvasCon->TabStop = false;
+			// 
+			// TabHead
+			// 
+			this->TabHead->BackColor = System::Drawing::Color::WhiteSmoke;
+			this->TabHead->Controls->Add(this->GrHead);
+			this->TabHead->Controls->Add(this->button2);
+			this->TabHead->Controls->Add(this->CanvasHead);
+			this->TabHead->Location = System::Drawing::Point(4, 27);
+			this->TabHead->Name = L"TabHead";
+			this->TabHead->Padding = System::Windows::Forms::Padding(3);
+			this->TabHead->Size = System::Drawing::Size(899, 574);
+			this->TabHead->TabIndex = 7;
+			this->TabHead->Text = L"Head";
+			// 
+			// GrHead
+			// 
+			this->GrHead->Controls->Add(this->CheckListBoxHead);
+			this->GrHead->Location = System::Drawing::Point(604, 9);
+			this->GrHead->Name = L"GrHead";
+			this->GrHead->Size = System::Drawing::Size(289, 481);
+			this->GrHead->TabIndex = 6;
+			this->GrHead->TabStop = false;
+			this->GrHead->Text = L"Choose head joint";
+			// 
+			// CheckListBoxHead
+			// 
+			this->CheckListBoxHead->FormattingEnabled = true;
+			this->CheckListBoxHead->Location = System::Drawing::Point(9, 27);
+			this->CheckListBoxHead->Name = L"CheckListBoxHead";
+			this->CheckListBoxHead->Size = System::Drawing::Size(274, 441);
+			this->CheckListBoxHead->TabIndex = 5;
+			// 
+			// button2
+			// 
+			this->button2->Location = System::Drawing::Point(693, 520);
+			this->button2->Name = L"button2";
+			this->button2->Size = System::Drawing::Size(148, 46);
+			this->button2->TabIndex = 3;
+			this->button2->Text = L"Next";
+			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &Creator::button2_Click);
+			// 
+			// CanvasHead
+			// 
+			this->CanvasHead->BackColor = System::Drawing::Color::White;
+			this->CanvasHead->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
+			this->CanvasHead->Location = System::Drawing::Point(9, 9);
+			this->CanvasHead->Name = L"CanvasHead";
+			this->CanvasHead->Size = System::Drawing::Size(589, 562);
+			this->CanvasHead->TabIndex = 2;
+			this->CanvasHead->TabStop = false;
 			// 
 			// TabSave
 			// 
@@ -932,6 +998,9 @@ namespace NeuroNetDesigner {
 			this->GrBoxCon->ResumeLayout(false);
 			this->GrBoxCon->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CanvasCon))->EndInit();
+			this->TabHead->ResumeLayout(false);
+			this->GrHead->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CanvasHead))->EndInit();
 			this->TabSave->ResumeLayout(false);
 			this->GrBoxSave->ResumeLayout(false);
 			this->GrBoxSave->PerformLayout();
@@ -951,6 +1020,9 @@ namespace NeuroNetDesigner {
 		Image^ imgConcur;
 		Image^ imgConbuf;
 		Image^ imgSave;
+		Image^ imgHeadcur;
+		Image^ imgHeadbuf;
+
 		Graphics^ gr;
 		Pen^ pen;
 		SolidBrush^ brush;
@@ -1043,6 +1115,7 @@ namespace NeuroNetDesigner {
 		TabChooseTurnIntervals->Enabled = false;
 		TabChooseInitialStates->Enabled = false;
 		TabChooseConnections->Enabled = false;
+		TabHead->Enabled = false;
 		TabSave->Enabled = false;
 
 		prev_selected_tab = CreationProcess->SelectedIndex;
@@ -1061,6 +1134,9 @@ namespace NeuroNetDesigner {
 
 		imgConcur = gcnew Bitmap(CanvasCon->ClientSize.Width, CanvasTInt->ClientSize.Height);
 		imgConbuf = gcnew Bitmap(CanvasCon->ClientSize.Width, CanvasTInt->ClientSize.Height);
+
+		imgHeadcur = gcnew Bitmap(CanvasCon->ClientSize.Width, CanvasTInt->ClientSize.Height);
+		imgHeadbuf = gcnew Bitmap(CanvasCon->ClientSize.Width, CanvasTInt->ClientSize.Height);
 
 		imgSave = gcnew Bitmap(CanvasCon->ClientSize.Width, CanvasTInt->ClientSize.Height);
 
@@ -1888,32 +1964,49 @@ namespace NeuroNetDesigner {
 		}
 
 		// Прорисовка
-		delete imgSave;
-		imgSave = gcnew Bitmap(CanvasTInt->ClientSize.Width, CanvasTInt->ClientSize.Height);
-		Graphics^ gSave = Graphics::FromImage(imgSave);
+		delete imgHeadcur;
+		imgHeadcur = gcnew Bitmap(imgConbuf);
+		CanvasHead->BackgroundImage = imgHeadcur;
+		delete imgConbuf;
+		imgHeadbuf = gcnew Bitmap(CanvasHead->BackgroundImage);
+		
+		//delete imgSave;
+		//imgSave = gcnew Bitmap(CanvasTInt->ClientSize.Width, CanvasTInt->ClientSize.Height);
+		//Graphics^ gSave = Graphics::FromImage(imgSave);
 
-		brush->Color = Color::Black;
-		for (int i = 0; i < lines.size(); ++i) {
-			double x1 = new_joints[lines[i].first].first;
-			double y1 = new_joints[lines[i].first].second;
-			double x2 = new_joints[lines[i].second].first;
-			double y2 = new_joints[lines[i].second].second;
-			gSave->DrawLine(pen, Point(x1, y1), Point(x2, y2));
-		}
+		//brush->Color = Color::Black;
+		//for (int i = 0; i < lines.size(); ++i) {
+		//	double x1 = new_joints[lines[i].first].first;
+		//	double y1 = new_joints[lines[i].first].second;
+		//	double x2 = new_joints[lines[i].second].first;
+		//	double y2 = new_joints[lines[i].second].second;
+		//	gSave->DrawLine(pen, Point(x1, y1), Point(x2, y2));
+		//}
 
+		//for (int i = 0; i < joints.size(); ++i) {
+		//	gSave->FillEllipse(brush, RectangleF(new_joints[i].first - point_r, new_joints[i].second - point_r, 2 * point_r, 2 * point_r));
+		//}
+		//brush->Color = Color::Blue;
+
+		//CanvasSave->BackgroundImage = imgSave;
+		//delete gSave;
+
+
+		/*TBoxCreatureName->Text = Convert::ToString(CREATURENAME);*/
+
+		head_points.clear();
+
+		//Добавление отрезков в CheckListBoxHead
+		CheckListBoxHead->Items->Clear();
 		for (int i = 0; i < joints.size(); ++i) {
-			gSave->FillEllipse(brush, RectangleF(new_joints[i].first - point_r, new_joints[i].second - point_r, 2 * point_r, 2 * point_r));
+			std::string st = "joint " + std::to_string(i+1) ;
+			String^ s = gcnew String(st.c_str());
+			CheckListBoxHead->Items->Add(s);
+			delete s;
 		}
-		brush->Color = Color::Blue;
 
-		CanvasSave->BackgroundImage = imgSave;
-		delete gSave;
-
-
-		TBoxCreatureName->Text = Convert::ToString(CREATURENAME);
-
-		TabSave->Enabled = true;
-		CreationProcess->SelectedTab = TabSave;
+		TabHead->Enabled = true;
+		CreationProcess->SelectedTab = TabHead;
 		prev_selected_tab = CreationProcess->SelectedIndex;
 
 	}
@@ -2014,6 +2107,14 @@ namespace NeuroNetDesigner {
 			}
 			new_creature.refs = refs;
 
+			fout << "------------------Head points-------------------" << std::endl;
+			fout << head_points.size() << std::endl;
+			for (auto it = head_points.begin(); it != head_points.end(); ++it) {
+				fout << *it << " ";
+			}
+			fout << std::endl;
+			new_creature.head_points = head_points;
+
 			fout.close();
 
 			creatures.push_back(new_creature);
@@ -2090,5 +2191,41 @@ namespace NeuroNetDesigner {
 			TrackBarMaxAng->Value = 0;
 		}
 	}
-	};
+	private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
+		for (int i = 0; i < CheckListBoxHead->Items->Count; ++i) {
+			if (CheckListBoxHead->GetItemChecked(i)) {
+				head_points.insert(i);
+			}
+		}
+		
+		// Прорисовка
+		delete imgSave;
+		imgSave = gcnew Bitmap(CanvasTInt->ClientSize.Width, CanvasTInt->ClientSize.Height);
+		Graphics^ gSave = Graphics::FromImage(imgSave);
+
+		brush->Color = Color::Black;
+		for (int i = 0; i < lines.size(); ++i) {
+			double x1 = new_joints[lines[i].first].first;
+			double y1 = new_joints[lines[i].first].second;
+			double x2 = new_joints[lines[i].second].first;
+			double y2 = new_joints[lines[i].second].second;
+			gSave->DrawLine(pen, Point(x1, y1), Point(x2, y2));
+		}
+
+		for (int i = 0; i < joints.size(); ++i) {
+			gSave->FillEllipse(brush, RectangleF(new_joints[i].first - point_r, new_joints[i].second - point_r, 2 * point_r, 2 * point_r));
+		}
+		brush->Color = Color::Blue;
+
+		CanvasSave->BackgroundImage = imgSave;
+		delete gSave;
+
+
+		TBoxCreatureName->Text = Convert::ToString(CREATURENAME);
+
+		TabSave->Enabled = true;
+		CreationProcess->SelectedTab = TabSave;
+		prev_selected_tab = CreationProcess->SelectedIndex;
+	}
+};
 }
