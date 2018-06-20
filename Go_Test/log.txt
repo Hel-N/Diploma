@@ -1,2 +1,0 @@
-Tue Jun 19 00:34:35 2018
- Arguments: C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\Go\CreatureNeuroNet.exe human_gamma 3 

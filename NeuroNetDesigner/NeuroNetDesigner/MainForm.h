@@ -16,7 +16,7 @@
 #include "NeuroNetEditor.h"
 
 std::vector<std::string> reward_types = { "ALL_DIST", "PREV_STEP_DIST", "CENTER_OF_GRAVITY_Y", "FALLING", "HEAD_Y" };
-std::vector<std::string> reward_form = { "ALL_DIST", "PREV_STEP_DIST", "-k / CENTER_OF_GRAVITY_Y", "-k / FALLING" , "-k / HEAD_Y" };
+std::vector<std::string> reward_form = { "ALL_DIST", "PREV_STEP_DIST", "- k / CENTER_OF_GRAVITY_Y", "- k / FALLING" , "- k / HEAD_Y" };
 
 std::vector<NNet> nnets;
 std::map<std::string, int> nnets_names;
