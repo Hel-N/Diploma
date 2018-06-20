@@ -199,27 +199,27 @@ private: System::Windows::Forms::Label^  LFallingK;
 			this->BtnNewModel = (gcnew System::Windows::Forms::Button());
 			this->PBoxCreatureModel = (gcnew System::Windows::Forms::PictureBox());
 			this->GrBoxLearnAlgParam = (gcnew System::Windows::Forms::GroupBox());
-			this->NumUpDownQLearnRate = (gcnew System::Windows::Forms::NumericUpDown());
 			this->NumUpDownRMSAccuracy = (gcnew System::Windows::Forms::NumericUpDown());
 			this->NumUpDownRMSLearnRate = (gcnew System::Windows::Forms::NumericUpDown());
 			this->NumUpDownRMSGamma = (gcnew System::Windows::Forms::NumericUpDown());
 			this->ComBoxTrType = (gcnew System::Windows::Forms::ComboBox());
-			this->LLearnRate = (gcnew System::Windows::Forms::Label());
 			this->LRMSAccuracy = (gcnew System::Windows::Forms::Label());
 			this->LRMSLearnRate = (gcnew System::Windows::Forms::Label());
 			this->LRMSGamma = (gcnew System::Windows::Forms::Label());
 			this->LRMSType = (gcnew System::Windows::Forms::Label());
+			this->NumUpDownQLearnRate = (gcnew System::Windows::Forms::NumericUpDown());
+			this->LLearnRate = (gcnew System::Windows::Forms::Label());
 			this->BtnSaveNNetParam = (gcnew System::Windows::Forms::Button());
 			this->BtnCancel = (gcnew System::Windows::Forms::Button());
 			this->GrBoxQLearning = (gcnew System::Windows::Forms::GroupBox());
-			this->CheckListBoxReward = (gcnew System::Windows::Forms::CheckedListBox());
-			this->LReward = (gcnew System::Windows::Forms::Label());
-			this->NumUpDownCenterOfGravityK = (gcnew System::Windows::Forms::NumericUpDown());
-			this->LCenterOfGravityYK = (gcnew System::Windows::Forms::Label());
-			this->LFallingK = (gcnew System::Windows::Forms::Label());
-			this->LHeadYK = (gcnew System::Windows::Forms::Label());
-			this->NumUpDownFallingK = (gcnew System::Windows::Forms::NumericUpDown());
 			this->NumUpDownHeadYK = (gcnew System::Windows::Forms::NumericUpDown());
+			this->NumUpDownFallingK = (gcnew System::Windows::Forms::NumericUpDown());
+			this->LHeadYK = (gcnew System::Windows::Forms::Label());
+			this->LFallingK = (gcnew System::Windows::Forms::Label());
+			this->LCenterOfGravityYK = (gcnew System::Windows::Forms::Label());
+			this->NumUpDownCenterOfGravityK = (gcnew System::Windows::Forms::NumericUpDown());
+			this->LReward = (gcnew System::Windows::Forms::Label());
+			this->CheckListBoxReward = (gcnew System::Windows::Forms::CheckedListBox());
 			this->GrBoxNNetParam->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownTrAccuracy))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownTrPeriod))->BeginInit();
@@ -231,14 +231,14 @@ private: System::Windows::Forms::Label^  LFallingK;
 			this->GrBoxCreatureModel->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PBoxCreatureModel))->BeginInit();
 			this->GrBoxLearnAlgParam->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownQLearnRate))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownRMSAccuracy))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownRMSLearnRate))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownRMSGamma))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownQLearnRate))->BeginInit();
 			this->GrBoxQLearning->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownCenterOfGravityK))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownFallingK))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownHeadYK))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownFallingK))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownCenterOfGravityK))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// LNNetName
@@ -254,7 +254,7 @@ private: System::Windows::Forms::Label^  LFallingK;
 			// 
 			this->TBoxNNetName->Location = System::Drawing::Point(132, 40);
 			this->TBoxNNetName->Name = L"TBoxNNetName";
-			this->TBoxNNetName->Size = System::Drawing::Size(294, 22);
+			this->TBoxNNetName->Size = System::Drawing::Size(280, 22);
 			this->TBoxNNetName->TabIndex = 1;
 			// 
 			// GrBoxNNetParam
@@ -532,16 +532,6 @@ private: System::Windows::Forms::Label^  LFallingK;
 			this->GrBoxLearnAlgParam->TabStop = false;
 			this->GrBoxLearnAlgParam->Text = L"Learning Algorithm Parameters";
 			// 
-			// NumUpDownQLearnRate
-			// 
-			this->NumUpDownQLearnRate->DecimalPlaces = 3;
-			this->NumUpDownQLearnRate->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 196608 });
-			this->NumUpDownQLearnRate->Location = System::Drawing::Point(125, 38);
-			this->NumUpDownQLearnRate->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-			this->NumUpDownQLearnRate->Name = L"NumUpDownQLearnRate";
-			this->NumUpDownQLearnRate->Size = System::Drawing::Size(214, 22);
-			this->NumUpDownQLearnRate->TabIndex = 28;
-			// 
 			// NumUpDownRMSAccuracy
 			// 
 			this->NumUpDownRMSAccuracy->DecimalPlaces = 10;
@@ -581,15 +571,6 @@ private: System::Windows::Forms::Label^  LFallingK;
 			this->ComBoxTrType->Size = System::Drawing::Size(214, 24);
 			this->ComBoxTrType->TabIndex = 24;
 			// 
-			// LLearnRate
-			// 
-			this->LLearnRate->AutoSize = true;
-			this->LLearnRate->Location = System::Drawing::Point(6, 38);
-			this->LLearnRate->Name = L"LLearnRate";
-			this->LLearnRate->Size = System::Drawing::Size(113, 17);
-			this->LLearnRate->TabIndex = 18;
-			this->LLearnRate->Text = L"Q-Learning rate:";
-			// 
 			// LRMSAccuracy
 			// 
 			this->LRMSAccuracy->AutoSize = true;
@@ -626,6 +607,25 @@ private: System::Windows::Forms::Label^  LFallingK;
 			this->LRMSType->TabIndex = 14;
 			this->LRMSType->Text = L"Training type:";
 			// 
+			// NumUpDownQLearnRate
+			// 
+			this->NumUpDownQLearnRate->DecimalPlaces = 3;
+			this->NumUpDownQLearnRate->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 196608 });
+			this->NumUpDownQLearnRate->Location = System::Drawing::Point(125, 38);
+			this->NumUpDownQLearnRate->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->NumUpDownQLearnRate->Name = L"NumUpDownQLearnRate";
+			this->NumUpDownQLearnRate->Size = System::Drawing::Size(214, 22);
+			this->NumUpDownQLearnRate->TabIndex = 28;
+			// 
+			// LLearnRate
+			// 
+			this->LLearnRate->AutoSize = true;
+			this->LLearnRate->Location = System::Drawing::Point(6, 38);
+			this->LLearnRate->Name = L"LLearnRate";
+			this->LLearnRate->Size = System::Drawing::Size(113, 17);
+			this->LLearnRate->TabIndex = 18;
+			this->LLearnRate->Text = L"Q-Learning rate:";
+			// 
 			// BtnSaveNNetParam
 			// 
 			this->BtnSaveNNetParam->Location = System::Drawing::Point(473, 629);
@@ -658,20 +658,66 @@ private: System::Windows::Forms::Label^  LFallingK;
 			this->GrBoxQLearning->Controls->Add(this->CheckListBoxReward);
 			this->GrBoxQLearning->Controls->Add(this->NumUpDownQLearnRate);
 			this->GrBoxQLearning->Controls->Add(this->LLearnRate);
-			this->GrBoxQLearning->Location = System::Drawing::Point(720, 79);
+			this->GrBoxQLearning->Location = System::Drawing::Point(707, 79);
 			this->GrBoxQLearning->Name = L"GrBoxQLearning";
 			this->GrBoxQLearning->Size = System::Drawing::Size(350, 523);
 			this->GrBoxQLearning->TabIndex = 7;
 			this->GrBoxQLearning->TabStop = false;
 			this->GrBoxQLearning->Text = L"QLearning";
 			// 
-			// CheckListBoxReward
+			// NumUpDownHeadYK
 			// 
-			this->CheckListBoxReward->FormattingEnabled = true;
-			this->CheckListBoxReward->Location = System::Drawing::Point(9, 102);
-			this->CheckListBoxReward->Name = L"CheckListBoxReward";
-			this->CheckListBoxReward->Size = System::Drawing::Size(330, 208);
-			this->CheckListBoxReward->TabIndex = 29;
+			this->NumUpDownHeadYK->DecimalPlaces = 3;
+			this->NumUpDownHeadYK->Location = System::Drawing::Point(149, 450);
+			this->NumUpDownHeadYK->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
+			this->NumUpDownHeadYK->Name = L"NumUpDownHeadYK";
+			this->NumUpDownHeadYK->Size = System::Drawing::Size(190, 22);
+			this->NumUpDownHeadYK->TabIndex = 36;
+			// 
+			// NumUpDownFallingK
+			// 
+			this->NumUpDownFallingK->DecimalPlaces = 3;
+			this->NumUpDownFallingK->Location = System::Drawing::Point(149, 420);
+			this->NumUpDownFallingK->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
+			this->NumUpDownFallingK->Name = L"NumUpDownFallingK";
+			this->NumUpDownFallingK->Size = System::Drawing::Size(190, 22);
+			this->NumUpDownFallingK->TabIndex = 35;
+			// 
+			// LHeadYK
+			// 
+			this->LHeadYK->AutoSize = true;
+			this->LHeadYK->Location = System::Drawing::Point(11, 450);
+			this->LHeadYK->Name = L"LHeadYK";
+			this->LHeadYK->Size = System::Drawing::Size(66, 17);
+			this->LHeadYK->TabIndex = 34;
+			this->LHeadYK->Text = L"HeadY k:";
+			// 
+			// LFallingK
+			// 
+			this->LFallingK->AutoSize = true;
+			this->LFallingK->Location = System::Drawing::Point(11, 420);
+			this->LFallingK->Name = L"LFallingK";
+			this->LFallingK->Size = System::Drawing::Size(64, 17);
+			this->LFallingK->TabIndex = 33;
+			this->LFallingK->Text = L"Falling k:";
+			// 
+			// LCenterOfGravityYK
+			// 
+			this->LCenterOfGravityYK->AutoSize = true;
+			this->LCenterOfGravityYK->Location = System::Drawing::Point(9, 388);
+			this->LCenterOfGravityYK->Name = L"LCenterOfGravityYK";
+			this->LCenterOfGravityYK->Size = System::Drawing::Size(134, 17);
+			this->LCenterOfGravityYK->TabIndex = 32;
+			this->LCenterOfGravityYK->Text = L"CenterOfGravityY k:";
+			// 
+			// NumUpDownCenterOfGravityK
+			// 
+			this->NumUpDownCenterOfGravityK->DecimalPlaces = 3;
+			this->NumUpDownCenterOfGravityK->Location = System::Drawing::Point(149, 386);
+			this->NumUpDownCenterOfGravityK->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
+			this->NumUpDownCenterOfGravityK->Name = L"NumUpDownCenterOfGravityK";
+			this->NumUpDownCenterOfGravityK->Size = System::Drawing::Size(190, 22);
+			this->NumUpDownCenterOfGravityK->TabIndex = 31;
 			// 
 			// LReward
 			// 
@@ -682,59 +728,19 @@ private: System::Windows::Forms::Label^  LFallingK;
 			this->LReward->TabIndex = 30;
 			this->LReward->Text = L"Reward parameters:";
 			// 
-			// NumUpDownCenterOfGravityK
+			// CheckListBoxReward
 			// 
-			this->NumUpDownCenterOfGravityK->Location = System::Drawing::Point(149, 332);
-			this->NumUpDownCenterOfGravityK->Name = L"NumUpDownCenterOfGravityK";
-			this->NumUpDownCenterOfGravityK->Size = System::Drawing::Size(190, 22);
-			this->NumUpDownCenterOfGravityK->TabIndex = 31;
-			// 
-			// LCenterOfGravityYK
-			// 
-			this->LCenterOfGravityYK->AutoSize = true;
-			this->LCenterOfGravityYK->Location = System::Drawing::Point(9, 334);
-			this->LCenterOfGravityYK->Name = L"LCenterOfGravityYK";
-			this->LCenterOfGravityYK->Size = System::Drawing::Size(134, 17);
-			this->LCenterOfGravityYK->TabIndex = 32;
-			this->LCenterOfGravityYK->Text = L"CenterOfGravityY k:";
-			// 
-			// LFallingK
-			// 
-			this->LFallingK->AutoSize = true;
-			this->LFallingK->Location = System::Drawing::Point(11, 366);
-			this->LFallingK->Name = L"LFallingK";
-			this->LFallingK->Size = System::Drawing::Size(64, 17);
-			this->LFallingK->TabIndex = 33;
-			this->LFallingK->Text = L"Falling k:";
-			// 
-			// LHeadYK
-			// 
-			this->LHeadYK->AutoSize = true;
-			this->LHeadYK->Location = System::Drawing::Point(11, 396);
-			this->LHeadYK->Name = L"LHeadYK";
-			this->LHeadYK->Size = System::Drawing::Size(66, 17);
-			this->LHeadYK->TabIndex = 34;
-			this->LHeadYK->Text = L"HeadY k:";
-			// 
-			// NumUpDownFallingK
-			// 
-			this->NumUpDownFallingK->Location = System::Drawing::Point(149, 366);
-			this->NumUpDownFallingK->Name = L"NumUpDownFallingK";
-			this->NumUpDownFallingK->Size = System::Drawing::Size(190, 22);
-			this->NumUpDownFallingK->TabIndex = 35;
-			// 
-			// NumUpDownHeadYK
-			// 
-			this->NumUpDownHeadYK->Location = System::Drawing::Point(149, 396);
-			this->NumUpDownHeadYK->Name = L"NumUpDownHeadYK";
-			this->NumUpDownHeadYK->Size = System::Drawing::Size(190, 22);
-			this->NumUpDownHeadYK->TabIndex = 36;
+			this->CheckListBoxReward->FormattingEnabled = true;
+			this->CheckListBoxReward->Location = System::Drawing::Point(9, 102);
+			this->CheckListBoxReward->Name = L"CheckListBoxReward";
+			this->CheckListBoxReward->Size = System::Drawing::Size(330, 276);
+			this->CheckListBoxReward->TabIndex = 29;
 			// 
 			// NeuroNetEditor
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1109, 689);
+			this->ClientSize = System::Drawing::Size(1068, 689);
 			this->Controls->Add(this->GrBoxQLearning);
 			this->Controls->Add(this->BtnCancel);
 			this->Controls->Add(this->BtnSaveNNetParam);
@@ -744,7 +750,8 @@ private: System::Windows::Forms::Label^  LFallingK;
 			this->Controls->Add(this->TBoxNNetName);
 			this->Controls->Add(this->LNNetName);
 			this->MaximizeBox = false;
-			this->MinimumSize = System::Drawing::Size(731, 736);
+			this->MaximumSize = System::Drawing::Size(1086, 736);
+			this->MinimumSize = System::Drawing::Size(1086, 736);
 			this->Name = L"NeuroNetEditor";
 			this->Text = L"NeuroNet Editor";
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &NeuroNetEditor::NeuroNetEditor_FormClosing);
@@ -762,15 +769,15 @@ private: System::Windows::Forms::Label^  LFallingK;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PBoxCreatureModel))->EndInit();
 			this->GrBoxLearnAlgParam->ResumeLayout(false);
 			this->GrBoxLearnAlgParam->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownQLearnRate))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownRMSAccuracy))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownRMSLearnRate))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownRMSGamma))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownQLearnRate))->EndInit();
 			this->GrBoxQLearning->ResumeLayout(false);
 			this->GrBoxQLearning->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownCenterOfGravityK))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownFallingK))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownHeadYK))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownFallingK))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumUpDownCenterOfGravityK))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -782,6 +789,13 @@ private: System::Windows::Forms::Label^  LFallingK;
 			String^ s = gcnew String(creatures[i].name.c_str());
 			ListBoxCreatures->Items->Add(s);
 			delete s;
+		}
+
+		CheckListBoxReward->Items->Clear();
+		for (int i = 0; i < reward_types.size(); ++i) {
+			std::string stmp = reward_form[i];
+			String^ Stmp = gcnew String(stmp.c_str());
+			CheckListBoxReward->Items->Add(Stmp);
 		}
 
 		if (edit_nnet_pos != -1) {
@@ -823,6 +837,16 @@ private: System::Windows::Forms::Label^  LFallingK;
 			NumUpDownRMSAccuracy->Text = s;
 			delete s;
 			NumUpDownQLearnRate->Text = Convert::ToString(nnets[edit_nnet_pos].qlearn_rate);
+
+			for (int i = 0; i < reward_types.size(); ++i) {
+				if (nnets[edit_nnet_pos].used_reward[i]) {
+					CheckListBoxReward->SetItemChecked(i, true);
+				}
+			}
+
+			NumUpDownCenterOfGravityK->Text = Convert::ToString(nnets[edit_nnet_pos].k_reward["CENTER_OF_GRAVITY_Y"]);
+			NumUpDownFallingK->Text = Convert::ToString(nnets[edit_nnet_pos].k_reward["FALLING"]);
+			NumUpDownHeadYK->Text = Convert::ToString(nnets[edit_nnet_pos].k_reward["HEAD_Y"]);
 		}
 	}
 
@@ -999,6 +1023,37 @@ private: System::Windows::Forms::Label^  LFallingK;
 			if (trtype == "RMS") new_nnet.training_type = RMS;
 		}
 
+		new_nnet.used_reward.resize(reward_types.size(), false);
+		for (int i = 0; i < reward_types.size(); ++i) {
+			if (CheckListBoxReward->GetItemChecked(i)) {
+				new_nnet.used_reward[i] = true;
+			}
+		}
+
+		if (NumUpDownCenterOfGravityK->Text != L"") {
+			new_nnet.k_reward["CENTER_OF_GRAVITY_Y"] = Convert::ToDouble(NumUpDownCenterOfGravityK->Text);
+		}
+		else {
+			new_nnet.k_reward["CENTER_OF_GRAVITY_Y"] = 0;
+			NumUpDownCenterOfGravityK->Text = L"0";
+		}
+
+		if (NumUpDownFallingK->Text != L"") {
+			new_nnet.k_reward["FALLING"] = Convert::ToDouble(NumUpDownFallingK->Text);
+		}
+		else {
+			new_nnet.k_reward["FALLING"] = 0;
+			NumUpDownFallingK->Text = L"0";
+		}
+
+		if (NumUpDownHeadYK->Text != L"") {
+			new_nnet.k_reward["HEAD_Y"] = Convert::ToDouble(NumUpDownHeadYK->Text);
+		}
+		else {
+			new_nnet.k_reward["HEAD_Y"] = 0;
+			NumUpDownHeadYK->Text = L"0";
+		}
+
 		// Запись в файл
 		std::string nnfilename = nnets_dir_str + new_nnet.name + nnet_finame_end;
 		std::ofstream fout(nnfilename.c_str());
@@ -1036,6 +1091,16 @@ private: System::Windows::Forms::Label^  LFallingK;
 			fout << "TRAINING_PERIOD = " << new_nnet.training_period << ";" << std::endl;
 			fout << "TRAINING_ACCURACY = " << std::fixed << std::setprecision(10) << new_nnet.training_accuracy << ";" << std::endl;
 
+			fout << std::endl;
+			for (int i = 0; i < reward_types.size(); ++i) {
+				fout << reward_types[i] << " = " << new_nnet.used_reward[i] << ";" << std::endl;
+			}
+
+			fout << std::endl;
+			fout << "K_CENTER_OF_GRAVITY_Y = " << new_nnet.k_reward["CENTER_OF_GRAVITY_Y"] << ";" << std::endl;
+			fout << "K_FALLING = " << new_nnet.k_reward["FALLING"] << ";" << std::endl;
+			fout << "K_HEAD_Y = " << new_nnet.k_reward["HEAD_Y"] << ";" << std::endl;
+
 			// Запись в вектор
 			if (edit_nnet_pos == -1) {
 				nnets.push_back(new_nnet);
@@ -1051,6 +1116,8 @@ private: System::Windows::Forms::Label^  LFallingK;
 			String^ mes = gcnew String(messtr.c_str());
 			MessageBox::Show(mes);
 			delete mes;
+
+			fout.close();
 		}
 		else {
 			MessageBox::Show("Сreating file error!");

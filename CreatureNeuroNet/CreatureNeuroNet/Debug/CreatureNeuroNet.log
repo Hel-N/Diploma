@@ -1,21 +1,24 @@
 ﻿  Source.cpp
 c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\creature.h(79): warning C4018: '<': signed/unsigned mismatch
 c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\creature.h(83): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(310): warning C4018: '<': signed/unsigned mismatch
 c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(320): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(330): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(349): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(359): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(369): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(373): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(384): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(413): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(548): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(555): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(648): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(331): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(341): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(360): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(371): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(382): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(386): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(397): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(424): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(500): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(579): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(586): warning C4018: '<': signed/unsigned mismatch
 c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(679): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(690): warning C4018: '<': signed/unsigned mismatch
 c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(710): warning C4018: '<': signed/unsigned mismatch
-c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(917): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(721): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(741): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(749): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(806): warning C4018: '<': signed/unsigned mismatch
+c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\source.cpp(911): warning C4018: '<': signed/unsigned mismatch
   CreatureNeuroNet.vcxproj -> C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\CreatureNeuroNet\Debug\CreatureNeuroNet.exe
   CreatureNeuroNet.vcxproj -> C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\CreatureNeuroNet\Debug\CreatureNeuroNet.pdb (Full PDB)

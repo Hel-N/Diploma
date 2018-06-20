@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <fstream>
 #include <iomanip>
 #include <deque>
 #include "Matrix2d.h"
@@ -222,9 +223,9 @@ double NeuroNet::RPropLearningOffline(deque<Test> & tests, vector<int>& tests_po
 	}
 
 	double err = 0.0;
-	for (int i = 0; i < tests.size(); ++i) {
-		Running(tests[i]);
-		err += CalcError(tests[i]);
+	for (int i = 0; i < tests_pos.size(); ++i) {
+		Running(tests[tests_pos[i]]);
+		err += CalcError(tests[tests_pos[i]]);
 	}
 
 	return err;
@@ -274,8 +275,8 @@ double NeuroNet::RMSLearningOffline(deque<Test> & tests, vector<int>& tests_pos)
 		layers[i].rmsn_biases = layers[i].rmsn_biases * RMS_GAMMA + layers[i].delta_sum * (1.0 - RMS_GAMMA);
 	}
 
-	RMSPropagation();
 
+	RMSPropagation();
 	for (int i = 0; i < layers.size(); ++i)
 	{
 		layers[i].prev_grad_sum = layers[i].grad_sum;
@@ -283,9 +284,9 @@ double NeuroNet::RMSLearningOffline(deque<Test> & tests, vector<int>& tests_pos)
 	}
 
 	double err = 0.0;
-	for (int i = 0; i < tests.size(); ++i) {
-		Running(tests[i]);
-		err += CalcError(tests[i]);
+	for (int i = 0; i < tests_pos.size(); ++i) {
+		Running(tests[tests_pos[i]]);
+		err += CalcError(tests[tests_pos[i]]);
 	}
 
 	return err;

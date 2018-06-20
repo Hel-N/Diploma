@@ -16,6 +16,10 @@
 
 enum ActFuncTypes { LINE, TANH, SGMD };
 enum TrainingTypes { RMS };
+enum RewardTypes {ALL_DIST, PREV_STEP_DIST, CENTER_OF_GRAVITY_Y, FALLING, HEAD_Y };
+
+extern std::vector<std::string> reward_types;
+extern std::vector<std::string> reward_form;
 
 struct NNet {
 	std::string name;
@@ -37,6 +41,9 @@ struct NNet {
 	double training_accuracy;
 	bool deleted = false;
 	bool can_continue_training_or_run = true;
+
+	std::vector<bool> used_reward;
+	std::map<std::string, double> k_reward;
 };
 
 struct Creature {

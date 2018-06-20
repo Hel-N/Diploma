@@ -141,11 +141,11 @@ namespace NeuroNetDesigner {
 	private: System::Windows::Forms::ContextMenuStrip^  contextMenuStrip1;
 	private: System::Windows::Forms::TrackBar^  TrackBarMaxAng;
 	private: System::Windows::Forms::TrackBar^  TrackBarMinAng;
-private: System::Windows::Forms::TabPage^  TabHead;
-private: System::Windows::Forms::GroupBox^  GrHead;
-private: System::Windows::Forms::CheckedListBox^  CheckListBoxHead;
-private: System::Windows::Forms::Button^  button2;
-private: System::Windows::Forms::PictureBox^  CanvasHead;
+	private: System::Windows::Forms::TabPage^  TabHead;
+	private: System::Windows::Forms::GroupBox^  GrHead;
+	private: System::Windows::Forms::CheckedListBox^  CheckListBoxHead;
+	private: System::Windows::Forms::Button^  button2;
+	private: System::Windows::Forms::PictureBox^  CanvasHead;
 
 	private: System::ComponentModel::IContainer^  components;
 
@@ -276,7 +276,7 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 			this->TabChooseInitialStates->Location = System::Drawing::Point(4, 27);
 			this->TabChooseInitialStates->Name = L"TabChooseInitialStates";
 			this->TabChooseInitialStates->Padding = System::Windows::Forms::Padding(3);
-			this->TabChooseInitialStates->Size = System::Drawing::Size(899, 574);
+			this->TabChooseInitialStates->Size = System::Drawing::Size(957, 574);
 			this->TabChooseInitialStates->TabIndex = 4;
 			this->TabChooseInitialStates->Text = L"Choose Initial States";
 			// 
@@ -287,7 +287,7 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 			this->GrBoxInSt->Controls->Add(this->ComBoxLineInSt);
 			this->GrBoxInSt->Controls->Add(this->LbLine2);
 			this->GrBoxInSt->Controls->Add(this->BtnSaveState);
-			this->GrBoxInSt->Location = System::Drawing::Point(608, 9);
+			this->GrBoxInSt->Location = System::Drawing::Point(663, 9);
 			this->GrBoxInSt->Name = L"GrBoxInSt";
 			this->GrBoxInSt->Size = System::Drawing::Size(285, 306);
 			this->GrBoxInSt->TabIndex = 5;
@@ -345,7 +345,7 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 			// 
 			// BtnNextInSt
 			// 
-			this->BtnNextInSt->Location = System::Drawing::Point(693, 520);
+			this->BtnNextInSt->Location = System::Drawing::Point(750, 522);
 			this->BtnNextInSt->Name = L"BtnNextInSt";
 			this->BtnNextInSt->Size = System::Drawing::Size(148, 46);
 			this->BtnNextInSt->TabIndex = 3;
@@ -359,21 +359,20 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 			this->CanvasInSt->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
 			this->CanvasInSt->Location = System::Drawing::Point(8, 9);
 			this->CanvasInSt->Name = L"CanvasInSt";
-			this->CanvasInSt->Size = System::Drawing::Size(589, 562);
+			this->CanvasInSt->Size = System::Drawing::Size(649, 562);
 			this->CanvasInSt->TabIndex = 2;
 			this->CanvasInSt->TabStop = false;
 			// 
 			// TabChooseTurnIntervals
 			// 
 			this->TabChooseTurnIntervals->BackColor = System::Drawing::Color::WhiteSmoke;
-			this->TabChooseTurnIntervals->Controls->Add(this->richTextBox1);
 			this->TabChooseTurnIntervals->Controls->Add(this->GrBoxTInt);
 			this->TabChooseTurnIntervals->Controls->Add(this->BtnNextTInt);
 			this->TabChooseTurnIntervals->Controls->Add(this->CanvasTInt);
 			this->TabChooseTurnIntervals->Location = System::Drawing::Point(4, 27);
 			this->TabChooseTurnIntervals->Name = L"TabChooseTurnIntervals";
 			this->TabChooseTurnIntervals->Padding = System::Windows::Forms::Padding(3);
-			this->TabChooseTurnIntervals->Size = System::Drawing::Size(899, 574);
+			this->TabChooseTurnIntervals->Size = System::Drawing::Size(957, 574);
 			this->TabChooseTurnIntervals->TabIndex = 2;
 			this->TabChooseTurnIntervals->Text = L"Choose Turn Intervals";
 			// 
@@ -381,7 +380,7 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 			// 
 			this->richTextBox1->BackColor = System::Drawing::SystemColors::GradientInactiveCaption;
 			this->richTextBox1->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			this->richTextBox1->Location = System::Drawing::Point(608, 447);
+			this->richTextBox1->Location = System::Drawing::Point(1, 438);
 			this->richTextBox1->Name = L"richTextBox1";
 			this->richTextBox1->ReadOnly = true;
 			this->richTextBox1->Size = System::Drawing::Size(283, 60);
@@ -391,6 +390,7 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 			// 
 			// GrBoxTInt
 			// 
+			this->GrBoxTInt->Controls->Add(this->richTextBox1);
 			this->GrBoxTInt->Controls->Add(this->LbFallAngle);
 			this->GrBoxTInt->Controls->Add(this->LbDegFAng);
 			this->GrBoxTInt->Controls->Add(this->TBoxFallAngle);
@@ -398,7 +398,7 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 			this->GrBoxTInt->Controls->Add(this->LbDegUAng);
 			this->GrBoxTInt->Controls->Add(this->TBoxUnitAngle);
 			this->GrBoxTInt->Controls->Add(this->LbUnitAngle);
-			this->GrBoxTInt->Location = System::Drawing::Point(608, 9);
+			this->GrBoxTInt->Location = System::Drawing::Point(664, 9);
 			this->GrBoxTInt->Name = L"GrBoxTInt";
 			this->GrBoxTInt->Size = System::Drawing::Size(285, 498);
 			this->GrBoxTInt->TabIndex = 4;
@@ -576,7 +576,7 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 			// 
 			// BtnNextTInt
 			// 
-			this->BtnNextTInt->Location = System::Drawing::Point(693, 520);
+			this->BtnNextTInt->Location = System::Drawing::Point(750, 522);
 			this->BtnNextTInt->Name = L"BtnNextTInt";
 			this->BtnNextTInt->Size = System::Drawing::Size(148, 46);
 			this->BtnNextTInt->TabIndex = 3;
@@ -590,7 +590,7 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 			this->CanvasTInt->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
 			this->CanvasTInt->Location = System::Drawing::Point(9, 9);
 			this->CanvasTInt->Name = L"CanvasTInt";
-			this->CanvasTInt->Size = System::Drawing::Size(589, 562);
+			this->CanvasTInt->Size = System::Drawing::Size(649, 562);
 			this->CanvasTInt->TabIndex = 2;
 			this->CanvasTInt->TabStop = false;
 			// 
@@ -604,14 +604,14 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 			this->TabChooseMovableLines->Location = System::Drawing::Point(4, 27);
 			this->TabChooseMovableLines->Name = L"TabChooseMovableLines";
 			this->TabChooseMovableLines->Padding = System::Windows::Forms::Padding(3);
-			this->TabChooseMovableLines->Size = System::Drawing::Size(899, 574);
+			this->TabChooseMovableLines->Size = System::Drawing::Size(957, 574);
 			this->TabChooseMovableLines->TabIndex = 1;
 			this->TabChooseMovableLines->Text = L"Choose Movable Lines";
 			// 
 			// GrBoxMvLines
 			// 
 			this->GrBoxMvLines->Controls->Add(this->CheckListBoxMvLines);
-			this->GrBoxMvLines->Location = System::Drawing::Point(604, 9);
+			this->GrBoxMvLines->Location = System::Drawing::Point(664, 9);
 			this->GrBoxMvLines->Name = L"GrBoxMvLines";
 			this->GrBoxMvLines->Size = System::Drawing::Size(289, 494);
 			this->GrBoxMvLines->TabIndex = 3;
@@ -631,7 +631,7 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 			// 
 			// BtnNextMvLn
 			// 
-			this->BtnNextMvLn->Location = System::Drawing::Point(693, 520);
+			this->BtnNextMvLn->Location = System::Drawing::Point(750, 522);
 			this->BtnNextMvLn->Name = L"BtnNextMvLn";
 			this->BtnNextMvLn->Size = System::Drawing::Size(148, 46);
 			this->BtnNextMvLn->TabIndex = 2;
@@ -645,7 +645,7 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 			this->CanvasMvLn->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
 			this->CanvasMvLn->Location = System::Drawing::Point(9, 9);
 			this->CanvasMvLn->Name = L"CanvasMvLn";
-			this->CanvasMvLn->Size = System::Drawing::Size(589, 562);
+			this->CanvasMvLn->Size = System::Drawing::Size(649, 562);
 			this->CanvasMvLn->TabIndex = 1;
 			this->CanvasMvLn->TabStop = false;
 			// 
@@ -658,13 +658,13 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 			this->TabMakeCreature->Location = System::Drawing::Point(4, 27);
 			this->TabMakeCreature->Name = L"TabMakeCreature";
 			this->TabMakeCreature->Padding = System::Windows::Forms::Padding(3);
-			this->TabMakeCreature->Size = System::Drawing::Size(899, 574);
+			this->TabMakeCreature->Size = System::Drawing::Size(957, 574);
 			this->TabMakeCreature->TabIndex = 0;
 			this->TabMakeCreature->Text = L"Make Creature";
 			// 
 			// BtnMakeCreature
 			// 
-			this->BtnMakeCreature->Location = System::Drawing::Point(693, 520);
+			this->BtnMakeCreature->Location = System::Drawing::Point(750, 522);
 			this->BtnMakeCreature->Name = L"BtnMakeCreature";
 			this->BtnMakeCreature->Size = System::Drawing::Size(148, 46);
 			this->BtnMakeCreature->TabIndex = 2;
@@ -677,7 +677,7 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 			this->Elemets->Controls->Add(this->BtnClearCanvas);
 			this->Elemets->Controls->Add(this->Line);
 			this->Elemets->Controls->Add(this->Dot);
-			this->Elemets->Location = System::Drawing::Point(604, 9);
+			this->Elemets->Location = System::Drawing::Point(664, 9);
 			this->Elemets->Name = L"Elemets";
 			this->Elemets->Size = System::Drawing::Size(287, 215);
 			this->Elemets->TabIndex = 1;
@@ -722,7 +722,7 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 			this->Canvas->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
 			this->Canvas->Location = System::Drawing::Point(9, 9);
 			this->Canvas->Name = L"Canvas";
-			this->Canvas->Size = System::Drawing::Size(589, 562);
+			this->Canvas->Size = System::Drawing::Size(649, 562);
 			this->Canvas->TabIndex = 0;
 			this->Canvas->TabStop = false;
 			this->Canvas->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Creator::Canvas_MouseDown);
@@ -745,7 +745,7 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 			this->CreationProcess->Multiline = true;
 			this->CreationProcess->Name = L"CreationProcess";
 			this->CreationProcess->SelectedIndex = 0;
-			this->CreationProcess->Size = System::Drawing::Size(907, 605);
+			this->CreationProcess->Size = System::Drawing::Size(965, 605);
 			this->CreationProcess->TabIndex = 0;
 			this->CreationProcess->Selected += gcnew System::Windows::Forms::TabControlEventHandler(this, &Creator::CreationProcess_Selected);
 			// 
@@ -758,7 +758,7 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 			this->TabChooseConnections->Location = System::Drawing::Point(4, 27);
 			this->TabChooseConnections->Name = L"TabChooseConnections";
 			this->TabChooseConnections->Padding = System::Windows::Forms::Padding(3);
-			this->TabChooseConnections->Size = System::Drawing::Size(899, 574);
+			this->TabChooseConnections->Size = System::Drawing::Size(957, 574);
 			this->TabChooseConnections->TabIndex = 5;
 			this->TabChooseConnections->Text = L"Choose Connections";
 			// 
@@ -768,7 +768,7 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 			this->GrBoxCon->Controls->Add(this->ComBoxLineCon);
 			this->GrBoxCon->Controls->Add(this->LbLine3);
 			this->GrBoxCon->Controls->Add(this->BtnSaveConnections);
-			this->GrBoxCon->Location = System::Drawing::Point(604, 9);
+			this->GrBoxCon->Location = System::Drawing::Point(664, 9);
 			this->GrBoxCon->Name = L"GrBoxCon";
 			this->GrBoxCon->Size = System::Drawing::Size(289, 490);
 			this->GrBoxCon->TabIndex = 6;
@@ -815,7 +815,7 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 			// 
 			// BtnNextCon
 			// 
-			this->BtnNextCon->Location = System::Drawing::Point(693, 520);
+			this->BtnNextCon->Location = System::Drawing::Point(750, 522);
 			this->BtnNextCon->Name = L"BtnNextCon";
 			this->BtnNextCon->Size = System::Drawing::Size(148, 46);
 			this->BtnNextCon->TabIndex = 3;
@@ -829,7 +829,7 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 			this->CanvasCon->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
 			this->CanvasCon->Location = System::Drawing::Point(9, 9);
 			this->CanvasCon->Name = L"CanvasCon";
-			this->CanvasCon->Size = System::Drawing::Size(589, 562);
+			this->CanvasCon->Size = System::Drawing::Size(649, 562);
 			this->CanvasCon->TabIndex = 2;
 			this->CanvasCon->TabStop = false;
 			// 
@@ -842,14 +842,14 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 			this->TabHead->Location = System::Drawing::Point(4, 27);
 			this->TabHead->Name = L"TabHead";
 			this->TabHead->Padding = System::Windows::Forms::Padding(3);
-			this->TabHead->Size = System::Drawing::Size(899, 574);
+			this->TabHead->Size = System::Drawing::Size(957, 574);
 			this->TabHead->TabIndex = 7;
 			this->TabHead->Text = L"Head";
 			// 
 			// GrHead
 			// 
 			this->GrHead->Controls->Add(this->CheckListBoxHead);
-			this->GrHead->Location = System::Drawing::Point(604, 9);
+			this->GrHead->Location = System::Drawing::Point(664, 9);
 			this->GrHead->Name = L"GrHead";
 			this->GrHead->Size = System::Drawing::Size(289, 481);
 			this->GrHead->TabIndex = 6;
@@ -858,15 +858,17 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 			// 
 			// CheckListBoxHead
 			// 
+			this->CheckListBoxHead->BackColor = System::Drawing::SystemColors::ButtonFace;
 			this->CheckListBoxHead->FormattingEnabled = true;
 			this->CheckListBoxHead->Location = System::Drawing::Point(9, 27);
 			this->CheckListBoxHead->Name = L"CheckListBoxHead";
 			this->CheckListBoxHead->Size = System::Drawing::Size(274, 441);
 			this->CheckListBoxHead->TabIndex = 5;
+			this->CheckListBoxHead->SelectedValueChanged += gcnew System::EventHandler(this, &Creator::CheckListBoxHead_SelectedValueChanged);
 			// 
 			// button2
 			// 
-			this->button2->Location = System::Drawing::Point(693, 520);
+			this->button2->Location = System::Drawing::Point(750, 522);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(148, 46);
 			this->button2->TabIndex = 3;
@@ -880,7 +882,7 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 			this->CanvasHead->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
 			this->CanvasHead->Location = System::Drawing::Point(9, 9);
 			this->CanvasHead->Name = L"CanvasHead";
-			this->CanvasHead->Size = System::Drawing::Size(589, 562);
+			this->CanvasHead->Size = System::Drawing::Size(649, 562);
 			this->CanvasHead->TabIndex = 2;
 			this->CanvasHead->TabStop = false;
 			// 
@@ -893,7 +895,7 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 			this->TabSave->Location = System::Drawing::Point(4, 27);
 			this->TabSave->Name = L"TabSave";
 			this->TabSave->Padding = System::Windows::Forms::Padding(3);
-			this->TabSave->Size = System::Drawing::Size(899, 574);
+			this->TabSave->Size = System::Drawing::Size(957, 574);
 			this->TabSave->TabIndex = 6;
 			this->TabSave->Text = L"Save";
 			// 
@@ -902,7 +904,7 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 			this->GrBoxSave->Controls->Add(this->TBoxCreatureName);
 			this->GrBoxSave->Controls->Add(this->LbFilename);
 			this->GrBoxSave->Controls->Add(this->BtnSaveToFile);
-			this->GrBoxSave->Location = System::Drawing::Point(604, 9);
+			this->GrBoxSave->Location = System::Drawing::Point(664, 9);
 			this->GrBoxSave->Name = L"GrBoxSave";
 			this->GrBoxSave->Size = System::Drawing::Size(289, 205);
 			this->GrBoxSave->TabIndex = 6;
@@ -937,7 +939,7 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 			// 
 			// BtnClose
 			// 
-			this->BtnClose->Location = System::Drawing::Point(693, 520);
+			this->BtnClose->Location = System::Drawing::Point(750, 522);
 			this->BtnClose->Name = L"BtnClose";
 			this->BtnClose->Size = System::Drawing::Size(148, 46);
 			this->BtnClose->TabIndex = 3;
@@ -951,7 +953,7 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 			this->CanvasSave->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
 			this->CanvasSave->Location = System::Drawing::Point(9, 9);
 			this->CanvasSave->Name = L"CanvasSave";
-			this->CanvasSave->Size = System::Drawing::Size(589, 562);
+			this->CanvasSave->Size = System::Drawing::Size(649, 562);
 			this->CanvasSave->TabIndex = 2;
 			this->CanvasSave->TabStop = false;
 			// 
@@ -965,11 +967,11 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(907, 605);
+			this->ClientSize = System::Drawing::Size(965, 605);
 			this->Controls->Add(this->CreationProcess);
 			this->MaximizeBox = false;
-			this->MaximumSize = System::Drawing::Size(925, 652);
-			this->MinimumSize = System::Drawing::Size(925, 652);
+			this->MaximumSize = System::Drawing::Size(983, 652);
+			this->MinimumSize = System::Drawing::Size(983, 652);
 			this->Name = L"Creator";
 			this->Text = L"Creator";
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &Creator::Creator_FormClosing);
@@ -1969,37 +1971,13 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 		CanvasHead->BackgroundImage = imgHeadcur;
 		delete imgConbuf;
 		imgHeadbuf = gcnew Bitmap(CanvasHead->BackgroundImage);
-		
-		//delete imgSave;
-		//imgSave = gcnew Bitmap(CanvasTInt->ClientSize.Width, CanvasTInt->ClientSize.Height);
-		//Graphics^ gSave = Graphics::FromImage(imgSave);
-
-		//brush->Color = Color::Black;
-		//for (int i = 0; i < lines.size(); ++i) {
-		//	double x1 = new_joints[lines[i].first].first;
-		//	double y1 = new_joints[lines[i].first].second;
-		//	double x2 = new_joints[lines[i].second].first;
-		//	double y2 = new_joints[lines[i].second].second;
-		//	gSave->DrawLine(pen, Point(x1, y1), Point(x2, y2));
-		//}
-
-		//for (int i = 0; i < joints.size(); ++i) {
-		//	gSave->FillEllipse(brush, RectangleF(new_joints[i].first - point_r, new_joints[i].second - point_r, 2 * point_r, 2 * point_r));
-		//}
-		//brush->Color = Color::Blue;
-
-		//CanvasSave->BackgroundImage = imgSave;
-		//delete gSave;
-
-
-		/*TBoxCreatureName->Text = Convert::ToString(CREATURENAME);*/
 
 		head_points.clear();
 
 		//Добавление отрезков в CheckListBoxHead
 		CheckListBoxHead->Items->Clear();
 		for (int i = 0; i < joints.size(); ++i) {
-			std::string st = "joint " + std::to_string(i+1) ;
+			std::string st = "joint " + std::to_string(i + 1);
 			String^ s = gcnew String(st.c_str());
 			CheckListBoxHead->Items->Add(s);
 			delete s;
@@ -2197,7 +2175,7 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 				head_points.insert(i);
 			}
 		}
-		
+
 		// Прорисовка
 		delete imgSave;
 		imgSave = gcnew Bitmap(CanvasTInt->ClientSize.Width, CanvasTInt->ClientSize.Height);
@@ -2227,5 +2205,35 @@ private: System::Windows::Forms::PictureBox^  CanvasHead;
 		CreationProcess->SelectedTab = TabSave;
 		prev_selected_tab = CreationProcess->SelectedIndex;
 	}
+
+	private: System::Void CheckListBoxHead_SelectedValueChanged(System::Object^  sender, System::EventArgs^  e) {
+		// Изменение рисунка
+		delete imgHeadcur;
+		imgHeadcur = gcnew Bitmap(imgHeadbuf);
+		Graphics^ gHead = Graphics::FromImage(imgHeadcur);
+
+		System::Drawing::Font^ font = gcnew System::Drawing::Font(TabChooseMovableLines->Font->FontFamily, 12);
+
+		pen->Color = Color::Red;
+		for (int i = 0; i < joints.size(); ++i) {
+			if (CheckListBoxHead->GetItemChecked(i)) {
+				brush->Color = Color::Red;
+			}
+			else {
+				brush->Color = Color::Black;
+			}
+			gHead->FillEllipse(brush, RectangleF(joints[i].first - 2 * point_r, joints[i].second - 2 * point_r, 4 * point_r, 4 * point_r));
+			brush->Color = Color::White;
+			gHead->DrawString(Convert::ToString(i + 1), font, brush, RectangleF(joints[i].first - 2 * point_r, joints[i].second - 2 * point_r, 4 * point_r, 4 * point_r));
+		}
+
+		brush->Color = Color::Blue;
+
+		delete font;
+
+		CanvasHead->BackgroundImage = imgHeadcur;
+		delete gHead;
+	}
 };
+
 }

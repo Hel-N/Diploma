@@ -1,27 +1,29 @@
 ﻿  Source.cpp
 c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\Creature.h(79): warning C4018: '<': signed/unsigned mismatch
 c:\users\елена\documents\visual studio 2015\projects\diploma\creatureneuronet\creatureneuronet\Creature.h(83): warning C4018: '<': signed/unsigned mismatch
-Source.cpp(316): warning C4018: '<': signed/unsigned mismatch
-Source.cpp(327): warning C4018: '<': signed/unsigned mismatch
-Source.cpp(337): warning C4018: '<': signed/unsigned mismatch
-Source.cpp(356): warning C4018: '<': signed/unsigned mismatch
-Source.cpp(367): warning C4018: '<': signed/unsigned mismatch
-Source.cpp(378): warning C4018: '<': signed/unsigned mismatch
+Source.cpp(320): warning C4018: '<': signed/unsigned mismatch
+Source.cpp(331): warning C4018: '<': signed/unsigned mismatch
+Source.cpp(341): warning C4018: '<': signed/unsigned mismatch
+Source.cpp(360): warning C4018: '<': signed/unsigned mismatch
+Source.cpp(371): warning C4018: '<': signed/unsigned mismatch
 Source.cpp(382): warning C4018: '<': signed/unsigned mismatch
-Source.cpp(393): warning C4018: '<': signed/unsigned mismatch
-Source.cpp(422): warning C4018: '<': signed/unsigned mismatch
-Source.cpp(557): warning C4018: '<': signed/unsigned mismatch
-Source.cpp(564): warning C4018: '<': signed/unsigned mismatch
-Source.cpp(657): warning C4018: '<': signed/unsigned mismatch
-Source.cpp(688): warning C4018: '<': signed/unsigned mismatch
-Source.cpp(699): warning C4018: '<': signed/unsigned mismatch
-Source.cpp(719): warning C4018: '<': signed/unsigned mismatch
-Source.cpp(800): warning C4018: '<': signed/unsigned mismatch
-Source.cpp(906): warning C4018: '<': signed/unsigned mismatch
+Source.cpp(386): warning C4018: '<': signed/unsigned mismatch
+Source.cpp(397): warning C4018: '<': signed/unsigned mismatch
+Source.cpp(424): warning C4018: '<': signed/unsigned mismatch
+Source.cpp(517): warning C4018: '<': signed/unsigned mismatch
+Source.cpp(596): warning C4018: '<': signed/unsigned mismatch
+Source.cpp(603): warning C4018: '<': signed/unsigned mismatch
+Source.cpp(696): warning C4018: '<': signed/unsigned mismatch
+Source.cpp(727): warning C4018: '<': signed/unsigned mismatch
+Source.cpp(738): warning C4018: '<': signed/unsigned mismatch
+Source.cpp(758): warning C4018: '<': signed/unsigned mismatch
+Source.cpp(766): warning C4018: '<': signed/unsigned mismatch
+Source.cpp(823): warning C4018: '<': signed/unsigned mismatch
+Source.cpp(928): warning C4018: '<': signed/unsigned mismatch
   Generating code
-  2 of 1846 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+  2 of 2168 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    38 functions had inline decision re-evaluated but remain unchanged
+    2 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   CreatureNeuroNet.vcxproj -> C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\CreatureNeuroNet\Release\CreatureNeuroNet.exe
   CreatureNeuroNet.vcxproj -> C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\CreatureNeuroNet\Release\CreatureNeuroNet.pdb (Full PDB)

@@ -9,7 +9,6 @@ extern int TOTAL_TESTS_NUMBER;
 extern int CUR_TESTS_NUMBER;
 
 enum TrainingTypes { RMS };
-
 extern TrainingTypes TRAINING_TYPE;
 
 struct Test {

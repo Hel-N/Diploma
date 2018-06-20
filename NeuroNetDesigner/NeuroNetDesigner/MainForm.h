@@ -15,6 +15,9 @@
 #include <msclr\marshal_cppstd.h>
 #include "NeuroNetEditor.h"
 
+std::vector<std::string> reward_types = { "ALL_DIST", "PREV_STEP_DIST", "CENTER_OF_GRAVITY_Y", "FALLING", "HEAD_Y" };
+std::vector<std::string> reward_form = { "ALL_DIST", "PREV_STEP_DIST", "-k / CENTER_OF_GRAVITY_Y", "-k / FALLING" , "-k / HEAD_Y" };
+
 std::vector<NNet> nnets;
 std::map<std::string, int> nnets_names;
 
@@ -97,48 +100,86 @@ namespace NeuroNetDesigner {
 				if (info.size() == 2) {
 					if (info[0] == "CREATURE_NAME") {
 						res.creature_name = info[1];
+						continue;
 					}
 					if (info[0] == "HIDDEN_LAYERS_NUM") {
 						res.hidden_layers_num = std::atoi(info[1].c_str());
+						continue;
 					}
 					if (info[0] == "HIDDEN_LAYER_NEURONS_NUM") {
 						res.hidden_layer_neurons = std::atoi(info[1].c_str());
+						continue;
 					}
 					if (info[0] == "ACTIVATION_FUNC") {
 						if (info[1] == "TANH") res.act_func = TANH;
 						if (info[1] == "SGMD") res.act_func = SGMD;
 						if (info[1] == "LINE") res.act_func = LINE;
+						continue;
 					}
 					if (info[0] == "TEST_TOTAL_NUMBER") {
 						res.tests_total_num = std::atoi(info[1].c_str());
+						continue;
 					}
 					if (info[0] == "EPOCH_TESTS_NUM") {
 						res.epoch_tests_num = std::atoi(info[1].c_str());
+						continue;
 					}
 					if (info[0] == "EPOCH_NUM") {
 						res.epoch_num = std::atoi(info[1].c_str());
+						continue;
 					}
 					if (info[0] == "TRAINING_TYPE") {
 						if (info[1] == "RMS") res.training_type = RMS;
+						continue;
 					}
 					if (info[0] == "RMS_GAMMA") {
 						res.rms_gamma = std::stod(info[1]);
+						continue;
 					}
 					if (info[0] == "RMS_LEARN_RATE") {
 						res.rms_learning_rate = std::stod(info[1]);
+						continue;
 					}
 					if (info[0] == "RMS_ACCURACY") {
 						res.rms_accuracy = std::stod(info[1]);
+						continue;
 					}
 					if (info[0] == "QLEARN_RATE") {
 						res.qlearn_rate = std::stod(info[1]);
+						continue;
 					}
 					if (info[0] == "TRAINING_PERIOD") {
 						res.training_period = std::atoi(info[1].c_str());
+						continue;
 					}
 					if (info[0] == "TRAINING_ACCURACY") {
 						res.training_accuracy = std::stod(info[1]);
+						continue;
 					}
+
+					if (info[0] == "K_CENTER_OF_GRAVITY_Y") {
+						res.k_reward["CENTER_OF_GRAVITY_Y"] = std::stod(info[1]);
+						continue;
+					}
+					if (info[0] == "K_FALLING") {
+						res.k_reward["FALLING"] = std::stod(info[1]);
+						continue;
+					}
+					if (info[0] == "K_HEAD_Y") {
+						res.k_reward["HEAD_Y"] = std::stod(info[1]);
+						continue;
+					}
+
+					res.used_reward.resize(reward_types.size(), false);
+					for (int i = 0; i < reward_types.size(); ++i) {
+						if (info[0] == reward_types[i]) {
+							if (info[1][0] != '0') {
+								res.used_reward[i] = true;
+							}
+							break;
+						}
+					}
+
 				}
 				else {
 					std::string mess = "Íåêîððåêòíûå äàííûå â ôàéëå " + filename;
@@ -375,6 +416,20 @@ namespace NeuroNetDesigner {
 	private: System::Windows::Forms::TextBox^  TBoxOutputs;
 	private: System::Windows::Forms::Label^  LOutputs;
 	private: System::Windows::Forms::Button^  BtnContinueTrainNNet;
+private: System::Windows::Forms::GroupBox^  GrBoxLearnAlgSettings;
+private: System::Windows::Forms::ListBox^  ListBoxReward;
+
+
+private: System::Windows::Forms::Label^  LReward;
+private: System::Windows::Forms::Label^  LHeadYK;
+
+private: System::Windows::Forms::Label^  LFallingK;
+
+private: System::Windows::Forms::Label^  LCenterOfGravityK;
+private: System::Windows::Forms::TextBox^  TBoxHeadYK;
+private: System::Windows::Forms::TextBox^  TBoxFallingK;
+private: System::Windows::Forms::TextBox^  TBoxCenterOfGravityK;
+
 
 
 
@@ -403,15 +458,29 @@ namespace NeuroNetDesigner {
 			this->aboutProgramToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->PanelMain = (gcnew System::Windows::Forms::Panel());
 			this->GrBoxSelectedNN = (gcnew System::Windows::Forms::GroupBox());
+			this->GrBoxLearnAlgSettings = (gcnew System::Windows::Forms::GroupBox());
+			this->TBoxHeadYK = (gcnew System::Windows::Forms::TextBox());
+			this->TBoxFallingK = (gcnew System::Windows::Forms::TextBox());
+			this->TBoxCenterOfGravityK = (gcnew System::Windows::Forms::TextBox());
+			this->LHeadYK = (gcnew System::Windows::Forms::Label());
+			this->LFallingK = (gcnew System::Windows::Forms::Label());
+			this->LCenterOfGravityK = (gcnew System::Windows::Forms::Label());
+			this->ListBoxReward = (gcnew System::Windows::Forms::ListBox());
+			this->LReward = (gcnew System::Windows::Forms::Label());
+			this->TBoxRMSAccuracy = (gcnew System::Windows::Forms::TextBox());
+			this->LLearningRate = (gcnew System::Windows::Forms::Label());
+			this->LRMSAccuracy = (gcnew System::Windows::Forms::Label());
+			this->LRMSLearnRate = (gcnew System::Windows::Forms::Label());
+			this->TBoxQLearningRate = (gcnew System::Windows::Forms::TextBox());
+			this->LRMSGamma = (gcnew System::Windows::Forms::Label());
+			this->LTrType = (gcnew System::Windows::Forms::Label());
+			this->TBoxTrType = (gcnew System::Windows::Forms::TextBox());
+			this->TBoxRMSGamma = (gcnew System::Windows::Forms::TextBox());
+			this->TBoxRMSLearnRate = (gcnew System::Windows::Forms::TextBox());
 			this->BtnContinueTrainNNet = (gcnew System::Windows::Forms::Button());
 			this->GrBoxNNetSettings = (gcnew System::Windows::Forms::GroupBox());
 			this->TBoxOutputs = (gcnew System::Windows::Forms::TextBox());
 			this->LOutputs = (gcnew System::Windows::Forms::Label());
-			this->TBoxQLearningRate = (gcnew System::Windows::Forms::TextBox());
-			this->TBoxRMSAccuracy = (gcnew System::Windows::Forms::TextBox());
-			this->TBoxRMSLearnRate = (gcnew System::Windows::Forms::TextBox());
-			this->TBoxRMSGamma = (gcnew System::Windows::Forms::TextBox());
-			this->TBoxTrType = (gcnew System::Windows::Forms::TextBox());
 			this->TBoxEpoches = (gcnew System::Windows::Forms::TextBox());
 			this->TBoxTrAccuracy = (gcnew System::Windows::Forms::TextBox());
 			this->TBoxTrPeriod = (gcnew System::Windows::Forms::TextBox());
@@ -421,11 +490,6 @@ namespace NeuroNetDesigner {
 			this->TBoxHLNeurons = (gcnew System::Windows::Forms::TextBox());
 			this->TBoxHLayers = (gcnew System::Windows::Forms::TextBox());
 			this->TBoxInputs = (gcnew System::Windows::Forms::TextBox());
-			this->LLearningRate = (gcnew System::Windows::Forms::Label());
-			this->LRMSAccuracy = (gcnew System::Windows::Forms::Label());
-			this->LRMSLearnRate = (gcnew System::Windows::Forms::Label());
-			this->LRMSGamma = (gcnew System::Windows::Forms::Label());
-			this->LTrType = (gcnew System::Windows::Forms::Label());
 			this->LActFunc = (gcnew System::Windows::Forms::Label());
 			this->LTrAccuracy = (gcnew System::Windows::Forms::Label());
 			this->LTrPeriod = (gcnew System::Windows::Forms::Label());
@@ -446,6 +510,7 @@ namespace NeuroNetDesigner {
 			this->MenuStripMain->SuspendLayout();
 			this->PanelMain->SuspendLayout();
 			this->GrBoxSelectedNN->SuspendLayout();
+			this->GrBoxLearnAlgSettings->SuspendLayout();
 			this->GrBoxNNetSettings->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PBoxNNCreature))->BeginInit();
 			this->GrBoxNNList->SuspendLayout();
@@ -460,7 +525,7 @@ namespace NeuroNetDesigner {
 			});
 			this->MenuStripMain->Location = System::Drawing::Point(0, 0);
 			this->MenuStripMain->Name = L"MenuStripMain";
-			this->MenuStripMain->Size = System::Drawing::Size(1027, 28);
+			this->MenuStripMain->Size = System::Drawing::Size(1227, 28);
 			this->MenuStripMain->TabIndex = 0;
 			this->MenuStripMain->Text = L"MenuStripMain";
 			// 
@@ -481,7 +546,7 @@ namespace NeuroNetDesigner {
 					this->creatureModelToolStripMenuItem
 			});
 			this->âûõîäToolStripMenuItem->Name = L"âûõîäToolStripMenuItem";
-			this->âûõîäToolStripMenuItem->Size = System::Drawing::Size(181, 26);
+			this->âûõîäToolStripMenuItem->Size = System::Drawing::Size(114, 26);
 			this->âûõîäToolStripMenuItem->Text = L"New";
 			// 
 			// neuralNetToolStripMenuItem
@@ -501,7 +566,7 @@ namespace NeuroNetDesigner {
 			// exitToolStripMenuItem
 			// 
 			this->exitToolStripMenuItem->Name = L"exitToolStripMenuItem";
-			this->exitToolStripMenuItem->Size = System::Drawing::Size(181, 26);
+			this->exitToolStripMenuItem->Size = System::Drawing::Size(114, 26);
 			this->exitToolStripMenuItem->Text = L"Exit";
 			this->exitToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::exitToolStripMenuItem_Click);
 			// 
@@ -526,11 +591,12 @@ namespace NeuroNetDesigner {
 			this->PanelMain->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->PanelMain->Location = System::Drawing::Point(0, 28);
 			this->PanelMain->Name = L"PanelMain";
-			this->PanelMain->Size = System::Drawing::Size(1027, 649);
+			this->PanelMain->Size = System::Drawing::Size(1227, 649);
 			this->PanelMain->TabIndex = 1;
 			// 
 			// GrBoxSelectedNN
 			// 
+			this->GrBoxSelectedNN->Controls->Add(this->GrBoxLearnAlgSettings);
 			this->GrBoxSelectedNN->Controls->Add(this->BtnContinueTrainNNet);
 			this->GrBoxSelectedNN->Controls->Add(this->GrBoxNNetSettings);
 			this->GrBoxSelectedNN->Controls->Add(this->BtnRunNNet);
@@ -540,14 +606,196 @@ namespace NeuroNetDesigner {
 			this->GrBoxSelectedNN->Controls->Add(this->BtnDeleteNNet);
 			this->GrBoxSelectedNN->Location = System::Drawing::Point(342, 24);
 			this->GrBoxSelectedNN->Name = L"GrBoxSelectedNN";
-			this->GrBoxSelectedNN->Size = System::Drawing::Size(674, 616);
+			this->GrBoxSelectedNN->Size = System::Drawing::Size(872, 616);
 			this->GrBoxSelectedNN->TabIndex = 1;
 			this->GrBoxSelectedNN->TabStop = false;
 			this->GrBoxSelectedNN->Text = L"Selected NeuroNet";
 			// 
+			// GrBoxLearnAlgSettings
+			// 
+			this->GrBoxLearnAlgSettings->Controls->Add(this->TBoxHeadYK);
+			this->GrBoxLearnAlgSettings->Controls->Add(this->TBoxFallingK);
+			this->GrBoxLearnAlgSettings->Controls->Add(this->TBoxCenterOfGravityK);
+			this->GrBoxLearnAlgSettings->Controls->Add(this->LHeadYK);
+			this->GrBoxLearnAlgSettings->Controls->Add(this->LFallingK);
+			this->GrBoxLearnAlgSettings->Controls->Add(this->LCenterOfGravityK);
+			this->GrBoxLearnAlgSettings->Controls->Add(this->ListBoxReward);
+			this->GrBoxLearnAlgSettings->Controls->Add(this->LReward);
+			this->GrBoxLearnAlgSettings->Controls->Add(this->TBoxRMSAccuracy);
+			this->GrBoxLearnAlgSettings->Controls->Add(this->LLearningRate);
+			this->GrBoxLearnAlgSettings->Controls->Add(this->LRMSAccuracy);
+			this->GrBoxLearnAlgSettings->Controls->Add(this->LRMSLearnRate);
+			this->GrBoxLearnAlgSettings->Controls->Add(this->TBoxQLearningRate);
+			this->GrBoxLearnAlgSettings->Controls->Add(this->LRMSGamma);
+			this->GrBoxLearnAlgSettings->Controls->Add(this->LTrType);
+			this->GrBoxLearnAlgSettings->Controls->Add(this->TBoxTrType);
+			this->GrBoxLearnAlgSettings->Controls->Add(this->TBoxRMSGamma);
+			this->GrBoxLearnAlgSettings->Controls->Add(this->TBoxRMSLearnRate);
+			this->GrBoxLearnAlgSettings->Location = System::Drawing::Point(6, 360);
+			this->GrBoxLearnAlgSettings->Name = L"GrBoxLearnAlgSettings";
+			this->GrBoxLearnAlgSettings->Size = System::Drawing::Size(851, 239);
+			this->GrBoxLearnAlgSettings->TabIndex = 8;
+			this->GrBoxLearnAlgSettings->TabStop = false;
+			this->GrBoxLearnAlgSettings->Text = L"Learning Algorithm Settings";
+			// 
+			// TBoxHeadYK
+			// 
+			this->TBoxHeadYK->Location = System::Drawing::Point(702, 118);
+			this->TBoxHeadYK->Name = L"TBoxHeadYK";
+			this->TBoxHeadYK->ReadOnly = true;
+			this->TBoxHeadYK->Size = System::Drawing::Size(143, 22);
+			this->TBoxHeadYK->TabIndex = 35;
+			// 
+			// TBoxFallingK
+			// 
+			this->TBoxFallingK->Location = System::Drawing::Point(702, 90);
+			this->TBoxFallingK->Name = L"TBoxFallingK";
+			this->TBoxFallingK->ReadOnly = true;
+			this->TBoxFallingK->Size = System::Drawing::Size(143, 22);
+			this->TBoxFallingK->TabIndex = 34;
+			// 
+			// TBoxCenterOfGravityK
+			// 
+			this->TBoxCenterOfGravityK->Location = System::Drawing::Point(702, 63);
+			this->TBoxCenterOfGravityK->Name = L"TBoxCenterOfGravityK";
+			this->TBoxCenterOfGravityK->ReadOnly = true;
+			this->TBoxCenterOfGravityK->Size = System::Drawing::Size(143, 22);
+			this->TBoxCenterOfGravityK->TabIndex = 33;
+			// 
+			// LHeadYK
+			// 
+			this->LHeadYK->AutoSize = true;
+			this->LHeadYK->Location = System::Drawing::Point(564, 121);
+			this->LHeadYK->Name = L"LHeadYK";
+			this->LHeadYK->Size = System::Drawing::Size(66, 17);
+			this->LHeadYK->TabIndex = 32;
+			this->LHeadYK->Text = L"HeadY k:";
+			// 
+			// LFallingK
+			// 
+			this->LFallingK->AutoSize = true;
+			this->LFallingK->Location = System::Drawing::Point(564, 93);
+			this->LFallingK->Name = L"LFallingK";
+			this->LFallingK->Size = System::Drawing::Size(64, 17);
+			this->LFallingK->TabIndex = 31;
+			this->LFallingK->Text = L"Falling k:";
+			// 
+			// LCenterOfGravityK
+			// 
+			this->LCenterOfGravityK->AutoSize = true;
+			this->LCenterOfGravityK->Location = System::Drawing::Point(562, 63);
+			this->LCenterOfGravityK->Name = L"LCenterOfGravityK";
+			this->LCenterOfGravityK->Size = System::Drawing::Size(134, 17);
+			this->LCenterOfGravityK->TabIndex = 30;
+			this->LCenterOfGravityK->Text = L"CenterOfGravityY k:";
+			// 
+			// ListBoxReward
+			// 
+			this->ListBoxReward->Enabled = false;
+			this->ListBoxReward->FormattingEnabled = true;
+			this->ListBoxReward->ItemHeight = 16;
+			this->ListBoxReward->Location = System::Drawing::Point(312, 59);
+			this->ListBoxReward->Name = L"ListBoxReward";
+			this->ListBoxReward->Size = System::Drawing::Size(244, 164);
+			this->ListBoxReward->TabIndex = 29;
+			// 
+			// LReward
+			// 
+			this->LReward->AutoSize = true;
+			this->LReward->Location = System::Drawing::Point(309, 29);
+			this->LReward->Name = L"LReward";
+			this->LReward->Size = System::Drawing::Size(131, 17);
+			this->LReward->TabIndex = 28;
+			this->LReward->Text = L"QLearning Reward:";
+			// 
+			// TBoxRMSAccuracy
+			// 
+			this->TBoxRMSAccuracy->Location = System::Drawing::Point(164, 139);
+			this->TBoxRMSAccuracy->Name = L"TBoxRMSAccuracy";
+			this->TBoxRMSAccuracy->ReadOnly = true;
+			this->TBoxRMSAccuracy->Size = System::Drawing::Size(131, 22);
+			this->TBoxRMSAccuracy->TabIndex = 26;
+			// 
+			// LLearningRate
+			// 
+			this->LLearningRate->AutoSize = true;
+			this->LLearningRate->Location = System::Drawing::Point(6, 195);
+			this->LLearningRate->Name = L"LLearningRate";
+			this->LLearningRate->Size = System::Drawing::Size(113, 17);
+			this->LLearningRate->TabIndex = 13;
+			this->LLearningRate->Text = L"Q-Learning rate:";
+			// 
+			// LRMSAccuracy
+			// 
+			this->LRMSAccuracy->AutoSize = true;
+			this->LRMSAccuracy->Location = System::Drawing::Point(6, 142);
+			this->LRMSAccuracy->Name = L"LRMSAccuracy";
+			this->LRMSAccuracy->Size = System::Drawing::Size(104, 17);
+			this->LRMSAccuracy->TabIndex = 12;
+			this->LRMSAccuracy->Text = L"RMS Accuracy:";
+			// 
+			// LRMSLearnRate
+			// 
+			this->LRMSLearnRate->AutoSize = true;
+			this->LRMSLearnRate->Location = System::Drawing::Point(6, 114);
+			this->LRMSLearnRate->Name = L"LRMSLearnRate";
+			this->LRMSLearnRate->Size = System::Drawing::Size(131, 17);
+			this->LRMSLearnRate->TabIndex = 11;
+			this->LRMSLearnRate->Text = L"RMS Learning rate:";
+			// 
+			// TBoxQLearningRate
+			// 
+			this->TBoxQLearningRate->Location = System::Drawing::Point(164, 192);
+			this->TBoxQLearningRate->Name = L"TBoxQLearningRate";
+			this->TBoxQLearningRate->ReadOnly = true;
+			this->TBoxQLearningRate->Size = System::Drawing::Size(131, 22);
+			this->TBoxQLearningRate->TabIndex = 27;
+			// 
+			// LRMSGamma
+			// 
+			this->LRMSGamma->AutoSize = true;
+			this->LRMSGamma->Location = System::Drawing::Point(6, 86);
+			this->LRMSGamma->Name = L"LRMSGamma";
+			this->LRMSGamma->Size = System::Drawing::Size(95, 17);
+			this->LRMSGamma->TabIndex = 10;
+			this->LRMSGamma->Text = L"RMS Gamma:";
+			// 
+			// LTrType
+			// 
+			this->LTrType->AutoSize = true;
+			this->LTrType->Location = System::Drawing::Point(6, 31);
+			this->LTrType->Name = L"LTrType";
+			this->LTrType->Size = System::Drawing::Size(95, 17);
+			this->LTrType->TabIndex = 9;
+			this->LTrType->Text = L"Training type:";
+			// 
+			// TBoxTrType
+			// 
+			this->TBoxTrType->Location = System::Drawing::Point(164, 26);
+			this->TBoxTrType->Name = L"TBoxTrType";
+			this->TBoxTrType->ReadOnly = true;
+			this->TBoxTrType->Size = System::Drawing::Size(131, 22);
+			this->TBoxTrType->TabIndex = 23;
+			// 
+			// TBoxRMSGamma
+			// 
+			this->TBoxRMSGamma->Location = System::Drawing::Point(164, 83);
+			this->TBoxRMSGamma->Name = L"TBoxRMSGamma";
+			this->TBoxRMSGamma->ReadOnly = true;
+			this->TBoxRMSGamma->Size = System::Drawing::Size(131, 22);
+			this->TBoxRMSGamma->TabIndex = 24;
+			// 
+			// TBoxRMSLearnRate
+			// 
+			this->TBoxRMSLearnRate->Location = System::Drawing::Point(164, 111);
+			this->TBoxRMSLearnRate->Name = L"TBoxRMSLearnRate";
+			this->TBoxRMSLearnRate->ReadOnly = true;
+			this->TBoxRMSLearnRate->Size = System::Drawing::Size(131, 22);
+			this->TBoxRMSLearnRate->TabIndex = 25;
+			// 
 			// BtnContinueTrainNNet
 			// 
-			this->BtnContinueTrainNNet->Location = System::Drawing::Point(489, 220);
+			this->BtnContinueTrainNNet->Location = System::Drawing::Point(705, 258);
 			this->BtnContinueTrainNNet->Name = L"BtnContinueTrainNNet";
 			this->BtnContinueTrainNNet->Size = System::Drawing::Size(152, 46);
 			this->BtnContinueTrainNNet->TabIndex = 7;
@@ -559,11 +807,6 @@ namespace NeuroNetDesigner {
 			// 
 			this->GrBoxNNetSettings->Controls->Add(this->TBoxOutputs);
 			this->GrBoxNNetSettings->Controls->Add(this->LOutputs);
-			this->GrBoxNNetSettings->Controls->Add(this->TBoxQLearningRate);
-			this->GrBoxNNetSettings->Controls->Add(this->TBoxRMSAccuracy);
-			this->GrBoxNNetSettings->Controls->Add(this->TBoxRMSLearnRate);
-			this->GrBoxNNetSettings->Controls->Add(this->TBoxRMSGamma);
-			this->GrBoxNNetSettings->Controls->Add(this->TBoxTrType);
 			this->GrBoxNNetSettings->Controls->Add(this->TBoxEpoches);
 			this->GrBoxNNetSettings->Controls->Add(this->TBoxTrAccuracy);
 			this->GrBoxNNetSettings->Controls->Add(this->TBoxTrPeriod);
@@ -573,11 +816,6 @@ namespace NeuroNetDesigner {
 			this->GrBoxNNetSettings->Controls->Add(this->TBoxHLNeurons);
 			this->GrBoxNNetSettings->Controls->Add(this->TBoxHLayers);
 			this->GrBoxNNetSettings->Controls->Add(this->TBoxInputs);
-			this->GrBoxNNetSettings->Controls->Add(this->LLearningRate);
-			this->GrBoxNNetSettings->Controls->Add(this->LRMSAccuracy);
-			this->GrBoxNNetSettings->Controls->Add(this->LRMSLearnRate);
-			this->GrBoxNNetSettings->Controls->Add(this->LRMSGamma);
-			this->GrBoxNNetSettings->Controls->Add(this->LTrType);
 			this->GrBoxNNetSettings->Controls->Add(this->LActFunc);
 			this->GrBoxNNetSettings->Controls->Add(this->LTrAccuracy);
 			this->GrBoxNNetSettings->Controls->Add(this->LTrPeriod);
@@ -587,9 +825,9 @@ namespace NeuroNetDesigner {
 			this->GrBoxNNetSettings->Controls->Add(this->LHLNeurons);
 			this->GrBoxNNetSettings->Controls->Add(this->LHLayers);
 			this->GrBoxNNetSettings->Controls->Add(this->LInputs);
-			this->GrBoxNNetSettings->Location = System::Drawing::Point(6, 338);
+			this->GrBoxNNetSettings->Location = System::Drawing::Point(6, 33);
 			this->GrBoxNNetSettings->Name = L"GrBoxNNetSettings";
-			this->GrBoxNNetSettings->Size = System::Drawing::Size(662, 267);
+			this->GrBoxNNetSettings->Size = System::Drawing::Size(306, 320);
 			this->GrBoxNNetSettings->TabIndex = 6;
 			this->GrBoxNNetSettings->TabStop = false;
 			this->GrBoxNNetSettings->Text = L"Settings";
@@ -611,46 +849,6 @@ namespace NeuroNetDesigner {
 			this->LOutputs->TabIndex = 28;
 			this->LOutputs->Text = L"Number of outputs:";
 			// 
-			// TBoxQLearningRate
-			// 
-			this->TBoxQLearningRate->Location = System::Drawing::Point(480, 151);
-			this->TBoxQLearningRate->Name = L"TBoxQLearningRate";
-			this->TBoxQLearningRate->ReadOnly = true;
-			this->TBoxQLearningRate->Size = System::Drawing::Size(146, 22);
-			this->TBoxQLearningRate->TabIndex = 27;
-			// 
-			// TBoxRMSAccuracy
-			// 
-			this->TBoxRMSAccuracy->Location = System::Drawing::Point(480, 111);
-			this->TBoxRMSAccuracy->Name = L"TBoxRMSAccuracy";
-			this->TBoxRMSAccuracy->ReadOnly = true;
-			this->TBoxRMSAccuracy->Size = System::Drawing::Size(146, 22);
-			this->TBoxRMSAccuracy->TabIndex = 26;
-			// 
-			// TBoxRMSLearnRate
-			// 
-			this->TBoxRMSLearnRate->Location = System::Drawing::Point(480, 83);
-			this->TBoxRMSLearnRate->Name = L"TBoxRMSLearnRate";
-			this->TBoxRMSLearnRate->ReadOnly = true;
-			this->TBoxRMSLearnRate->Size = System::Drawing::Size(146, 22);
-			this->TBoxRMSLearnRate->TabIndex = 25;
-			// 
-			// TBoxRMSGamma
-			// 
-			this->TBoxRMSGamma->Location = System::Drawing::Point(480, 55);
-			this->TBoxRMSGamma->Name = L"TBoxRMSGamma";
-			this->TBoxRMSGamma->ReadOnly = true;
-			this->TBoxRMSGamma->Size = System::Drawing::Size(146, 22);
-			this->TBoxRMSGamma->TabIndex = 24;
-			// 
-			// TBoxTrType
-			// 
-			this->TBoxTrType->Location = System::Drawing::Point(480, 27);
-			this->TBoxTrType->Name = L"TBoxTrType";
-			this->TBoxTrType->ReadOnly = true;
-			this->TBoxTrType->Size = System::Drawing::Size(146, 22);
-			this->TBoxTrType->TabIndex = 23;
-			// 
 			// TBoxEpoches
 			// 
 			this->TBoxEpoches->Location = System::Drawing::Point(164, 221);
@@ -661,18 +859,18 @@ namespace NeuroNetDesigner {
 			// 
 			// TBoxTrAccuracy
 			// 
-			this->TBoxTrAccuracy->Location = System::Drawing::Point(480, 223);
+			this->TBoxTrAccuracy->Location = System::Drawing::Point(164, 277);
 			this->TBoxTrAccuracy->Name = L"TBoxTrAccuracy";
 			this->TBoxTrAccuracy->ReadOnly = true;
-			this->TBoxTrAccuracy->Size = System::Drawing::Size(146, 22);
+			this->TBoxTrAccuracy->Size = System::Drawing::Size(131, 22);
 			this->TBoxTrAccuracy->TabIndex = 21;
 			// 
 			// TBoxTrPeriod
 			// 
-			this->TBoxTrPeriod->Location = System::Drawing::Point(480, 195);
+			this->TBoxTrPeriod->Location = System::Drawing::Point(164, 249);
 			this->TBoxTrPeriod->Name = L"TBoxTrPeriod";
 			this->TBoxTrPeriod->ReadOnly = true;
-			this->TBoxTrPeriod->Size = System::Drawing::Size(146, 22);
+			this->TBoxTrPeriod->Size = System::Drawing::Size(131, 22);
 			this->TBoxTrPeriod->TabIndex = 20;
 			// 
 			// TBoxEpochTests
@@ -723,51 +921,6 @@ namespace NeuroNetDesigner {
 			this->TBoxInputs->Size = System::Drawing::Size(131, 22);
 			this->TBoxInputs->TabIndex = 14;
 			// 
-			// LLearningRate
-			// 
-			this->LLearningRate->AutoSize = true;
-			this->LLearningRate->Location = System::Drawing::Point(349, 154);
-			this->LLearningRate->Name = L"LLearningRate";
-			this->LLearningRate->Size = System::Drawing::Size(113, 17);
-			this->LLearningRate->TabIndex = 13;
-			this->LLearningRate->Text = L"Q-Learning rate:";
-			// 
-			// LRMSAccuracy
-			// 
-			this->LRMSAccuracy->AutoSize = true;
-			this->LRMSAccuracy->Location = System::Drawing::Point(349, 114);
-			this->LRMSAccuracy->Name = L"LRMSAccuracy";
-			this->LRMSAccuracy->Size = System::Drawing::Size(104, 17);
-			this->LRMSAccuracy->TabIndex = 12;
-			this->LRMSAccuracy->Text = L"RMS Accuracy:";
-			// 
-			// LRMSLearnRate
-			// 
-			this->LRMSLearnRate->AutoSize = true;
-			this->LRMSLearnRate->Location = System::Drawing::Point(349, 86);
-			this->LRMSLearnRate->Name = L"LRMSLearnRate";
-			this->LRMSLearnRate->Size = System::Drawing::Size(131, 17);
-			this->LRMSLearnRate->TabIndex = 11;
-			this->LRMSLearnRate->Text = L"RMS Learning rate:";
-			// 
-			// LRMSGamma
-			// 
-			this->LRMSGamma->AutoSize = true;
-			this->LRMSGamma->Location = System::Drawing::Point(349, 58);
-			this->LRMSGamma->Name = L"LRMSGamma";
-			this->LRMSGamma->Size = System::Drawing::Size(95, 17);
-			this->LRMSGamma->TabIndex = 10;
-			this->LRMSGamma->Text = L"RMS Gamma:";
-			// 
-			// LTrType
-			// 
-			this->LTrType->AutoSize = true;
-			this->LTrType->Location = System::Drawing::Point(349, 30);
-			this->LTrType->Name = L"LTrType";
-			this->LTrType->Size = System::Drawing::Size(95, 17);
-			this->LTrType->TabIndex = 9;
-			this->LTrType->Text = L"Training type:";
-			// 
 			// LActFunc
 			// 
 			this->LActFunc->AutoSize = true;
@@ -780,7 +933,7 @@ namespace NeuroNetDesigner {
 			// LTrAccuracy
 			// 
 			this->LTrAccuracy->AutoSize = true;
-			this->LTrAccuracy->Location = System::Drawing::Point(329, 226);
+			this->LTrAccuracy->Location = System::Drawing::Point(6, 280);
 			this->LTrAccuracy->Name = L"LTrAccuracy";
 			this->LTrAccuracy->Size = System::Drawing::Size(125, 17);
 			this->LTrAccuracy->TabIndex = 7;
@@ -789,7 +942,7 @@ namespace NeuroNetDesigner {
 			// LTrPeriod
 			// 
 			this->LTrPeriod->AutoSize = true;
-			this->LTrPeriod->Location = System::Drawing::Point(329, 198);
+			this->LTrPeriod->Location = System::Drawing::Point(6, 252);
 			this->LTrPeriod->Name = L"LTrPeriod";
 			this->LTrPeriod->Size = System::Drawing::Size(108, 17);
 			this->LTrPeriod->TabIndex = 6;
@@ -851,7 +1004,7 @@ namespace NeuroNetDesigner {
 			// 
 			// BtnRunNNet
 			// 
-			this->BtnRunNNet->Location = System::Drawing::Point(489, 272);
+			this->BtnRunNNet->Location = System::Drawing::Point(705, 310);
 			this->BtnRunNNet->Name = L"BtnRunNNet";
 			this->BtnRunNNet->Size = System::Drawing::Size(152, 40);
 			this->BtnRunNNet->TabIndex = 5;
@@ -861,7 +1014,7 @@ namespace NeuroNetDesigner {
 			// 
 			// BtnInitTrainNNet
 			// 
-			this->BtnInitTrainNNet->Location = System::Drawing::Point(489, 174);
+			this->BtnInitTrainNNet->Location = System::Drawing::Point(705, 212);
 			this->BtnInitTrainNNet->Name = L"BtnInitTrainNNet";
 			this->BtnInitTrainNNet->Size = System::Drawing::Size(152, 40);
 			this->BtnInitTrainNNet->TabIndex = 4;
@@ -871,7 +1024,7 @@ namespace NeuroNetDesigner {
 			// 
 			// BtnEditNNet
 			// 
-			this->BtnEditNNet->Location = System::Drawing::Point(489, 33);
+			this->BtnEditNNet->Location = System::Drawing::Point(705, 33);
 			this->BtnEditNNet->Name = L"BtnEditNNet";
 			this->BtnEditNNet->Size = System::Drawing::Size(152, 40);
 			this->BtnEditNNet->TabIndex = 3;
@@ -884,15 +1037,15 @@ namespace NeuroNetDesigner {
 			this->PBoxNNCreature->BackColor = System::Drawing::SystemColors::ControlLightLight;
 			this->PBoxNNCreature->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
 			this->PBoxNNCreature->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
-			this->PBoxNNCreature->Location = System::Drawing::Point(6, 33);
+			this->PBoxNNCreature->Location = System::Drawing::Point(318, 33);
 			this->PBoxNNCreature->Name = L"PBoxNNCreature";
-			this->PBoxNNCreature->Size = System::Drawing::Size(448, 279);
+			this->PBoxNNCreature->Size = System::Drawing::Size(381, 320);
 			this->PBoxNNCreature->TabIndex = 0;
 			this->PBoxNNCreature->TabStop = false;
 			// 
 			// BtnDeleteNNet
 			// 
-			this->BtnDeleteNNet->Location = System::Drawing::Point(489, 96);
+			this->BtnDeleteNNet->Location = System::Drawing::Point(705, 87);
 			this->BtnDeleteNNet->Name = L"BtnDeleteNNet";
 			this->BtnDeleteNNet->Size = System::Drawing::Size(152, 40);
 			this->BtnDeleteNNet->TabIndex = 2;
@@ -935,13 +1088,13 @@ namespace NeuroNetDesigner {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1027, 677);
+			this->ClientSize = System::Drawing::Size(1227, 677);
 			this->Controls->Add(this->PanelMain);
 			this->Controls->Add(this->MenuStripMain);
 			this->MainMenuStrip = this->MenuStripMain;
 			this->MaximizeBox = false;
-			this->MaximumSize = System::Drawing::Size(1045, 724);
-			this->MinimumSize = System::Drawing::Size(1045, 724);
+			this->MaximumSize = System::Drawing::Size(1245, 724);
+			this->MinimumSize = System::Drawing::Size(1245, 724);
 			this->Name = L"MainForm";
 			this->Text = L"NeuroNet Editor";
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &MainForm::MainForm_FormClosing);
@@ -950,6 +1103,8 @@ namespace NeuroNetDesigner {
 			this->MenuStripMain->PerformLayout();
 			this->PanelMain->ResumeLayout(false);
 			this->GrBoxSelectedNN->ResumeLayout(false);
+			this->GrBoxLearnAlgSettings->ResumeLayout(false);
+			this->GrBoxLearnAlgSettings->PerformLayout();
 			this->GrBoxNNetSettings->ResumeLayout(false);
 			this->GrBoxNNetSettings->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PBoxNNCreature))->EndInit();
@@ -1138,6 +1293,19 @@ namespace NeuroNetDesigner {
 			TBoxTrPeriod->Text = Convert::ToString(nnets[nnpos].training_period);
 			TBoxTrAccuracy->Text = Convert::ToString(nnets[nnpos].training_accuracy);
 
+			TBoxCenterOfGravityK->Text = Convert::ToString(nnets[nnpos].k_reward["CENTER_OF_GRAVITY_Y"]);
+			TBoxFallingK->Text = Convert::ToString(nnets[nnpos].k_reward["FALLING"]);
+			TBoxHeadYK->Text = Convert::ToString(nnets[nnpos].k_reward["HEAD_Y"]);
+
+			ListBoxReward->Items->Clear();
+			for (int i = 0; i < reward_types.size(); ++i) {
+				if (nnets[nnpos].used_reward[i]) {
+					String^ srew = gcnew String(reward_form[i].c_str());
+					ListBoxReward->Items->Add(srew);
+					delete srew;
+				}
+			}
+
 			BtnEditNNet->Enabled = true;
 			BtnDeleteNNet->Enabled = true;
 			if (nnets[nnpos].can_continue_training_or_run)
@@ -1165,6 +1333,11 @@ namespace NeuroNetDesigner {
 			TBoxQLearningRate->Text = L"";
 			TBoxTrPeriod->Text = L"";
 			TBoxTrAccuracy->Text = L"";
+			TBoxCenterOfGravityK->Text = L"";
+			TBoxFallingK->Text = L"";
+			TBoxHeadYK->Text = L"";
+
+			ListBoxReward->Items->Clear();
 
 			BtnEditNNet->Enabled = false;
 			BtnDeleteNNet->Enabled = false;

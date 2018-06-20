@@ -10,6 +10,7 @@
 #include <fstream>
 #include <vector>
 #include <deque>
+#include <map>
 #include <cmath>
 #include <string>
 #include <ctime>
@@ -21,10 +22,13 @@
 
 using namespace std;
 
+enum RewardTypes { ALL_DIST, PREV_STEP_DIST, CENTER_OF_GRAVITY_Y, FALLING, HEAD_Y };
+std::vector<std::string> reward_types = { "ALL_DIST", "PREV_STEP_DIST", "CENTER_OF_GRAVITY_Y", "FALLING", "HEAD_Y" };
+
 //ofstream fout;
 //ofstream cfout;
 ofstream logout("log.txt");
-ofstream testout("test.txt");
+//ofstream testout("test.txt");
 
 string res_dir_str = "Res\\";
 string wb_finame_end = "_weights_and_biases.txt";
@@ -60,6 +64,9 @@ double TRAIN_EPS = 0.001;
 
 double LearningRate = 0.01; // Для алгоритма обратного распространения
 
+vector<bool> used_reward;
+map<string, double> k_reward;
+
 int T = 100; //Период печати весов
 //-----------------------------------------------------------------
 
@@ -79,13 +86,8 @@ vector<int> start_states;
 //----------------------------------------------------------------
 
 double reward = 0.0;
-int reward_type = 11;
 double prev_dist = 0.0;
 int cur_tick = 0;
-
-double prev_pos = 0.0;
-int side = 0.0;
-int change_side_count = 0;
 
 Matrix2d Q;
 Matrix2d prevQ;
@@ -110,7 +112,8 @@ void NNetInitializationFromFile(string filename);
 void SetWeigntsAndBiases(string filename, vector<int> num_neurons);
 void SetJointsAndStates(string filename);
 void SetCurTick(string filename);
-double GetReward(int reward_type);
+double GetReward();
+double GetReward(int rew_type);
 
 //=====================
 //Текст
@@ -186,7 +189,8 @@ int main(int argc, char** ardv) {
 	string resrundistfname = dirname + "\\" + nnet_name + run_dist_finame_end;
 	if (run_type == INIT_TRAIN) {
 		freopen(resdistfname.c_str(), "w", stdout);
-	}else if (run_type == CONTINUE_TRAIN) {
+	}
+	else if (run_type == CONTINUE_TRAIN) {
 		freopen(resdistfname.c_str(), "a", stdout);
 	}
 	else if (run_type == RUN) {
@@ -398,8 +402,6 @@ void CreatureInitializationFromFile(string filename) {
 		monster.SetFallUnitAngle(fall_unit_angle);
 		monster.SetTurnUnitAngle(turn_unit_angle);
 
-		prev_pos = monster.GetCenterOfGravityX();
-
 		fin.close();
 	}
 	else {
@@ -441,47 +443,84 @@ void NNetInitializationFromFile(string filename) {
 			if (info.size() == 2) {
 				if (info[0] == "CREATURE_NAME") {
 					creature_name = info[1];
+					continue;
 				}
 				if (info[0] == "HIDDEN_LAYERS_NUM") {
 					NUM_HIDDEN_LAYERS = std::atoi(info[1].c_str());
+					continue;
 				}
 				if (info[0] == "HIDDEN_LAYER_NEURONS_NUM") {
 					NUM_HIDDEN_NEURONS = std::atoi(info[1].c_str());
+					continue;
 				}
 				if (info[0] == "ACTIVATION_FUNC") {
 					if (info[1] == "TANH") ACT_FUNC = TANH;
 					if (info[1] == "SGMD") ACT_FUNC = SGMD;
 					if (info[1] == "LINE") ACT_FUNC = LINE;
+					continue;
 				}
 				if (info[0] == "TEST_TOTAL_NUMBER") {
 					TOTAL_TESTS_NUMBER = std::atoi(info[1].c_str());
+					continue;
 				}
 				if (info[0] == "EPOCH_TESTS_NUM") {
 					CUR_TESTS_NUMBER = std::atoi(info[1].c_str());
+					continue;
 				}
 				if (info[0] == "EPOCH_NUM") {
 					EPOCH = std::atoi(info[1].c_str());
+					continue;
 				}
 				if (info[0] == "TRAINING_TYPE") {
 					if (info[1] == "RMS") TRAINING_TYPE = RMS;
+					continue;
 				}
 				if (info[0] == "RMS_GAMMA") {
 					RMS_GAMMA = std::stod(info[1]);
+					continue;
 				}
 				if (info[0] == "RMS_LEARN_RATE") {
 					RMS_LEARN_RATE = std::stod(info[1]);
+					continue;
 				}
 				if (info[0] == "RMS_ACCURACY") {
 					RMS_EPS = std::stod(info[1]);
+					continue;
 				}
 				if (info[0] == "QLEARN_RATE") {
 					QGAMMA = std::stod(info[1]);
+					continue;
 				}
 				if (info[0] == "TRAINING_PERIOD") {
 					TICK_COUNT = std::atoi(info[1].c_str());
+					continue;
 				}
 				if (info[0] == "TRAINING_ACCURACY") {
 					TRAIN_EPS = std::stod(info[1]);
+					continue;
+				}
+
+				if (info[0] == "K_CENTER_OF_GRAVITY_Y") {
+					k_reward["CENTER_OF_GRAVITY_Y"] = std::stod(info[1]);
+					continue;
+				}
+				if (info[0] == "K_FALLING") {
+					k_reward["FALLING"] = std::stod(info[1]);
+					continue;
+				}
+				if (info[0] == "K_HEAD_Y") {
+					k_reward["HEAD_Y"] = std::stod(info[1]);
+					continue;
+				}
+
+				used_reward.resize(reward_types.size(), false);
+				for (int i = 0; i < reward_types.size(); ++i) {
+					if (info[0] == reward_types[i]) {
+						if (info[1][0] != '0') {
+							used_reward[i] = true;
+						}
+						break;
+					}
 				}
 			}
 			else {
@@ -722,41 +761,28 @@ void SetInputs(vector<vector<double>>& _in) {
 	}
 }
 
-double GetReward(int reward_type) {
-	switch (reward_type)
+double GetReward() {
+	double res = 0.0;
+	for (int i = 0; i < used_reward.size(); ++i) {
+		if (used_reward[i]) {
+			res += GetReward(i);
+		}
+	}
+	return res;
+}
+double GetReward(int rew_type) {
+	switch (rew_type)
 	{
-	case 1: 
+	case ALL_DIST:
 		return fabs(monster.GetCurDeltaDistance());
-		break;
-	case 2:
-		return fabs(monster.GetCurDeltaDistance()) - 10.0 / max(1.0, monster.GetCenterOfGravityY());
-		break;
-	case 3:
-		return fabs(monster.GetCurDeltaDistance()) - monster.GetFalling()*10.0;
-		break;
-	case 4:
-		return fabs(monster.GetCurDeltaDistance()) - 10.0 / max(1.0, monster.GetCenterOfGravityY()) - 100.0 / max(1.0, monster.GetFalling());
-		break;
-	case 5:
+	case PREV_STEP_DIST:
 		return fabs(prev_dist - monster.GetCurDeltaDistance());
-		break;
-	case 6:
-		return fabs(prev_dist - monster.GetCurDeltaDistance()) - 10.0 / max(1.0, monster.GetCenterOfGravityY());
-		break;
-	case 7:
-		return fabs(prev_dist - monster.GetCurDeltaDistance()) - monster.GetFalling()*10.0;
-		break;
-	case 8:
-		return fabs(prev_dist - monster.GetCurDeltaDistance()) - 10.0 / max(1.0, monster.GetCenterOfGravityY()) - 100.0 / max(1.0, monster.GetFalling());
-		break;
-	case 9:
-		return fabs(monster.GetCurDeltaDistance()) - 100.0 / max(1.0, monster.GetHeadY());
-		break;
-	case 10:
-		return fabs(prev_dist - monster.GetCurDeltaDistance()) - 10000.0 / max(1.0, monster.GetHeadY());
-		break;
-	case 11:
-		return fabs(prev_dist - monster.GetCurDeltaDistance()) - 1000.0 / max(1.0, monster.GetHeadY()) - 1000.0 / max(1.0, monster.GetFalling());
+	case CENTER_OF_GRAVITY_Y:
+		return -k_reward["CENTER_OF_GRAVITY_Y"] / max(1.0, monster.GetCenterOfGravityY());
+	case FALLING:
+		return -k_reward["FALLING"] / max(1.0, monster.GetFalling());
+	case HEAD_Y:
+		return  -k_reward["HEAD_Y"] / max(1.0, monster.GetHeadY());
 	default:
 		return 0.0;
 		break;
@@ -765,21 +791,18 @@ double GetReward(int reward_type) {
 
 void DoNextStep() {
 
-	if (monster.GetHeadY() <= monster.GetCenterOfGravityY()) {
+	/*if (monster.GetHeadY() <= monster.GetCenterOfGravityY()) {
 		monster.SetJoints(start_joints);
 		monster.SetStates(start_states);
-	}
+	}*/
 
 	prev_inputs = inputs;
 	SetInputs(inputs);
 	int action = -1;
 	reward = 0.0;
-	reward = GetReward(reward_type);
+ 	reward = GetReward();
 	prev_dist = monster.GetCurDeltaDistance();
 	cur_tick++;
-
-	double delta_rew_side = 0.0;
-	double cg = monster.GetCenterOfGravityX();
 
 	if (!firstStep) {
 		nnet.Running(inputs);
@@ -801,7 +824,8 @@ void DoNextStep() {
 			int pos = max(0, (tests.size() - 1))*(double)rand() / RAND_MAX;
 			tests_pos.push_back(pos);
 		}
-		
+
+		double fTimeStart = clock() / (float)CLOCKS_PER_SEC;
 		while (epoch--) {
 			if (run_type != RUN) {
 				//if (nnet.RunningLearningOffline(tests) == 0.0)
@@ -812,6 +836,8 @@ void DoNextStep() {
 					break;
 			}
 		}
+		double fTimeStop = clock() / (float)CLOCKS_PER_SEC;
+		//testout << endl << cur_tick << " " << fTimeStop - fTimeStart;
 	}
 	else {
 		nnet.Running(inputs);
@@ -831,47 +857,43 @@ void DoNextStep() {
 	monster.UpdatePos(action);
 	if (run_type != RUN) {
 		if (fabs(prev_dist - monster.GetCurDeltaDistance()) < 7.0) {
+			int counter = 100;
+			bool flag_do = false;
 			do {
 				action = (monster.GetNumActions() - 1)*rand() / RAND_MAX;
-				if (monster.CanDoAction(action))
+				if (monster.CanDoAction(action)) {
+					flag_do = true;
 					break;
-			} while (true);
-			monster.UpdatePos(action);
+				}
+			} while (counter--);
+			if (flag_do)
+				monster.UpdatePos(action);
 		}
 	}
 	prevAction = action;
 	prevQ = Q;
 
 	//Вывод текущей информации
-	//cout << cur_tick << "  " << monster.GetCurDeltaDistance() << endl;
-	//
-	//if (cur_tick % T == 0) {
-	//	string dirname = res_dir_str + nnet_name;
-	//	ofstream wbfout(dirname + "\\" + nnet_name + wb_finame_end);
-	//	//fout << "==================================================================================" << endl;
-	//	nnet.PrintWeightsAndBiases(wbfout, false);
-	//	//fout << "==================================================================================" << endl;
-	//	//fout << endl << endl;
-	//	wbfout.close();
-	//
-	//	ofstream crfout(dirname + "\\" + nnet_name + curcr_finame_end);
-	//	//cfout << "==================================================================================" << endl;
-	//	monster.PrintCreatureJoints(crfout);
-	//	//cfout << "==================================================================================" << endl;
-	//	//cfout << endl << endl;
-	//	crfout.close();
-	//}
+	cout << cur_tick << "  " << monster.GetCurDeltaDistance() << endl;
 
-	//fflush(stdout);
+	if (cur_tick % T == 0) {
+		string dirname = res_dir_str + nnet_name;
+		ofstream wbfout(dirname + "\\" + nnet_name + wb_finame_end);
+		nnet.PrintWeightsAndBiases(wbfout, false);
+		wbfout.close();
+
+		ofstream crfout(dirname + "\\" + nnet_name + curcr_finame_end);
+		monster.PrintCreatureJoints(crfout);
+		crfout.close();
+	}
+
+	fflush(stdout);
 }
 
 void Timer(int val) // Таймер(промежуток времени, в котором будет производится все процессы) 
 {
-	double fTimeStart = clock() / (float)CLOCKS_PER_SEC;
 	Display();
 	DoNextStep();
-	double fTimeStop = clock() / (float)CLOCKS_PER_SEC;
-	testout << endl << cur_tick << " " << fTimeStop - fTimeStart;
 
 	if (cur_tick < TICK_COUNT) {
 		if (run_type != RUN)
