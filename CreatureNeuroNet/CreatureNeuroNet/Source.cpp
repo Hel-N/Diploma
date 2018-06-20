@@ -112,6 +112,7 @@ void NNetInitializationFromFile(string filename);
 void SetWeigntsAndBiases(string filename, vector<int> num_neurons);
 void SetJointsAndStates(string filename);
 void SetCurTick(string filename);
+void SetCurDist(string filename);
 double GetReward();
 double GetReward(int rew_type);
 
@@ -183,6 +184,7 @@ int main(int argc, char** ardv) {
 	if (run_type == CONTINUE_TRAIN) {
 		//SetJointsAndStates(dirname + "\\" + nnet_name + curcr_finame_end);
 		//SetCurTick(dirname + "\\" + nnet_name + dist_finame_end);
+		//SetCurDist(dirname + "\\" + nnet_name + dist_finame_end);
 	}
 
 	string resdistfname = dirname + "\\" + nnet_name + dist_finame_end;
@@ -629,6 +631,40 @@ void SetCurTick(string filename) {
 	}
 }
 
+void SetCurDist(string filename) {
+	ifstream fin(filename);
+	if (fin.is_open()) {
+		string s;
+		int tick = 0;
+		double dist = 0.0;
+
+		while (!fin.eof())
+		{
+			fin >> tick >> dist;
+		}
+
+		vector<pair<double, double>> joints = monster.GetJoints();
+
+		for (int i = 0; i < joints.size(); ++i) {
+			joints[i].first += dist;
+		}
+
+		monster.SetJoints(joints);
+
+		fin.close();
+	}
+}
+
+void SetCurDist(double dist) {
+	vector<pair<double, double>> joints = monster.GetJoints();
+
+	for (int i = 0; i < joints.size(); ++i) {
+		joints[i].first += dist;
+	}
+
+	monster.SetJoints(joints);
+}
+
 void DrawBackground() {
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, texture);
@@ -790,17 +826,17 @@ double GetReward(int rew_type) {
 }
 
 void DoNextStep() {
-
-	/*if (monster.GetHeadY() <= monster.GetCenterOfGravityY()) {
+	if (monster.GetHeadY() <= monster.GetCenterOfGravityY()) {
 		monster.SetJoints(start_joints);
 		monster.SetStates(start_states);
-	}*/
+		SetCurDist(prev_dist);
+	}
 
 	prev_inputs = inputs;
 	SetInputs(inputs);
 	int action = -1;
 	reward = 0.0;
- 	reward = GetReward();
+	reward = GetReward();
 	prev_dist = monster.GetCurDeltaDistance();
 	cur_tick++;
 
@@ -856,7 +892,7 @@ void DoNextStep() {
 
 	monster.UpdatePos(action);
 	if (run_type != RUN) {
-		if (fabs(prev_dist - monster.GetCurDeltaDistance()) < 7.0) {
+		if (/*fabs(prev_dist - monster.GetCurDeltaDistance()) < 7.0*/(1.0*rand() / RAND_MAX) < 0.03) {
 			int counter = 100;
 			bool flag_do = false;
 			do {

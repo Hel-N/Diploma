@@ -1,2 +1,2 @@
-Wed Jun 20 11:59:49 2018
+Wed Jun 20 20:45:33 2018
  Arguments: C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\CreatureNeuroNet\Release\CreatureNeuroNet.exe human_gamma 1 

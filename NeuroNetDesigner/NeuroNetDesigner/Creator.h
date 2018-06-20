@@ -2117,14 +2117,14 @@ namespace NeuroNetDesigner {
 
 	private: System::Void Creator_FormClosing(System::Object^  sender, System::Windows::Forms::FormClosingEventArgs^  e) {
 		if (CreationProcess->SelectedTab == TabSave) {
-			if (MessageBox::Show(this, "Созранить данные в файл?", "Form Closing", MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes)
+			if (MessageBox::Show(this, "Сохранить данные в файл?", "Form Closing", MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes)
 			{
 				// Отменить закрытие формы
 				e->Cancel = true;
 			}
 		}
 		else {
-			if (MessageBox::Show(this, "Закрыть приложение?", "Form Closing", MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::No)
+			if (MessageBox::Show(this, "Закрыть редактор?", "Form Closing", MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::No)
 			{
 				// Отменить закрытие формы
 				e->Cancel = true;
