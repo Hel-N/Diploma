@@ -171,6 +171,7 @@ private: System::Windows::Forms::Label^  LFallingK;
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(NeuroNetEditor::typeid));
 			this->LNNetName = (gcnew System::Windows::Forms::Label());
 			this->TBoxNNetName = (gcnew System::Windows::Forms::TextBox());
 			this->GrBoxNNetParam = (gcnew System::Windows::Forms::GroupBox());
@@ -301,7 +302,7 @@ private: System::Windows::Forms::Label^  LFallingK;
 			// NumUpDownTrPeriod
 			// 
 			this->NumUpDownTrPeriod->Location = System::Drawing::Point(162, 260);
-			this->NumUpDownTrPeriod->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 100000, 0, 0, 0 });
+			this->NumUpDownTrPeriod->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 500000, 0, 0, 0 });
 			this->NumUpDownTrPeriod->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			this->NumUpDownTrPeriod->Name = L"NumUpDownTrPeriod";
 			this->NumUpDownTrPeriod->Size = System::Drawing::Size(214, 22);
@@ -311,7 +312,7 @@ private: System::Windows::Forms::Label^  LFallingK;
 			// NumUpDownEpoch
 			// 
 			this->NumUpDownEpoch->Location = System::Drawing::Point(162, 230);
-			this->NumUpDownEpoch->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 100000, 0, 0, 0 });
+			this->NumUpDownEpoch->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 200, 0, 0, 0 });
 			this->NumUpDownEpoch->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			this->NumUpDownEpoch->Name = L"NumUpDownEpoch";
 			this->NumUpDownEpoch->Size = System::Drawing::Size(214, 22);
@@ -341,7 +342,7 @@ private: System::Windows::Forms::Label^  LFallingK;
 			// NumUpDownHLNeurons
 			// 
 			this->NumUpDownHLNeurons->Location = System::Drawing::Point(162, 91);
-			this->NumUpDownHLNeurons->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 100000, 0, 0, 0 });
+			this->NumUpDownHLNeurons->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000, 0, 0, 0 });
 			this->NumUpDownHLNeurons->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			this->NumUpDownHLNeurons->Name = L"NumUpDownHLNeurons";
 			this->NumUpDownHLNeurons->Size = System::Drawing::Size(214, 22);
@@ -351,7 +352,7 @@ private: System::Windows::Forms::Label^  LFallingK;
 			// NumUpDownHidLayers
 			// 
 			this->NumUpDownHidLayers->Location = System::Drawing::Point(162, 64);
-			this->NumUpDownHidLayers->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 100000, 0, 0, 0 });
+			this->NumUpDownHidLayers->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 10, 0, 0, 0 });
 			this->NumUpDownHidLayers->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			this->NumUpDownHidLayers->Name = L"NumUpDownHidLayers";
 			this->NumUpDownHidLayers->Size = System::Drawing::Size(214, 22);
@@ -537,7 +538,7 @@ private: System::Windows::Forms::Label^  LFallingK;
 			this->NumUpDownRMSAccuracy->DecimalPlaces = 10;
 			this->NumUpDownRMSAccuracy->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 655360 });
 			this->NumUpDownRMSAccuracy->Location = System::Drawing::Point(162, 115);
-			this->NumUpDownRMSAccuracy->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 10, 0, 0, 0 });
+			this->NumUpDownRMSAccuracy->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			this->NumUpDownRMSAccuracy->Name = L"NumUpDownRMSAccuracy";
 			this->NumUpDownRMSAccuracy->Size = System::Drawing::Size(214, 22);
 			this->NumUpDownRMSAccuracy->TabIndex = 27;
@@ -749,6 +750,7 @@ private: System::Windows::Forms::Label^  LFallingK;
 			this->Controls->Add(this->GrBoxNNetParam);
 			this->Controls->Add(this->TBoxNNetName);
 			this->Controls->Add(this->LNNetName);
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->MaximizeBox = false;
 			this->MaximumSize = System::Drawing::Size(1086, 736);
 			this->MinimumSize = System::Drawing::Size(1086, 736);

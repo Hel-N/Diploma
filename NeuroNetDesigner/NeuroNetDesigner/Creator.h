@@ -144,7 +144,8 @@ namespace NeuroNetDesigner {
 	private: System::Windows::Forms::TabPage^  TabHead;
 	private: System::Windows::Forms::GroupBox^  GrHead;
 	private: System::Windows::Forms::CheckedListBox^  CheckListBoxHead;
-	private: System::Windows::Forms::Button^  button2;
+private: System::Windows::Forms::Button^  BtnNextHead;
+
 	private: System::Windows::Forms::PictureBox^  CanvasHead;
 
 	private: System::ComponentModel::IContainer^  components;
@@ -174,6 +175,7 @@ namespace NeuroNetDesigner {
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
+			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(Creator::typeid));
 			this->TabChooseInitialStates = (gcnew System::Windows::Forms::TabPage());
 			this->GrBoxInSt = (gcnew System::Windows::Forms::GroupBox());
 			this->LbState = (gcnew System::Windows::Forms::Label());
@@ -184,8 +186,8 @@ namespace NeuroNetDesigner {
 			this->BtnNextInSt = (gcnew System::Windows::Forms::Button());
 			this->CanvasInSt = (gcnew System::Windows::Forms::PictureBox());
 			this->TabChooseTurnIntervals = (gcnew System::Windows::Forms::TabPage());
-			this->richTextBox1 = (gcnew System::Windows::Forms::RichTextBox());
 			this->GrBoxTInt = (gcnew System::Windows::Forms::GroupBox());
+			this->richTextBox1 = (gcnew System::Windows::Forms::RichTextBox());
 			this->LbFallAngle = (gcnew System::Windows::Forms::Label());
 			this->LbDegFAng = (gcnew System::Windows::Forms::Label());
 			this->TBoxFallAngle = (gcnew System::Windows::Forms::TextBox());
@@ -230,7 +232,7 @@ namespace NeuroNetDesigner {
 			this->TabHead = (gcnew System::Windows::Forms::TabPage());
 			this->GrHead = (gcnew System::Windows::Forms::GroupBox());
 			this->CheckListBoxHead = (gcnew System::Windows::Forms::CheckedListBox());
-			this->button2 = (gcnew System::Windows::Forms::Button());
+			this->BtnNextHead = (gcnew System::Windows::Forms::Button());
 			this->CanvasHead = (gcnew System::Windows::Forms::PictureBox());
 			this->TabSave = (gcnew System::Windows::Forms::TabPage());
 			this->GrBoxSave = (gcnew System::Windows::Forms::GroupBox());
@@ -376,18 +378,6 @@ namespace NeuroNetDesigner {
 			this->TabChooseTurnIntervals->TabIndex = 2;
 			this->TabChooseTurnIntervals->Text = L"Choose Turn Intervals";
 			// 
-			// richTextBox1
-			// 
-			this->richTextBox1->BackColor = System::Drawing::SystemColors::GradientInactiveCaption;
-			this->richTextBox1->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			this->richTextBox1->Location = System::Drawing::Point(1, 438);
-			this->richTextBox1->Name = L"richTextBox1";
-			this->richTextBox1->ReadOnly = true;
-			this->richTextBox1->Size = System::Drawing::Size(283, 60);
-			this->richTextBox1->TabIndex = 5;
-			this->richTextBox1->Text = L"Angle values ​​must be positive. \nThe angle is counted from zero \ncounterclockwis"
-				L"e along the unit circle.";
-			// 
 			// GrBoxTInt
 			// 
 			this->GrBoxTInt->Controls->Add(this->richTextBox1);
@@ -404,6 +394,18 @@ namespace NeuroNetDesigner {
 			this->GrBoxTInt->TabIndex = 4;
 			this->GrBoxTInt->TabStop = false;
 			this->GrBoxTInt->Text = L"Enter Turn Intervals";
+			// 
+			// richTextBox1
+			// 
+			this->richTextBox1->BackColor = System::Drawing::SystemColors::GradientInactiveCaption;
+			this->richTextBox1->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->richTextBox1->Location = System::Drawing::Point(1, 438);
+			this->richTextBox1->Name = L"richTextBox1";
+			this->richTextBox1->ReadOnly = true;
+			this->richTextBox1->Size = System::Drawing::Size(283, 60);
+			this->richTextBox1->TabIndex = 5;
+			this->richTextBox1->Text = L"Angle values ​​must be positive. \nThe angle is counted from zero \ncounterclockwis"
+				L"e along the unit circle.";
 			// 
 			// LbFallAngle
 			// 
@@ -837,7 +839,7 @@ namespace NeuroNetDesigner {
 			// 
 			this->TabHead->BackColor = System::Drawing::Color::WhiteSmoke;
 			this->TabHead->Controls->Add(this->GrHead);
-			this->TabHead->Controls->Add(this->button2);
+			this->TabHead->Controls->Add(this->BtnNextHead);
 			this->TabHead->Controls->Add(this->CanvasHead);
 			this->TabHead->Location = System::Drawing::Point(4, 27);
 			this->TabHead->Name = L"TabHead";
@@ -866,15 +868,15 @@ namespace NeuroNetDesigner {
 			this->CheckListBoxHead->TabIndex = 5;
 			this->CheckListBoxHead->SelectedValueChanged += gcnew System::EventHandler(this, &Creator::CheckListBoxHead_SelectedValueChanged);
 			// 
-			// button2
+			// BtnNextHead
 			// 
-			this->button2->Location = System::Drawing::Point(750, 522);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(148, 46);
-			this->button2->TabIndex = 3;
-			this->button2->Text = L"Next";
-			this->button2->UseVisualStyleBackColor = true;
-			this->button2->Click += gcnew System::EventHandler(this, &Creator::button2_Click);
+			this->BtnNextHead->Location = System::Drawing::Point(750, 522);
+			this->BtnNextHead->Name = L"BtnNextHead";
+			this->BtnNextHead->Size = System::Drawing::Size(148, 46);
+			this->BtnNextHead->TabIndex = 3;
+			this->BtnNextHead->Text = L"Next";
+			this->BtnNextHead->UseVisualStyleBackColor = true;
+			this->BtnNextHead->Click += gcnew System::EventHandler(this, &Creator::BtnNextHead_Click);
 			// 
 			// CanvasHead
 			// 
@@ -969,6 +971,7 @@ namespace NeuroNetDesigner {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(965, 605);
 			this->Controls->Add(this->CreationProcess);
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->MaximizeBox = false;
 			this->MaximumSize = System::Drawing::Size(983, 652);
 			this->MinimumSize = System::Drawing::Size(983, 652);
@@ -2169,7 +2172,7 @@ namespace NeuroNetDesigner {
 			TrackBarMaxAng->Value = 0;
 		}
 	}
-	private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
+	private: System::Void BtnNextHead_Click(System::Object^  sender, System::EventArgs^  e) {
 		for (int i = 0; i < CheckListBoxHead->Items->Count; ++i) {
 			if (CheckListBoxHead->GetItemChecked(i)) {
 				head_points.insert(i);
@@ -2182,6 +2185,7 @@ namespace NeuroNetDesigner {
 		Graphics^ gSave = Graphics::FromImage(imgSave);
 
 		brush->Color = Color::Black;
+		pen->Color = Color::Black;
 		for (int i = 0; i < lines.size(); ++i) {
 			double x1 = new_joints[lines[i].first].first;
 			double y1 = new_joints[lines[i].first].second;

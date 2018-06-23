@@ -429,6 +429,7 @@ private: System::Windows::Forms::Label^  LCenterOfGravityK;
 private: System::Windows::Forms::TextBox^  TBoxHeadYK;
 private: System::Windows::Forms::TextBox^  TBoxFallingK;
 private: System::Windows::Forms::TextBox^  TBoxCenterOfGravityK;
+private: System::Windows::Forms::CheckBox^  CheckBoxRecoveryFromFalling;
 
 
 
@@ -448,6 +449,7 @@ private: System::Windows::Forms::TextBox^  TBoxCenterOfGravityK;
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
 			this->MenuStripMain = (gcnew System::Windows::Forms::MenuStrip());
 			this->fileToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->âûõîäToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -507,6 +509,7 @@ private: System::Windows::Forms::TextBox^  TBoxCenterOfGravityK;
 			this->GrBoxNNList = (gcnew System::Windows::Forms::GroupBox());
 			this->ListBoxNN = (gcnew System::Windows::Forms::ListBox());
 			this->BtnNewNN = (gcnew System::Windows::Forms::Button());
+			this->CheckBoxRecoveryFromFalling = (gcnew System::Windows::Forms::CheckBox());
 			this->MenuStripMain->SuspendLayout();
 			this->PanelMain->SuspendLayout();
 			this->GrBoxSelectedNN->SuspendLayout();
@@ -596,6 +599,7 @@ private: System::Windows::Forms::TextBox^  TBoxCenterOfGravityK;
 			// 
 			// GrBoxSelectedNN
 			// 
+			this->GrBoxSelectedNN->Controls->Add(this->CheckBoxRecoveryFromFalling);
 			this->GrBoxSelectedNN->Controls->Add(this->GrBoxLearnAlgSettings);
 			this->GrBoxSelectedNN->Controls->Add(this->BtnContinueTrainNNet);
 			this->GrBoxSelectedNN->Controls->Add(this->GrBoxNNetSettings);
@@ -1084,6 +1088,16 @@ private: System::Windows::Forms::TextBox^  TBoxCenterOfGravityK;
 			this->BtnNewNN->UseVisualStyleBackColor = true;
 			this->BtnNewNN->Click += gcnew System::EventHandler(this, &MainForm::BtnNewNN_Click);
 			// 
+			// CheckBoxRecoveryFromFalling
+			// 
+			this->CheckBoxRecoveryFromFalling->AutoSize = true;
+			this->CheckBoxRecoveryFromFalling->Location = System::Drawing::Point(708, 176);
+			this->CheckBoxRecoveryFromFalling->Name = L"CheckBoxRecoveryFromFalling";
+			this->CheckBoxRecoveryFromFalling->Size = System::Drawing::Size(152, 21);
+			this->CheckBoxRecoveryFromFalling->TabIndex = 9;
+			this->CheckBoxRecoveryFromFalling->Text = L"Recovery From Fall";
+			this->CheckBoxRecoveryFromFalling->UseVisualStyleBackColor = true;
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -1091,6 +1105,7 @@ private: System::Windows::Forms::TextBox^  TBoxCenterOfGravityK;
 			this->ClientSize = System::Drawing::Size(1227, 677);
 			this->Controls->Add(this->PanelMain);
 			this->Controls->Add(this->MenuStripMain);
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->MainMenuStrip = this->MenuStripMain;
 			this->MaximizeBox = false;
 			this->MaximumSize = System::Drawing::Size(1245, 724);
@@ -1103,6 +1118,7 @@ private: System::Windows::Forms::TextBox^  TBoxCenterOfGravityK;
 			this->MenuStripMain->PerformLayout();
 			this->PanelMain->ResumeLayout(false);
 			this->GrBoxSelectedNN->ResumeLayout(false);
+			this->GrBoxSelectedNN->PerformLayout();
 			this->GrBoxLearnAlgSettings->ResumeLayout(false);
 			this->GrBoxLearnAlgSettings->PerformLayout();
 			this->GrBoxNNetSettings->ResumeLayout(false);
@@ -1215,6 +1231,15 @@ private: System::Windows::Forms::TextBox^  TBoxCenterOfGravityK;
 		if (!IsWindow(hWnd)) {
 			nnets[nnets_names[nnname]].can_continue_training_or_run = true;
 			nnname += " " + std::to_string(INIT_TRAIN);
+			std::string fall_rec = "";
+			if (CheckBoxRecoveryFromFalling->Checked) {
+				fall_rec = "1";
+			}
+			else {
+				fall_rec = "2";
+			}
+			nnname += " " + fall_rec;
+
 			std::wstring wstr(nnname.begin(), nnname.end());
 			LPCWSTR paramstr = wstr.c_str();
 			ShellExecute(0, L"open", L"CreatureNeuroNet.exe", paramstr, 0, SW_SHOW);
@@ -1236,6 +1261,14 @@ private: System::Windows::Forms::TextBox^  TBoxCenterOfGravityK;
 
 		if (!IsWindow(hWnd)) {
 			nnname += " " + std::to_string(CONTINUE_TRAIN);
+			std::string fall_rec = "";
+			if (CheckBoxRecoveryFromFalling->Checked) {
+				fall_rec = "1";
+			}
+			else {
+				fall_rec = "2";
+			}
+			nnname += " " + fall_rec;
 			std::wstring wstr(nnname.begin(), nnname.end());
 			LPCWSTR paramstr = wstr.c_str();
 			ShellExecute(0, L"open", L"CreatureNeuroNet.exe", paramstr, 0, SW_SHOW);
@@ -1249,6 +1282,7 @@ private: System::Windows::Forms::TextBox^  TBoxCenterOfGravityK;
 	}
 
 	private: System::Void ListBoxNN_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
+		CheckBoxRecoveryFromFalling->Checked = false;
 		if (ListBoxNN->SelectedIndex != -1) {
 			std::string nnname = msclr::interop::marshal_as<std::string>(ListBoxNN->SelectedItem->ToString());
 			int nnpos = nnets_names[nnname];
@@ -1386,6 +1420,14 @@ private: System::Windows::Forms::TextBox^  TBoxCenterOfGravityK;
 
 		if (!IsWindow(hWnd)) {
 			nnname += " " + std::to_string(RUN);
+			std::string fall_rec = "";
+			if (CheckBoxRecoveryFromFalling->Checked) {
+				fall_rec = "1";
+			}
+			else {
+				fall_rec = "2";
+			}
+			nnname += " " + fall_rec;
 			std::wstring wstr(nnname.begin(), nnname.end());
 			LPCWSTR paramstr = wstr.c_str();
 			ShellExecute(0, L"open", L"CreatureNeuroNet.exe", paramstr, 0, SW_SHOW);

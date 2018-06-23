@@ -67,6 +67,8 @@ double LearningRate = 0.01; // Для алгоритма обратного распространения
 vector<bool> used_reward;
 map<string, double> k_reward;
 
+bool recovery_from_falling = false;
+
 int T = 100; //Период печати весов
 //-----------------------------------------------------------------
 
@@ -134,7 +136,7 @@ int main(int argc, char** ardv) {
 
 	time_t seconds = time(NULL);
 	tm* timeinfo = localtime(&seconds);
-	if (argc < 3) {
+	if (argc < 4) {
 		logout << asctime(timeinfo) << " Недостаточно входных параметров" << endl;
 		exit(0);
 	}
@@ -184,7 +186,7 @@ int main(int argc, char** ardv) {
 	if (run_type == CONTINUE_TRAIN) {
 		//SetJointsAndStates(dirname + "\\" + nnet_name + curcr_finame_end);
 		//SetCurTick(dirname + "\\" + nnet_name + dist_finame_end);
-		//SetCurDist(dirname + "\\" + nnet_name + dist_finame_end);
+		SetCurDist(dirname + "\\" + nnet_name + dist_finame_end);
 	}
 
 	string resdistfname = dirname + "\\" + nnet_name + dist_finame_end;
@@ -209,6 +211,14 @@ int main(int argc, char** ardv) {
 
 	int num_inp = 2 * monster.GetJoints().size();
 	inputs.resize(1, vector<double>(num_inp));
+
+	int allow_val = atoi(ardv[3]);
+	if (allow_val == 1) {
+		recovery_from_falling = true;
+	}
+	else {
+		recovery_from_falling = false;
+	}
 
 	glutInit(&argc, ardv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
@@ -826,10 +836,12 @@ double GetReward(int rew_type) {
 }
 
 void DoNextStep() {
-	if (monster.GetHeadY() <= monster.GetCenterOfGravityY()) {
-		monster.SetJoints(start_joints);
-		monster.SetStates(start_states);
-		SetCurDist(prev_dist);
+	if (recovery_from_falling && !firstStep) {
+		if (monster.GetHeadY() <= monster.GetCenterOfGravityY()) {
+			monster.SetJoints(start_joints);
+			monster.SetStates(start_states);
+			SetCurDist(prev_dist);
+		}
 	}
 
 	prev_inputs = inputs;
@@ -931,7 +943,7 @@ void Timer(int val) // Таймер(промежуток времени, в котором будет производится в
 	Display();
 	DoNextStep();
 
-	if (cur_tick < TICK_COUNT) {
+	if (cur_tick <= TICK_COUNT) {
 		if (run_type != RUN)
 			glutTimerFunc(50, Timer, 0); // новый вызов таймера( 100 - промежуток времени(в милисекундах), через который он будет вызыватся, timer - вызываемый паблик) 
 		else
