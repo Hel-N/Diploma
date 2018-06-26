@@ -1,2 +1,2 @@
-Fri Jun 22 15:07:56 2018
- Arguments: C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\NeuroNetDesigner\NeuroNetDesigner\CreatureNeuroNet.exe qweeee 3 2 
+Tue Jun 26 21:42:26 2018
+ Arguments: C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\NeuroNetDesigner\NeuroNetDesigner\CreatureNeuroNet.exe human_beta 3 2 

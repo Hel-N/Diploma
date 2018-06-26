@@ -1290,10 +1290,10 @@ private: System::Windows::Forms::Button^  BtnNextHead;
 		}
 
 		if (component_count > 1) { // несколько групп отрезков, не связанных между собой
-			MessageBox::Show("Error!\nСлишком много компонент");
+			MessageBox::Show("Too many components");
 		}
 		else if (drlines.size() < 2) {
-			MessageBox::Show("Error!\nСлишком мало соединений");
+			MessageBox::Show("Too few connections");
 		}
 		else {
 			// Перенумеруем точки (удаляем те, которые не используютя)
@@ -1480,7 +1480,7 @@ private: System::Windows::Forms::Button^  BtnNextHead;
 		}
 
 		if (movable_lines.size() < 1) {
-			MessageBox::Show("Error!\nПодвижные отрезки не выбраны \nили выбраные недопустимые суставы");
+			MessageBox::Show("Movable segments are not selected \nor selected incorrect joints");
 		}
 		else {
 			// Рисунок на следующей вкладке
@@ -1554,10 +1554,10 @@ private: System::Windows::Forms::Button^  BtnNextHead;
 			double max_ang = Convert::ToDouble(TBoxMaxAngle->Text);
 
 			if (min_ang > max_ang) {
-				MessageBox::Show("Error!\nДиапазон границы заданы некорректно");
+				MessageBox::Show("Boundary range set incorrectly");
 			}
 			else if (min_ang < 0.0 || max_ang < 0.0) {
-				MessageBox::Show("Error!\nЗначения углов должны быть положительными");
+				MessageBox::Show("Angle values must be positive");
 			}
 			else {
 
@@ -1625,7 +1625,7 @@ private: System::Windows::Forms::Button^  BtnNextHead;
 			}
 		}
 		catch (...) {
-			MessageBox::Show("Error!\nПоля заполнены некорректно\nВозможно, следует заменить точку на запятую");
+			MessageBox::Show("The fields are not filled correctly \nA dot must be replaced by a comma");
 		}
 	}
 
@@ -1722,7 +1722,7 @@ private: System::Windows::Forms::Button^  BtnNextHead;
 			unit_fall_angle = Convert::ToDouble(TBoxFallAngle->Text);
 
 			if (unit_turn_angle <= 0.0 || unit_fall_angle <= 0.0) {
-				MessageBox::Show("Error!\nЗначения углов должны быть положительными");
+				MessageBox::Show("Angle values must be positive");
 			}
 			else {
 				//Прорисовка
@@ -1757,7 +1757,7 @@ private: System::Windows::Forms::Button^  BtnNextHead;
 			}
 		}
 		catch (...) {
-			MessageBox::Show("Error!\nПоля заполнены некорректно\nВозможно, следует заменить точку на запятую");
+			MessageBox::Show("The fields are not filled correctly \nA dot must be replaced by a comma");
 		}
 	}
 
@@ -2010,7 +2010,7 @@ private: System::Windows::Forms::Button^  BtnNextHead;
 		}
 		else {
 			fl_filename = false;
-			MessageBox::Show("Error!\nНе задано имя");
+			MessageBox::Show("No name specified");
 		}
 
 		std::ofstream fout(crfilename);
@@ -2105,12 +2105,12 @@ private: System::Windows::Forms::Button^  BtnNextHead;
 			imgSave->Save(sfname);
 			delete sfname;
 
-			std::string message = "Message!\nДанные записаны в файл \"" + crfilename + "\"";
+			std::string message = "The data is written to file \"" + crfilename + "\"";
 			String^ s = gcnew String(message.c_str());
 			MessageBox::Show(s);
 		}
 		else {
-			MessageBox::Show("Error!\nНевозможно открыть файл");
+			MessageBox::Show("Can not open file");
 		}
 	}
 
@@ -2120,14 +2120,14 @@ private: System::Windows::Forms::Button^  BtnNextHead;
 
 	private: System::Void Creator_FormClosing(System::Object^  sender, System::Windows::Forms::FormClosingEventArgs^  e) {
 		if (CreationProcess->SelectedTab == TabSave) {
-			if (MessageBox::Show(this, "Сохранить данные в файл?", "Form Closing", MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes)
+			if (MessageBox::Show(this, "Save data to file?", "Form Closing", MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes)
 			{
 				// Отменить закрытие формы
 				e->Cancel = true;
 			}
 		}
 		else {
-			if (MessageBox::Show(this, "Закрыть редактор?", "Form Closing", MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::No)
+			if (MessageBox::Show(this, "Close editor?", "Form Closing", MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::No)
 			{
 				// Отменить закрытие формы
 				e->Cancel = true;

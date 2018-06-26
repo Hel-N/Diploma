@@ -1114,7 +1114,7 @@ private: System::Windows::Forms::Label^  LFallingK;
 				nnets[edit_nnet_pos].can_continue_training_or_run = false;
 			}
 
-			std::string messtr = "Data is saved to a file \"" + nnfilename + "\"";
+			std::string messtr = "Data is saved to file \"" + nnfilename + "\"";
 			String^ mes = gcnew String(messtr.c_str());
 			MessageBox::Show(mes);
 			delete mes;

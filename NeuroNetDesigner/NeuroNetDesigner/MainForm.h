@@ -182,7 +182,7 @@ namespace NeuroNetDesigner {
 
 				}
 				else {
-					std::string mess = "Некорректные данные в файле " + filename;
+					std::string mess = "Incorrect data in the file " + filename;
 					String^ mes = gcnew String(mess.c_str());
 					MessageBox::Show(mes);
 					delete mes;
@@ -194,7 +194,7 @@ namespace NeuroNetDesigner {
 			fin.close();
 		}
 		else {
-			std::string mess = "Ошибка при открытии файла " + filename;
+			std::string mess = "Error opening file " + filename;
 			String^ mes = gcnew String(mess.c_str());
 			MessageBox::Show(mes);
 			delete mes;
@@ -287,7 +287,7 @@ namespace NeuroNetDesigner {
 			fin.close();
 		}
 		else {
-			std::string mess = "Ошибка при открытии файла " + filename;
+			std::string mess = "Error opening file " + filename;
 			String^ mes = gcnew String(mess.c_str());
 			MessageBox::Show(mes);
 			delete mes;
@@ -460,6 +460,7 @@ private: System::Windows::Forms::CheckBox^  CheckBoxRecoveryFromFalling;
 			this->aboutProgramToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->PanelMain = (gcnew System::Windows::Forms::Panel());
 			this->GrBoxSelectedNN = (gcnew System::Windows::Forms::GroupBox());
+			this->CheckBoxRecoveryFromFalling = (gcnew System::Windows::Forms::CheckBox());
 			this->GrBoxLearnAlgSettings = (gcnew System::Windows::Forms::GroupBox());
 			this->TBoxHeadYK = (gcnew System::Windows::Forms::TextBox());
 			this->TBoxFallingK = (gcnew System::Windows::Forms::TextBox());
@@ -509,7 +510,6 @@ private: System::Windows::Forms::CheckBox^  CheckBoxRecoveryFromFalling;
 			this->GrBoxNNList = (gcnew System::Windows::Forms::GroupBox());
 			this->ListBoxNN = (gcnew System::Windows::Forms::ListBox());
 			this->BtnNewNN = (gcnew System::Windows::Forms::Button());
-			this->CheckBoxRecoveryFromFalling = (gcnew System::Windows::Forms::CheckBox());
 			this->MenuStripMain->SuspendLayout();
 			this->PanelMain->SuspendLayout();
 			this->GrBoxSelectedNN->SuspendLayout();
@@ -585,6 +585,7 @@ private: System::Windows::Forms::CheckBox^  CheckBoxRecoveryFromFalling;
 			this->aboutProgramToolStripMenuItem->Name = L"aboutProgramToolStripMenuItem";
 			this->aboutProgramToolStripMenuItem->Size = System::Drawing::Size(196, 26);
 			this->aboutProgramToolStripMenuItem->Text = L"About program...";
+			this->aboutProgramToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::aboutProgramToolStripMenuItem_Click);
 			// 
 			// PanelMain
 			// 
@@ -614,6 +615,16 @@ private: System::Windows::Forms::CheckBox^  CheckBoxRecoveryFromFalling;
 			this->GrBoxSelectedNN->TabIndex = 1;
 			this->GrBoxSelectedNN->TabStop = false;
 			this->GrBoxSelectedNN->Text = L"Selected NeuroNet";
+			// 
+			// CheckBoxRecoveryFromFalling
+			// 
+			this->CheckBoxRecoveryFromFalling->AutoSize = true;
+			this->CheckBoxRecoveryFromFalling->Location = System::Drawing::Point(708, 176);
+			this->CheckBoxRecoveryFromFalling->Name = L"CheckBoxRecoveryFromFalling";
+			this->CheckBoxRecoveryFromFalling->Size = System::Drawing::Size(152, 21);
+			this->CheckBoxRecoveryFromFalling->TabIndex = 9;
+			this->CheckBoxRecoveryFromFalling->Text = L"Recovery From Fall";
+			this->CheckBoxRecoveryFromFalling->UseVisualStyleBackColor = true;
 			// 
 			// GrBoxLearnAlgSettings
 			// 
@@ -1088,16 +1099,6 @@ private: System::Windows::Forms::CheckBox^  CheckBoxRecoveryFromFalling;
 			this->BtnNewNN->UseVisualStyleBackColor = true;
 			this->BtnNewNN->Click += gcnew System::EventHandler(this, &MainForm::BtnNewNN_Click);
 			// 
-			// CheckBoxRecoveryFromFalling
-			// 
-			this->CheckBoxRecoveryFromFalling->AutoSize = true;
-			this->CheckBoxRecoveryFromFalling->Location = System::Drawing::Point(708, 176);
-			this->CheckBoxRecoveryFromFalling->Name = L"CheckBoxRecoveryFromFalling";
-			this->CheckBoxRecoveryFromFalling->Size = System::Drawing::Size(152, 21);
-			this->CheckBoxRecoveryFromFalling->TabIndex = 9;
-			this->CheckBoxRecoveryFromFalling->Text = L"Recovery From Fall";
-			this->CheckBoxRecoveryFromFalling->UseVisualStyleBackColor = true;
-			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -1148,7 +1149,7 @@ private: System::Windows::Forms::CheckBox^  CheckBoxRecoveryFromFalling;
 			FindClose(chf);
 		}
 		else {
-			MessageBox::Show("Директории \"Creatures\" не содержит файлов или не существует");
+			MessageBox::Show("Directory \"Creatures\" does not contain any files or does not exist");
 		}
 
 		for (int i = 0; i < cfilenames.size(); ++i) {
@@ -1174,7 +1175,7 @@ private: System::Windows::Forms::CheckBox^  CheckBoxRecoveryFromFalling;
 			FindClose(nnhf);
 		}
 		else {
-			MessageBox::Show("Директории \"NNets\" не содержит файлов или не существует");
+			MessageBox::Show("Directory \"NNets\" does not contain any files or does not exist");
 		}
 
 		for (int i = 0; i < nnfilenames.size(); ++i) {
@@ -1396,7 +1397,7 @@ private: System::Windows::Forms::CheckBox^  CheckBoxRecoveryFromFalling;
 		std::string nnname = msclr::interop::marshal_as<std::string>(ListBoxNN->SelectedItem->ToString());
 		int nnpos = nnets_names[nnname];
 
-		if (MessageBox::Show(this, "Удалить нейронную сеть?", "NNet Deleting", MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes)
+		if (MessageBox::Show(this, "Delete the neural network?", "NNet Deleting", MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes)
 		{
 			std::string nnfname = nnets_dir_str + nnname + nnet_finame_end;
 			if (!remove(nnfname.c_str())) {
@@ -1405,10 +1406,10 @@ private: System::Windows::Forms::CheckBox^  CheckBoxRecoveryFromFalling;
 				ListBoxNN->SelectedIndex = -1;
 				ListBoxNN->Items->RemoveAt(selected_ind);
 				//удаление файлов при закрытии приложения (убрать из этого события)
-				MessageBox::Show("Нейронная сеть удалена");
+				MessageBox::Show("Neural network was removed");
 			}
 			else {
-				MessageBox::Show("Ошибка удаления нейронной сети");
+				MessageBox::Show("Error removing neural network");
 			}
 		}
 	}
@@ -1441,7 +1442,7 @@ private: System::Windows::Forms::CheckBox^  CheckBoxRecoveryFromFalling;
 	}
 
 	private: System::Void MainForm_FormClosing(System::Object^  sender, System::Windows::Forms::FormClosingEventArgs^  e) {
-		if (MessageBox::Show(this, "Закрыть программу?", "Form Closing", MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes)
+		if (MessageBox::Show(this, "Do you want to close this program?", "Form Closing", MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes)
 		{
 			for (int i = 0; i < nnets.size(); ++i) {
 				std::wstring wnnetname(nnets[i].name.begin(), nnets[i].name.end());
@@ -1480,5 +1481,8 @@ private: System::Windows::Forms::CheckBox^  CheckBoxRecoveryFromFalling;
 	private: System::Void exitToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 		this->Close();
 	}
-	};
+	private: System::Void aboutProgramToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+		MessageBox::Show("NeuroNetDesigner 2018\nVersion 1.0\nAuthor: Nemchinova Elena");
+	}
+};
 }
