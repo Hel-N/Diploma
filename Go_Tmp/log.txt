@@ -1,2 +1,2 @@
-Sun Jun 24 20:49:25 2018
- Arguments: C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\Go_Tmp\CreatureNeuroNet.exe example_person_pd_cg 3 2 
+Tue Jun 26 17:01:10 2018
+ Arguments: C:\Users\Елена\Documents\Visual Studio 2015\Projects\Diploma\Go_Tmp\CreatureNeuroNet.exe test 1 2 

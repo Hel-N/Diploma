@@ -1838,7 +1838,7 @@ private: System::Windows::Forms::Button^  BtnNextHead;
 		delete imgConcur;
 		imgConcur = gcnew Bitmap(imgInStbuf);
 		CanvasCon->BackgroundImage = imgConcur;
-		delete imgInStbuf;
+		delete imgConbuf;
 		imgConbuf = gcnew Bitmap(CanvasCon->BackgroundImage);
 
 		// Устанавливаем нулевое состояние по умолчанию
@@ -1972,7 +1972,7 @@ private: System::Windows::Forms::Button^  BtnNextHead;
 		delete imgHeadcur;
 		imgHeadcur = gcnew Bitmap(imgConbuf);
 		CanvasHead->BackgroundImage = imgHeadcur;
-		delete imgConbuf;
+		delete imgHeadbuf;
 		imgHeadbuf = gcnew Bitmap(CanvasHead->BackgroundImage);
 
 		head_points.clear();
